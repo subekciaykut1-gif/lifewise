@@ -52,9 +52,10 @@ export default function SmartAffiliateBox({ category, keywords }: SmartAffiliate
   const finalUrl = addAmazonTag(bestMatch.url);
 
   return (
-    <div className="my-12 overflow-hidden rounded-2xl border border-accent/20 bg-white dark:bg-bg-alt shadow-xl shadow-accent/5 relative group/box">
+    <div className="my-12 overflow-hidden rounded-2xl border border-border bg-surface shadow-xl shadow-accent/5 relative group/box">
       {/* Subtle background glow for dark mode */}
       <div className="absolute -inset-px bg-gradient-to-br from-accent/10 to-transparent opacity-0 dark:group-hover/box:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
       
       <div className="flex flex-col md:flex-row items-center gap-6 p-6 md:p-10 relative z-10">
         <div className="bg-accent/10 dark:bg-accent/20 p-6 rounded-2xl shrink-0 text-accent transition-transform duration-500 group-hover/box:scale-110">

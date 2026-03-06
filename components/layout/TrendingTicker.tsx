@@ -8,7 +8,7 @@ export default function TrendingTicker() {
   if (trending.length === 0) return null;
 
   return (
-    <div className="bg-bg-alt border-b border-border py-2 overflow-hidden">
+    <div className="bg-surface border-b border-border py-2 overflow-hidden shadow-sm">
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 flex items-center gap-4">
         <div className="flex items-center gap-1.5 text-accent font-ui text-[0.65rem] font-bold uppercase tracking-[0.2em] shrink-0 bg-accent-soft px-2 py-1 rounded">
           <Zap size={12} fill="currentColor" />
