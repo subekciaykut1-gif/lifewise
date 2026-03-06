@@ -9,35 +9,55 @@ async function checkUrl(url) {
   return new Promise((resolve) => {
     const req = https.get(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5'
       }
     }, (res) => {
       let body = '';
       res.on('data', (chunk) => body += chunk);
       res.on('end', () => {
-        // Amazon often returns 503/403 to bots, but 404 is a definite death.
-        if (res.statusCode === 404) return resolve(false);
+        const statusCode = res.statusCode;
+        
+        // 1. Check for 404 or specific Amazon error status
+        if (statusCode === 404) return resolve(false);
 
-        // Check for common "Out of Stock" or "Unavailable" messages in the HTML
+        // 2. Check for "Dog Page" indicators in title or body
+        const errorMarkers = [
+          '<title>Amazon.com Page Not Found</title>',
+          'Sorry, we couldn\'t find that page',
+          'dog of Amazon', // The "Meet the dogs of Amazon" page
+          'Looking for something?'
+        ];
+        
+        const isErrorPage = errorMarkers.some(marker => body.includes(marker));
+        if (isErrorPage) {
+          console.warn(`[VALIDATOR] Amazon returned an error page for ${url}`);
+          return resolve(false);
+        }
+
+        // 3. Check for availability
         const unavailableMarkers = [
           'Currently unavailable',
           'Temporarily out of stock',
-          'Discontinued by manufacturer',
-          'We don\'t know when or if this item will be back'
+          'Discontinued by manufacturer'
         ];
         
         const isUnavailable = unavailableMarkers.some(marker => body.includes(marker));
         if (isUnavailable) {
-          console.warn(`[VALIDATOR] Product content suggests unavailability.`);
-          return resolve(false);
+          console.warn(`[VALIDATOR] Product is currently unavailable: ${url}`);
+          // We might keep it active but mark it as low priority later. For now, let's keep it true unless it's a 404.
+          // resolve(true); 
         }
 
         resolve(true);
       });
     });
 
-    
-    req.on('error', () => resolve(false));
+    req.on('error', (e) => {
+      console.warn(`[VALIDATOR] Request error for ${url}: ${e.message}`);
+      resolve(false);
+    });
     req.end();
   });
 }

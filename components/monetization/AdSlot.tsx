@@ -17,12 +17,14 @@ const SLOT_TO_ENV: Record<string, string> = {
 
 interface AdSlotProps {
   slot: string;
-  format?: "auto" | "rectangle" | "leaderboard" | "vertical";
+  format?: "auto" | "rectangle" | "leaderboard" | "vertical" | "fluid";
   className?: string;
   height?: number;
+  layout?: "in-article" | "multiplex";
+  layoutKey?: string;
 }
 
-export default function AdSlot({ slot, format = "auto", className, height }: AdSlotProps) {
+export default function AdSlot({ slot, format = "auto", className, height, layout, layoutKey }: AdSlotProps) {
   const ref = useRef<HTMLModElement>(null);
   const publisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID;
   const slotId = process.env[SLOT_TO_ENV[slot] as keyof typeof process.env] as string | undefined;
@@ -39,14 +41,16 @@ export default function AdSlot({ slot, format = "auto", className, height }: AdS
 
   if (publisherId && slotId) {
     return (
-      <div className={cn("no-print min-h-[50px]", className)} style={height ? { minHeight: `${height}px` } : undefined}>
+      <div className={cn("no-print min-h-[50px] overflow-hidden flex justify-center", className)} style={height ? { minHeight: `${height}px` } : undefined}>
         <ins
           ref={ref as React.RefObject<HTMLModElement>}
           className="adsbygoogle"
-          style={{ display: "block" }}
+          style={{ display: "block", textAlign: "center" }}
           data-ad-client={publisherId}
           data-ad-slot={slotId}
           data-ad-format={format === "auto" ? "auto" : format}
+          data-ad-layout={layout}
+          data-ad-layout-key={layoutKey}
           data-full-width-responsive="true"
         />
       </div>
