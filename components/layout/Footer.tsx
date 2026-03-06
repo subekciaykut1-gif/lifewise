@@ -15,11 +15,14 @@ export default function Footer() {
               Smarter living, every day. Tips, life hacks, health advice and viral stories for curious minds.
             </p>
             <div className="flex gap-2">
-               {[Facebook, Twitter, PinIcon, Youtube, Instagram].map((Icon, i) => (
-                 <a key={i} href="#" className="w-[34px] h-[34px] bg-white/10 rounded-full flex items-center justify-center text-[0.8rem] hover:bg-accent hover:text-white transition-colors">
-                   <Icon size={16} />
-                 </a>
-               ))}
+              <a href="https://www.facebook.com/wisetipsco/" target="_blank" rel="noopener noreferrer" className="w-[34px] h-[34px] bg-white/10 rounded-full flex items-center justify-center text-[0.8rem] hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on Facebook">
+                <Facebook size={16} />
+              </a>
+              {[Twitter, PinIcon, Youtube, Instagram].map((Icon, i) => (
+                <a key={i} href="#" className="w-[34px] h-[34px] bg-white/10 rounded-full flex items-center justify-center text-[0.8rem] hover:bg-accent hover:text-white transition-colors" aria-label={`Social link ${i + 2}`}>
+                  <Icon size={16} />
+                </a>
+              ))}
             </div>
           </div>
           

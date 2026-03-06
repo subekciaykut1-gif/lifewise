@@ -3,10 +3,10 @@ import Image from "next/image";
 import { Trophy, FolderOpen } from "lucide-react";
 import { categories } from "@/lib/categories";
 import AdSlot from "@/components/monetization/AdSlot";
-import { getAllArticles, getMostReadArticles } from "@/lib/articles";
+import { getPublishedArticles, getMostReadArticles } from "@/lib/articles";
 
 export default function Sidebar() {
-  const articles = getAllArticles();
+  const articles = getPublishedArticles();
   // Get real most read articles or fallback to first 5
   const mostReadArticles = getMostReadArticles().slice(0, 5);
   const displayArticles = mostReadArticles.length > 0 ? mostReadArticles : articles.slice(0, 5);
@@ -28,7 +28,7 @@ export default function Sidebar() {
         
         {displayArticles.map((article, i) => (
           <Link key={article.slug} href={`/${article.category}/${article.slug}`} className="flex gap-3 items-start py-2.5 border-b border-border last:border-0 cursor-pointer group no-underline">
-            <span className="font-display text-2xl font-extrabold text-border min-w-[28px] leading-none group-hover:text-accent transition-colors">0{i + 1}</span>
+            <span className="font-display text-2xl font-extrabold text-border min-w-[28px] leading-none group-hover:text-accent transition-colors">{(i + 1).toString().padStart(2, "0")}</span>
             <div className="w-16 h-12 rounded-md shrink-0 overflow-hidden relative bg-gray-100">
                <Image 
                  src={article.image}

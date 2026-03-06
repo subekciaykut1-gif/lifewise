@@ -1,4 +1,4 @@
-import { ExternalLink } from "lucide-react";
+import { addAmazonTag } from "@/lib/affiliate";
 
 interface AffiliateLinkProps {
   href: string;
@@ -6,6 +6,7 @@ interface AffiliateLinkProps {
 }
 
 export default function AffiliateLink({ href, label }: AffiliateLinkProps) {
+  const affiliateHref = addAmazonTag(href);
   return (
     <div className="bg-accent-soft border-[1.5px] border-accent/20 rounded-lg p-4 my-5 flex items-center gap-3.5">
       <span className="text-[1.5rem]">🛒</span>
@@ -14,7 +15,7 @@ export default function AffiliateLink({ href, label }: AffiliateLinkProps) {
         <p className="font-ui text-[0.78rem] text-muted m-0">Check price & availability</p>
       </div>
       <a 
-        href={href} 
+        href={affiliateHref} 
         target="_blank" 
         rel="nofollow sponsored" 
         data-affiliate="true"

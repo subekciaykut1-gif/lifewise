@@ -1,4 +1,4 @@
-import { getArticlesByCategory } from "@/lib/articles";
+import { getPublishedArticles } from "@/lib/articles";
 import { getCategoryBySlug, categories } from "@/lib/categories";
 import ArticleGrid from "@/components/articles/ArticleGrid";
 import Sidebar from "@/components/layout/Sidebar";
@@ -33,7 +33,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   
   if (!category) notFound();
 
-  const articles = getArticlesByCategory(slug);
+  const articles = getPublishedArticles().filter((a) => a.category === slug);
 
   return (
     <div className="max-w-[1280px] mx-auto px-6 mt-10 mb-20">

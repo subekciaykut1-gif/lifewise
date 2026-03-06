@@ -1,4 +1,4 @@
-import { getMostReadArticles, getAllArticles } from "@/lib/articles";
+import { getMostReadArticles, getPublishedArticles } from "@/lib/articles";
 import ArticleGrid from "@/components/articles/ArticleGrid";
 import Sidebar from "@/components/layout/Sidebar";
 import AdSlot from "@/components/monetization/AdSlot";
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function TrendingPage() {
   const mostRead = getMostReadArticles();
-  const trending = mostRead.length > 0 ? mostRead : getAllArticles().slice(0, 9);
+  const trending = mostRead.length > 0 ? mostRead : getPublishedArticles().slice(0, 9);
 
   return (
     <div className="max-w-[1280px] mx-auto px-6 mt-10 mb-20">

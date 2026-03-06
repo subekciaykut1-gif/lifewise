@@ -1,4 +1,4 @@
-import { getAllArticles, getFeaturedArticles, getMostReadArticles } from "@/lib/articles";
+import { getPublishedArticles, getFeaturedArticles, getMostReadArticles } from "@/lib/articles";
 import HeroArticle from "@/components/articles/HeroArticle";
 import ArticleGrid from "@/components/articles/ArticleGrid";
 import Sidebar from "@/components/layout/Sidebar";
@@ -8,7 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Home() {
-  const articles = getAllArticles();
+  const articles = getPublishedArticles();
   const featured = getFeaturedArticles()[0] || articles[0]; // Fallback to first
   const latest = articles.slice(0, 6);
   const trending = articles.slice(6, 9); // Mock trending

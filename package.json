@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "next-sitemap",
+    "postbuild": "next-sitemap && node scripts/generate-sitemaps.cjs",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "generate:sitemaps": "node scripts/generate-sitemaps.cjs",
+    "generate:articles": "node scripts/generate-598-articles.cjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

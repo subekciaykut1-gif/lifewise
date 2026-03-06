@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://wisetips.co/sitemaps/sitemap-index.xml
+
+# Optional: limit aggressive crawling (some bots ignore Crawl-delay)
+# Crawl-delay: 10
+
+# Search and pagination (noindex these if you use query params for filters)
+Disallow: /search?
+Disallow: /*?page=
+Disallow: /*?filter=

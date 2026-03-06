@@ -1,4 +1,4 @@
-import { getAllArticles } from "@/lib/articles";
+import { getPublishedArticles } from "@/lib/articles";
 import { Metadata } from "next";
 import SearchClient from "@/components/search/SearchClient";
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default function SearchPage() {
-  const articles = getAllArticles();
+  const articles = getPublishedArticles();
 
   return (
     <div className="max-w-[1280px] mx-auto px-6 mt-10 mb-20">

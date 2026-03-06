@@ -20,7 +20,7 @@ const SLUG_IMAGE_OVERRIDES: Record<string, string> = {
 const CATEGORY_FALLBACK_IMAGES: Record<string, string> = {
   cleaning: unsplash("1638949493140-edb10b7be2f3"),
   health: unsplash("1659087374131-6707281eba1a"),
-  food: unsplash("1677437035387-26049940fb90"),
+  food: unsplash("1683555500010-e2315045eef9"), // kitchen/food prep (replaces 404 ID)
   "home-and-garden": unsplash("1601760561441-16420502c7e0"),
   "life-hacks": unsplash("1506452819137-0422416856b8"),
   diy: unsplash("1608752503578-52f35965e3d9"),

@@ -8,11 +8,13 @@ interface DisqusCommentsProps {
   title: string;
 }
 
+const DISQUS_SHORTNAME = process.env.NEXT_PUBLIC_DISQUS_SHORTNAME || "lifewise-1";
+
 export default function DisqusComments({ identifier, url, title }: DisqusCommentsProps) {
-  const shortname = process.env.NEXT_PUBLIC_DISQUS_SHORTNAME;
+  const shortname = DISQUS_SHORTNAME;
 
   useEffect(() => {
-    if (!shortname || shortname === "lifewise-demo") return;
+    if (!shortname) return;
 
     const win = window as unknown as { disqus_config?: () => void };
     win.disqus_config = function () {
@@ -34,9 +36,7 @@ export default function DisqusComments({ identifier, url, title }: DisqusComment
     };
   }, [shortname, identifier, url, title]);
 
-  if (!shortname || shortname === "lifewise-demo") {
-    return null;
-  }
+  if (!shortname) return null;
 
   return (
     <div className="mt-12 pt-8 border-t border-border">

@@ -1,4 +1,4 @@
-import { getAllArticles } from "@/lib/articles";
+import { getPublishedArticles } from "@/lib/articles";
 import ArticleGrid from "@/components/articles/ArticleGrid";
 import Sidebar from "@/components/layout/Sidebar";
 import AdSlot from "@/components/monetization/AdSlot";
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function LatestPage() {
-  const articles = getAllArticles(); // Already sorted by date in lib/articles.ts
+  const articles = getPublishedArticles(); // Only published, sorted by date
 
   return (
     <div className="max-w-[1280px] mx-auto px-6 mt-10 mb-20">

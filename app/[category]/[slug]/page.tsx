@@ -1,4 +1,4 @@
-import { getArticleBySlug, getAllArticles, getArticlesByCategory } from "@/lib/articles";
+import { getArticleBySlug, getAllArticles, getPublishedArticles } from "@/lib/articles";
 import { getCategoryBySlug } from "@/lib/categories";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
@@ -14,6 +14,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import AffiliateLink from "@/components/monetization/AffiliateLink";
 import ArticleAnalytics from "@/components/analytics/ArticleAnalytics";
 import DisqusComments from "@/components/ui/DisqusComments";
+import { addAmazonTag } from "@/lib/affiliate";
 
 interface ArticlePageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -27,24 +28,30 @@ export async function generateStaticParams() {
   }));
 }
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
+
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
   const { slug, category } = await params;
   const article = getArticleBySlug(slug, category);
   if (!article) return {};
-  
+  const canonical = `${SITE_URL}/${category}/${slug}`;
   return {
     title: article.title,
     description: article.excerpt,
     openGraph: {
       images: [article.image || "/images/placeholder.jpg"],
     },
+    alternates: { canonical },
+    robots: "index, follow, max-snippet:-1, max-image-preview:large",
   };
 }
 
 const components = {
   AffiliateLink,
   AdSlot,
-  // Add more custom components here
+  a: ({ href, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+    <a {...props} href={href ? addAmazonTag(href) : href} />
+  ),
 };
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
@@ -54,14 +61,29 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   if (!article) notFound();
 
-  // Related articles (same category, exclude current)
-  const relatedArticles = getArticlesByCategory(categorySlug)
-    .filter(a => a.slug !== slug);
+  const publishedAt = article.publishedAt || article.date;
+  if (new Date(publishedAt) > new Date()) notFound();
+
+  const relatedArticles = getPublishedArticles()
+    .filter((a) => a.category === categorySlug && a.slug !== slug)
+    .slice(0, 6);
+
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: publishedAt,
+    dateModified: publishedAt,
+    author: { "@type": "Person", name: article.author || "WiseTips Editorial" },
+    publisher: { "@type": "Organization", name: "WiseTips", url: SITE_URL },
+  };
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <ReadingProgress />
-      <ArticleAnalytics articleTitle={article.title} category={categorySlug} author="LifeWise Editorial" />
+      <ArticleAnalytics articleTitle={article.title} category={categorySlug} author={article.author || "WiseTips Editorial"} />
       <div className="max-w-[1280px] mx-auto px-6 mt-10 mb-20">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10">
           <article className="min-w-0">
@@ -90,7 +112,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   LW
                 </div>
                 <div>
-                  <div className="font-ui text-sm font-bold text-primary">LifeWise Editorial</div>
+                  <div className="font-ui text-sm font-bold text-primary">{article.author || "WiseTips Editorial"}</div>
                   <div className="font-ui text-xs text-muted">{format(new Date(article.date), "MMMM d, yyyy")}</div>
                 </div>
               </div>
@@ -136,7 +158,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
             <DisqusComments
               identifier={`${categorySlug}/${slug}`}
-              url={`${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/${categorySlug}/${slug}`}
+              url={`${SITE_URL}/${categorySlug}/${slug}`}
               title={article.title}
             />
 
