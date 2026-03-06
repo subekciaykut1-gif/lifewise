@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "next-sitemap && node scripts/generate-sitemaps.cjs",
+    "postbuild": "next-sitemap && node scripts/generate-sitemaps.cjs && node scripts/check-amazon-links.cjs",
     "start": "next start",
     "lint": "eslint .",
     "generate:sitemaps": "node scripts/generate-sitemaps.cjs",

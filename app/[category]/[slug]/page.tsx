@@ -26,6 +26,7 @@ import TableOfContents from "@/components/article/TableOfContents";
 import ReadNext from "@/components/article/ReadNext";
 import AutoInjectedAds from "@/components/article/AutoInjectedAds";
 import LiveViewCounter from "@/components/analytics/LiveViewCounter";
+import SmartAffiliateBox from "@/components/monetization/SmartAffiliateBox";
 
 interface ArticlePageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -213,6 +214,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <div className="prose prose-lg max-w-none font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl overflow-hidden">
               <MDXRemote source={article.content} components={components} />
             </div>
+
+            <SmartAffiliateBox category={article.category} keywords={article.keywords || article.tags} />
+
 
             <p className="my-8 py-4 px-4 rounded-lg bg-surface border border-border text-center font-body text-muted text-sm">
               Get more tips in your inbox —{" "}

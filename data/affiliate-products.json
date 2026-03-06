@@ -1,0 +1,50 @@
+[
+  {
+    "id": "best-vacuum",
+    "categories": ["cleaning", "home-and-garden"],
+    "keywords": ["vacuum", "carpet", "floor"],
+    "label": "Best Selling Cordless Vacuum",
+    "url": "https://amazon.com/dp/B08P25P6Y8",
+    "active": true
+  },
+  {
+    "id": "air-purifier",
+    "categories": ["health", "cleaning"],
+    "keywords": ["air", "allergy", "dust"],
+    "label": "Top Rated HEPA Air Purifier",
+    "url": "https://amazon.com/dp/B07VVK39F7",
+    "active": true
+  },
+  {
+    "id": "kitchen-hacks-kit",
+    "categories": ["food", "life-hacks"],
+    "keywords": ["kitchen", "tools", "cooking"],
+    "label": "Ultimate Kitchen Organization Set",
+    "url": "https://amazon.com/dp/B00004SPEU",
+    "active": true
+  },
+  {
+    "id": "wellness-vitamins",
+    "categories": ["health", "beauty"],
+    "keywords": ["vitamin", "energy", "supplement"],
+    "label": "Premium Daily Wellness Support",
+    "url": "https://amazon.com/dp/B01LW764K7",
+    "active": true
+  },
+  {
+    "id": "baking-soda-bulk",
+    "categories": ["cleaning", "food"],
+    "keywords": ["baking soda", "diy", "scrub"],
+    "label": "Pure Baking Soda (Bulk Pack)",
+    "url": "https://amazon.com/dp/B008MU7S86",
+    "active": true
+  },
+  {
+    "id": "acv-organic",
+    "categories": ["health", "food"],
+    "keywords": ["apple cider vinegar", "acv", "digestion"],
+    "label": "Bragg Organic Raw Apple Cider Vinegar",
+    "url": "https://amazon.com/dp/B001I7MVG0",
+    "active": true
+  }
+]
