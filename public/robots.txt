@@ -4,6 +4,9 @@ Allow: /
 # Sitemap
 Sitemap: https://wisetips.co/sitemaps/sitemap-index.xml
 
+# RSS feed (latest articles)
+# https://wisetips.co/feed
+
 # Optional: limit aggressive crawling (some bots ignore Crawl-delay)
 # Crawl-delay: 10
 

@@ -39,7 +39,7 @@ export default function AdSlot({ slot, format = "auto", className, height }: AdS
 
   if (publisherId && slotId) {
     return (
-      <div className={cn("min-h-[50px]", className)} style={height ? { minHeight: `${height}px` } : undefined}>
+      <div className={cn("no-print min-h-[50px]", className)} style={height ? { minHeight: `${height}px` } : undefined}>
         <ins
           ref={ref as React.RefObject<HTMLModElement>}
           className="adsbygoogle"
@@ -56,7 +56,7 @@ export default function AdSlot({ slot, format = "auto", className, height }: AdS
   return (
     <div
       className={cn(
-        "bg-ad border-[1.5px] border-dashed border-ad-border rounded-lg flex flex-col items-center justify-center p-5 mb-6 gap-1.5",
+        "no-print bg-ad border-[1.5px] border-dashed border-ad-border rounded-lg flex flex-col items-center justify-center p-5 mb-6 gap-1.5",
         className
       )}
       style={{ height: height ? `${height}px` : "auto", minHeight: height ? undefined : "100px" }}

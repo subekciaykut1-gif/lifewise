@@ -18,7 +18,7 @@ export default function Sidebar() {
   }, {} as Record<string, number>);
 
   return (
-    <aside className="space-y-6 hidden md:block">
+    <aside className="no-print space-y-6 hidden md:block">
       <AdSlot slot="sidebar-top" format="rectangle" height={250} />
 
       <div className="bg-surface border border-border rounded-xl p-5 mb-6">

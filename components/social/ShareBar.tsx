@@ -33,7 +33,7 @@ export default function ShareBar({ url, title, description, className = "" }: Sh
 
   const btn = "w-10 h-10 min-w-[40px] min-h-[40px] rounded-full flex items-center justify-center text-muted hover:text-primary hover:bg-border transition-colors";
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
+    <div className={`no-print flex items-center gap-2 ${className}`}>
       <span className="font-ui text-xs font-semibold text-muted uppercase tracking-wide mr-1">Share</span>
       <a href={twitterHref} target="_blank" rel="noopener noreferrer" className={btn} aria-label="Share on X (Twitter)">
         <Twitter size={18} />

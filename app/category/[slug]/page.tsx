@@ -16,14 +16,22 @@ export async function generateStaticParams() {
   }));
 }
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
+
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
   const category = getCategoryBySlug(slug);
   if (!category) return {};
-  
+  const canonical = `${SITE_URL}/category/${slug}`;
   return {
     title: `${category.name} Tips & Articles`,
-    description: `Read the best ${category.name.toLowerCase()} tips, tricks, and guides on LifeWise.`,
+    description: `Explore the best ${category.name.toLowerCase()} tips, tricks, and guides on LifeWise. Practical advice and ideas for smarter living.`,
+    alternates: { canonical },
+    openGraph: {
+      title: `${category.name} Tips & Articles | LifeWise`,
+      description: `Explore the best ${category.name.toLowerCase()} tips, tricks, and guides.`,
+      url: canonical,
+    },
   };
 }
 

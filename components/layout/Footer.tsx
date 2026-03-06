@@ -8,7 +8,7 @@ const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL || "#";
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white/70 mt-12 md:mt-16">
+    <footer className="no-print bg-primary text-white/70 mt-12 md:mt-16">
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 py-10 md:py-12 pb-6 md:pb-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 md:gap-10 pb-8 md:pb-10 border-b border-white/10 mb-6 md:mb-8">
           <div>

@@ -39,7 +39,7 @@ export default function DisqusComments({ identifier, url, title }: DisqusComment
   if (!shortname) return null;
 
   return (
-    <div className="mt-12 pt-8 border-t border-border">
+    <div className="no-print mt-12 pt-8 border-t border-border">
       <h3 className="font-display text-xl font-bold mb-6">Comments</h3>
       <div id="disqus_thread" />
       <noscript>Please enable JavaScript to view the comments.</noscript>

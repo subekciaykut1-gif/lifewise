@@ -25,7 +25,7 @@ export default function CookieBanner() {
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 max-w-[900px] mx-auto bg-primary text-white p-4 sm:p-6 rounded-xl shadow-2xl z-[9999] flex flex-col md:flex-row items-center gap-4 md:gap-6" style={{ animation: "fadeSlideUp 0.4s ease-out" }}>
+    <div data-cookie-banner className="fixed bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 max-w-[900px] mx-auto bg-primary text-white p-4 sm:p-6 rounded-xl shadow-2xl z-[9999] flex flex-col md:flex-row items-center gap-4 md:gap-6" style={{ animation: "fadeSlideUp 0.4s ease-out" }}>
       <div className="flex-1 font-ui text-[0.8rem] text-white/80 leading-relaxed">
         <strong className="text-white">🍪 We use cookies</strong> to personalize content and ads, provide social media features, and analyze our traffic. By continuing to use LifeWise, you consent to our use of cookies.
       </div>

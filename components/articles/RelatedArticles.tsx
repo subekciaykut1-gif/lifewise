@@ -8,7 +8,7 @@ interface RelatedArticlesProps {
 export default function RelatedArticles({ articles }: RelatedArticlesProps) {
   if (!articles || articles.length === 0) return null;
   return (
-    <div className="mt-12 pt-8 border-t border-border">
+    <div className="no-print mt-12 pt-8 border-t border-border">
       <h3 className="font-display text-[1.2rem] font-bold text-primary mb-6 flex items-center gap-2">
         <span>📚</span> Related Articles
       </h3>

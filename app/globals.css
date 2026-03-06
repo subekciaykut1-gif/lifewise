@@ -113,4 +113,45 @@
     max-width: 100%;
     height: auto;
   }
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 9999;
+    padding: 0.75rem 1rem;
+    background: var(--color-accent);
+    color: white;
+    font-family: var(--font-ui);
+    font-weight: 700;
+    border-radius: 0.5rem;
+    text-decoration: none;
+  }
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+  }
+  .no-print {
+    /* Used by @media print to hide elements */
+  }
+}
+
+@media print {
+  .no-print,
+  header,
+  footer,
+  aside,
+  [data-cookie-banner],
+  .skip-link {
+    display: none !important;
+  }
+  body {
+    background: white;
+    color: #111;
+  }
+  main {
+    max-width: 100% !important;
+  }
+  a[href]::after {
+    content: none !important;
+  }
 }

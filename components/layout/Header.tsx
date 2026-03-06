@@ -4,7 +4,7 @@ import { categories } from "@/lib/categories";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-surface/90 border-b border-border">
+    <header className="no-print sticky top-0 z-50 backdrop-blur-md bg-surface/90 border-b border-border">
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between gap-4">
         <Link href="/" className="font-display text-[1.5rem] sm:text-[1.6rem] md:text-[1.85rem] font-extrabold tracking-tighter text-primary no-underline shrink-0">
           Life<span className="text-accent">Wise</span>
