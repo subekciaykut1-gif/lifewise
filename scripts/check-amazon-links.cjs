@@ -12,13 +12,30 @@ async function checkUrl(url) {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
       }
     }, (res) => {
-      // Amazon often returns 503 or 403 to simple bots, but we check for 404 specifically
-      if (res.statusCode === 404) {
-        resolve(false);
-      } else {
+      let body = '';
+      res.on('data', (chunk) => body += chunk);
+      res.on('end', () => {
+        // Amazon often returns 503/403 to bots, but 404 is a definite death.
+        if (res.statusCode === 404) return resolve(false);
+
+        // Check for common "Out of Stock" or "Unavailable" messages in the HTML
+        const unavailableMarkers = [
+          'Currently unavailable',
+          'Temporarily out of stock',
+          'Discontinued by manufacturer',
+          'We don\'t know when or if this item will be back'
+        ];
+        
+        const isUnavailable = unavailableMarkers.some(marker => body.includes(marker));
+        if (isUnavailable) {
+          console.warn(`[VALIDATOR] Product content suggests unavailability.`);
+          return resolve(false);
+        }
+
         resolve(true);
-      }
+      });
     });
+
     
     req.on('error', () => resolve(false));
     req.end();

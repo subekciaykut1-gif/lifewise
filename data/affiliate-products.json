@@ -1,50 +1,130 @@
 [
   {
-    "id": "best-vacuum",
+    "id": "pink-stuff",
+    "categories": ["cleaning"],
+    "keywords": ["cleaning paste", "grime", "stains", "kitchen", "oven"],
+    "label": "The Pink Stuff Miracle Cleaning Paste",
+    "url": "https://amazon.com/dp/B00DU5SRIY",
+    "active": true
+  },
+  {
+    "id": "spin-scrubber",
+    "categories": ["cleaning"],
+    "keywords": ["scrubber", "bathroom", "tiles", "grout", "electric"],
+    "label": "Electric Spin Scrubber for Tubs & Tiles",
+    "url": "https://amazon.com/dp/B0C27H4TS6",
+    "active": true
+  },
+  {
+    "id": "bissell-little-green",
     "categories": ["cleaning", "home-and-garden"],
-    "keywords": ["vacuum", "carpet", "floor"],
-    "label": "Best Selling Cordless Vacuum",
-    "url": "https://amazon.com/dp/B08P25P6Y8",
+    "keywords": ["carpet", "upholstery", "pet stains", "cleaner"],
+    "label": "Bissell Little Green Portable Carpet Cleaner",
+    "url": "https://amazon.com/dp/B008DBRFBK",
     "active": true
   },
   {
-    "id": "air-purifier",
-    "categories": ["health", "cleaning"],
-    "keywords": ["air", "allergy", "dust"],
-    "label": "Top Rated HEPA Air Purifier",
-    "url": "https://amazon.com/dp/B07VVK39F7",
+    "id": "drawer-organizers",
+    "categories": ["home-and-garden", "food"],
+    "keywords": ["organization", "drawer", "kitchen", "utensils"],
+    "label": "Adjustable Kitchen Drawer Organizers",
+    "url": "https://amazon.com/dp/B08M9J4W5Z",
     "active": true
   },
   {
-    "id": "kitchen-hacks-kit",
+    "id": "pantry-containers",
+    "categories": ["food", "home-and-garden"],
+    "keywords": ["pantry", "storage", "airtight", "containers", "organization"],
+    "label": "Airtight Food Storage Container Set",
+    "url": "https://amazon.com/dp/B07VPMLWBT",
+    "active": true
+  },
+  {
+    "id": "salad-spinner",
+    "categories": ["food"],
+    "keywords": ["salad", "spinner", "vegetables", "prep"],
+    "label": "OXO Good Grips Large Salad Spinner",
+    "url": "https://amazon.com/dp/B00004OCKR",
+    "active": true
+  },
+  {
+    "id": "ninja-air-fryer",
     "categories": ["food", "life-hacks"],
-    "keywords": ["kitchen", "tools", "cooking"],
-    "label": "Ultimate Kitchen Organization Set",
-    "url": "https://amazon.com/dp/B00004SPEU",
+    "keywords": ["air fryer", "cooking", "healthy", "ninja"],
+    "label": "Ninja AF101 Air Fryer (4-Quart Capacity)",
+    "url": "https://amazon.com/dp/B07FDJMC9Q",
     "active": true
   },
   {
-    "id": "wellness-vitamins",
+    "id": "red-light-mask",
     "categories": ["health", "beauty"],
-    "keywords": ["vitamin", "energy", "supplement"],
-    "label": "Premium Daily Wellness Support",
-    "url": "https://amazon.com/dp/B01LW764K7",
+    "keywords": ["red light therapy", "skincare", "anti-aging", "face mask"],
+    "label": "Advanced Red Light LED Face Mask",
+    "url": "https://amazon.com/dp/B09SFT9M79",
     "active": true
   },
   {
-    "id": "baking-soda-bulk",
-    "categories": ["cleaning", "food"],
-    "keywords": ["baking soda", "diy", "scrub"],
-    "label": "Pure Baking Soda (Bulk Pack)",
-    "url": "https://amazon.com/dp/B008MU7S86",
+    "id": "blue-light-glasses",
+    "categories": ["health", "life-hacks"],
+    "keywords": ["blue light", "eye strain", "computer", "glasses"],
+    "label": "Blue Light Blocking Glasses (2-Pack)",
+    "url": "https://amazon.com/dp/B07G9X7R2X",
     "active": true
   },
   {
-    "id": "acv-organic",
+    "id": "acupressure-mat",
+    "categories": ["health"],
+    "keywords": ["back pain", "relaxation", "acupressure", "mat", "pillow"],
+    "label": "Acupressure Mat and Pillow Set",
+    "url": "https://amazon.com/dp/B00I1QCPXW",
+    "active": true
+  },
+  {
+    "id": "magnesium-gummies",
+    "categories": ["health"],
+    "keywords": ["sleep", "magnesium", "relaxation", "gummies"],
+    "label": "Natural Magnesium Support Gummies",
+    "url": "https://amazon.com/dp/B09T5F9F1Y",
+    "active": true
+  },
+  {
+    "id": "cerave-moisturizer",
+    "categories": ["beauty"],
+    "keywords": ["skincare", "moisturizer", "cerave", "dry skin"],
+    "label": "CeraVe Daily Moisturizing Lotion",
+    "url": "https://amazon.com/dp/B000YJ2SLG",
+    "active": true
+  },
+  {
+    "id": "the-ordinary-ha",
+    "categories": ["beauty"],
+    "keywords": ["serum", "hyaluronic acid", "skincare", "Ordinary"],
+    "label": "The Ordinary Hyaluronic Acid 2% + B5",
+    "url": "https://amazon.com/dp/B01MDUIUI9",
+    "active": true
+  },
+  {
+    "id": "walking-pad",
+    "categories": ["life-hacks", "health"],
+    "keywords": ["walking pad", "treadmill", "desk", "fitness", "home office"],
+    "label": "Foldable Under-Desk Walking Pad",
+    "url": "https://amazon.com/dp/B0C3VX8FRP",
+    "active": true
+  },
+  {
+    "id": "bragg-acv",
     "categories": ["health", "food"],
-    "keywords": ["apple cider vinegar", "acv", "digestion"],
+    "keywords": ["apple cider vinegar", "acv", "digestion", "organic"],
     "label": "Bragg Organic Raw Apple Cider Vinegar",
     "url": "https://amazon.com/dp/B001I7MVG0",
+    "active": true
+  },
+  {
+    "id": "baking-soda-arm-hammer",
+    "categories": ["cleaning", "food"],
+    "keywords": ["baking soda", "diy", "deodorize"],
+    "label": "Arm & Hammer Baking Soda (Pool/Cleaning Bulk)",
+    "url": "https://amazon.com/dp/B008MU7S86",
     "active": true
   }
 ]
