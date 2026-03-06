@@ -23,6 +23,9 @@ import { getPinterestImageUrl } from "@/lib/pinterestImage";
 import { SITE_URL } from "@/lib/site";
 import ViewTracker from "@/components/analytics/ViewTracker";
 import TableOfContents from "@/components/article/TableOfContents";
+import ReadNext from "@/components/article/ReadNext";
+import AutoInjectedAds from "@/components/article/AutoInjectedAds";
+import LiveViewCounter from "@/components/analytics/LiveViewCounter";
 
 interface ArticlePageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -177,7 +180,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               <div className="flex flex-wrap items-center gap-4 text-muted font-ui text-xs">
                 <span className="flex items-center gap-1.5"><Clock size={14} /> {article.readTime} min read</span>
                 {typeof article.views === "number" && (
-                  <span className="flex items-center gap-1.5"><Eye size={14} /> {formatViewCount(article.views)} views</span>
+                  <LiveViewCounter 
+                    slug={slug} 
+                    category={categorySlug} 
+                    initialViews={article.views} 
+                  />
                 )}
                 <PinterestSaveButton
                   url={`${SITE_URL}/${categorySlug}/${slug}`}

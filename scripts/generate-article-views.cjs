@@ -41,12 +41,7 @@ function main() {
     const slug = path.basename(filePath, ".mdx");
     const category = data.category || "life-hacks";
     const key = `${category}/${slug}`;
-    const date = data.date ? new Date(data.date) : now;
-    const monthsOld = Math.max(0, (now - date) / (30 * 24 * 60 * 60 * 1000));
-    const fromSlug = simpleHash(slug + category) % 8000;
-    const fromAge = Math.min(120000, Math.floor(monthsOld * 400));
-    const fromFeatured = (data.featured ? 15000 : 0) + (data.mostRead ? 25000 : 0);
-    views[key] = Math.max(0, fromSlug + fromAge + fromFeatured);
+    views[key] = 0;
   }
 
   fs.writeFileSync(VIEWS_FILE, JSON.stringify(views, null, 2) + "\n", "utf8");
