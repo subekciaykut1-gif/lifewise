@@ -27,6 +27,8 @@ import ReadNext from "@/components/article/ReadNext";
 import AutoInjectedAds from "@/components/article/AutoInjectedAds";
 import LiveViewCounter from "@/components/analytics/LiveViewCounter";
 import SmartAffiliateBox from "@/components/monetization/SmartAffiliateBox";
+import Breadcrumbs from "@/components/navigation/Breadcrumbs";
+import AuthorBio from "@/components/article/AuthorBio";
 
 interface ArticlePageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -141,16 +143,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
           {/* Center Column: Article Content */}
           <article className="min-w-0 prose-article">
-            {/* Breadcrumbs */}
-            <nav className="flex items-center gap-2 text-xs text-muted font-ui mb-5 overflow-hidden" aria-label="Breadcrumb">
-              <Link href="/" className="hover:text-accent transition-colors shrink-0">Home</Link>
-              <span className="shrink-0">›</span>
-              <Link href={`/category/${categorySlug}`} className="hover:text-accent transition-colors capitalize truncate min-w-0">
-                {category?.name || categorySlug}
-              </Link>
-              <span className="shrink-0">›</span>
-              <span className="truncate min-w-0 max-w-[140px] sm:max-w-[220px] text-primary font-medium">{article.title}</span>
-            </nav>
+            <Breadcrumbs 
+              items={[
+                { label: category?.name || categorySlug, href: `/category/${categorySlug}` },
+                { label: article.title, href: "#" }
+              ]} 
+            />
 
             <span className="inline-block bg-accent-soft text-accent font-ui text-[0.68rem] font-bold uppercase tracking-widest px-3 py-1.5 rounded mb-4">
               {category?.icon} {category?.name}
@@ -217,6 +215,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
             <SmartAffiliateBox category={article.category} keywords={article.keywords || article.tags} />
 
+            <AuthorBio name={article.author || "WiseTips Editorial"} />
 
             <p className="my-8 py-4 px-4 rounded-lg bg-surface border border-border text-center font-body text-muted text-sm">
               Get more tips in your inbox —{" "}
