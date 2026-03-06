@@ -84,7 +84,7 @@ export async function GET(request: NextRequest) {
       .png()
       .toBuffer();
 
-    return new NextResponse(finalBuffer, {
+    return new NextResponse(new Uint8Array(finalBuffer), {
       headers: {
         "Content-Type": "image/png",
         "Cache-Control": "public, max-age=86400, s-maxage=86400",
