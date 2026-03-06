@@ -7,47 +7,45 @@ const products = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
 
 async function checkUrl(url) {
   return new Promise((resolve) => {
-    const req = https.get(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5'
-      }
-    }, (res) => {
+    // Standard User-Agent to avoid immediate bot detection
+    const headers = {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.9',
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache'
+    };
+
+    const req = https.get(url, { headers }, (res) => {
       let body = '';
       res.on('data', (chunk) => body += chunk);
       res.on('end', () => {
         const statusCode = res.statusCode;
         
-        // 1. Check for 404 or specific Amazon error status
+        // 1. Definite 404
         if (statusCode === 404) return resolve(false);
 
-        // 2. Check for "Dog Page" indicators in title or body
+        // 2. The "Dog of Amazon" detection
+        // Amazon often returns 200 OK but shows a "Dog" page if the ASIN is dead.
         const errorMarkers = [
-          '<title>Amazon.com Page Not Found</title>',
+          'dog of Amazon',
+          'Meet the dogs of Amazon',
           'Sorry, we couldn\'t find that page',
-          'dog of Amazon', // The "Meet the dogs of Amazon" page
-          'Looking for something?'
+          'Page Not Found',
+          'Looking for something?',
+          'enter the characters you see below' // Bot detection
         ];
         
         const isErrorPage = errorMarkers.some(marker => body.includes(marker));
         if (isErrorPage) {
-          console.warn(`[VALIDATOR] Amazon returned an error page for ${url}`);
+          console.warn(`[VALIDATOR] ❌ Amazon Error/Dog Page detected for ${url}`);
           return resolve(false);
         }
 
-        // 3. Check for availability
-        const unavailableMarkers = [
-          'Currently unavailable',
-          'Temporarily out of stock',
-          'Discontinued by manufacturer'
-        ];
-        
-        const isUnavailable = unavailableMarkers.some(marker => body.includes(marker));
+        // 3. Availability check (optional but good for UX)
+        const isUnavailable = body.includes('Currently unavailable') || body.includes('Temporarily out of stock');
         if (isUnavailable) {
-          console.warn(`[VALIDATOR] Product is currently unavailable: ${url}`);
-          // We might keep it active but mark it as low priority later. For now, let's keep it true unless it's a 404.
-          // resolve(true); 
+          console.warn(`[VALIDATOR] ⚠️ Product is out of stock: ${url}`);
         }
 
         resolve(true);
@@ -55,7 +53,7 @@ async function checkUrl(url) {
     });
 
     req.on('error', (e) => {
-      console.warn(`[VALIDATOR] Request error for ${url}: ${e.message}`);
+      console.error(`[VALIDATOR] ❌ Request error for ${url}: ${e.message}`);
       resolve(false);
     });
     req.end();
