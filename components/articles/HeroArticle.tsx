@@ -12,7 +12,7 @@ export default function HeroArticle({ article }: HeroArticleProps) {
   // Image fallback is now handled in lib/articles.ts
 
   return (
-    <section className="relative w-full aspect-[4/3] md:aspect-[16/7] rounded-2xl overflow-hidden group cursor-pointer shadow-lg mb-10">
+    <section className="relative w-full aspect-[4/3] md:aspect-[16/7] rounded-xl md:rounded-2xl overflow-hidden group cursor-pointer shadow-lg mb-6 md:mb-10 min-w-0">
       {/* Background Image & Overlay */}
       <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
         <Image

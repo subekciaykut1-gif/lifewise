@@ -36,20 +36,20 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const articles = getPublishedArticles().filter((a) => a.category === slug);
 
   return (
-    <div className="max-w-[1280px] mx-auto px-6 mt-10 mb-20">
-      <div className="bg-surface border border-border rounded-xl p-8 mb-10 text-center relative overflow-hidden shadow-sm">
-        <div className="absolute top-0 left-0 w-full h-1.5 bg-accent"></div>
-        <div className="text-[3.5rem] mb-4 animate-bounce">{category.icon}</div>
-        <h1 className="font-display text-[2.5rem] font-extrabold text-primary mb-3 tracking-tight">
+    <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">
+      <div className="bg-surface border border-border rounded-xl p-6 md:p-8 mb-8 md:mb-10 text-center relative overflow-hidden shadow-sm">
+        <div className="absolute top-0 left-0 w-full h-1.5 bg-accent" aria-hidden />
+        <div className="text-[2.5rem] md:text-[3.5rem] mb-4 animate-bounce">{category.icon}</div>
+        <h1 className="font-display text-[1.75rem] sm:text-[2.25rem] md:text-[2.5rem] font-extrabold text-primary mb-3 tracking-tight">
           {category.name}
         </h1>
-        <p className="font-body text-muted max-w-[600px] w-full mx-auto text-lg leading-relaxed text-center">
+        <p className="font-body text-muted max-w-[600px] w-full mx-auto text-base md:text-lg leading-relaxed text-center px-1">
           Explore our latest articles, guides, and tips about {category.name.toLowerCase()}.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10">
-        <main>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 md:gap-10">
+        <main className="min-w-0">
           {articles.length > 0 ? (
             <ArticleGrid articles={articles} />
           ) : (

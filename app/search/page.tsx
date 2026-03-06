@@ -11,7 +11,7 @@ export default function SearchPage() {
   const articles = getPublishedArticles();
 
   return (
-    <div className="max-w-[1280px] mx-auto px-6 mt-10 mb-20">
+    <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20 min-w-0">
       <SearchClient articles={articles} />
     </div>
   );

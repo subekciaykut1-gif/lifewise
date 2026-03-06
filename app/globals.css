@@ -38,6 +38,9 @@
   --ease-fast: 0.1s ease;
   --ease-normal: 0.2s ease;
   --ease-slow: 0.4s ease;
+
+  /* Z-index */
+  --z-cookie: 9999;
 }
 
 @layer base {
@@ -62,6 +65,18 @@
     color: var(--color-primary);
     font-family: var(--font-body);
     line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  @keyframes fadeSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   /* Global Fix for Paragraph Wrapping Issue - REMOVED */
@@ -82,4 +97,20 @@
 }
 @utility bg-ad {
   background-image: var(--ad-bg);
+}
+
+/* Hide scrollbar but keep scroll (horizontal nav, mobile strips) */
+
+@layer components {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .prose img {
+    max-width: 100%;
+    height: auto;
+  }
 }

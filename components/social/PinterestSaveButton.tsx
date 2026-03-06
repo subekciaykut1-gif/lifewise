@@ -33,7 +33,7 @@ export default function PinterestSaveButton({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-2 rounded-lg bg-[#E60023] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#AD081B] focus:outline-none focus:ring-2 focus:ring-[#E60023] focus:ring-offset-2 ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-lg bg-[#E60023] px-4 py-2.5 min-h-[44px] text-sm font-semibold text-white shadow-sm transition hover:bg-[#AD081B] focus:outline-none focus:ring-2 focus:ring-[#E60023] focus:ring-offset-2 ${className}`}
       aria-label="Save to Pinterest"
     >
       <svg

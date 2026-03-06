@@ -14,9 +14,9 @@ export default function TrendingPage() {
   const trending = mostRead.length > 0 ? mostRead : getPublishedArticles().slice(0, 9);
 
   return (
-    <div className="max-w-[1280px] mx-auto px-6 mt-10 mb-20">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10">
-        <main>
+    <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 md:gap-10">
+        <main className="min-w-0">
           <div className="flex items-center justify-between mb-6 pb-3 border-b-2 border-border">
             <h1 className="font-display text-[1.35rem] font-bold text-primary flex items-center gap-2.5 before:content-[''] before:w-1 before:h-[22px] before:bg-accent before:rounded-sm">
               Trending This Week

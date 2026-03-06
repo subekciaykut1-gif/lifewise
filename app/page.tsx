@@ -18,13 +18,13 @@ export default function Home() {
     <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-8 overflow-hidden">
       {featured && <HeroArticle article={featured} />}
       
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 mt-6 md:mt-10">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 md:gap-10 mt-6 md:mt-10">
         <main className="min-w-0">
-          <div className="flex items-center justify-between mb-6 pb-3 border-b-2 border-border">
-            <h2 className="font-display text-[1.2rem] md:text-[1.35rem] font-bold text-primary flex items-center gap-2.5 before:content-[''] before:w-1 before:h-[22px] before:bg-accent before:rounded-sm">
+          <div className="flex items-center justify-between gap-4 mb-6 pb-3 border-b-2 border-border">
+            <h2 className="font-display text-[1.2rem] md:text-[1.35rem] font-bold text-primary flex items-center gap-2.5 before:content-[''] before:w-1 before:h-[22px] before:bg-accent before:rounded-sm min-w-0">
               Latest Articles
             </h2>
-            <Link href="/latest" className="font-ui text-xs font-semibold text-accent uppercase tracking-wide no-underline hover:text-primary transition-colors">
+            <Link href="/latest" className="font-ui text-xs font-semibold text-accent uppercase tracking-wide no-underline hover:text-primary transition-colors shrink-0 py-2 min-h-[44px] flex items-center">
               View All →
             </Link>
           </div>

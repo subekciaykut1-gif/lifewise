@@ -88,29 +88,29 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <ReadingProgress />
       <ArticleAnalytics articleTitle={article.title} category={categorySlug} author={article.author || "WiseTips Editorial"} />
-      <div className="max-w-[1280px] mx-auto px-6 mt-10 mb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10">
+      <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 md:gap-10">
           <article className="min-w-0">
             {/* Breadcrumbs */}
-            <nav className="flex items-center gap-2 text-xs text-muted font-ui mb-5">
-              <Link href="/" className="hover:text-accent transition-colors">Home</Link>
-              <span>›</span>
-              <Link href={`/category/${categorySlug}`} className="hover:text-accent transition-colors capitalize">
+            <nav className="flex items-center gap-2 text-xs text-muted font-ui mb-5 overflow-hidden" aria-label="Breadcrumb">
+              <Link href="/" className="hover:text-accent transition-colors shrink-0">Home</Link>
+              <span className="shrink-0">›</span>
+              <Link href={`/category/${categorySlug}`} className="hover:text-accent transition-colors capitalize truncate min-w-0">
                 {category?.name || categorySlug}
               </Link>
-              <span>›</span>
-              <span className="truncate max-w-[200px] text-primary font-medium">{article.title}</span>
+              <span className="shrink-0">›</span>
+              <span className="truncate min-w-0 max-w-[140px] sm:max-w-[220px] text-primary font-medium">{article.title}</span>
             </nav>
 
             <span className="inline-block bg-accent-soft text-accent font-ui text-[0.68rem] font-bold uppercase tracking-widest px-3 py-1.5 rounded mb-4">
               {category?.icon} {category?.name}
             </span>
 
-            <h1 className="font-display text-[2.2rem] md:text-[2.8rem] font-extrabold text-primary leading-tight mb-5 tracking-tight">
+            <h1 className="font-display text-[1.75rem] sm:text-[2.2rem] md:text-[2.8rem] font-extrabold text-primary leading-tight mb-5 tracking-tight break-words">
               {article.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-6 pb-6 border-b border-border mb-8">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6 pb-6 border-b border-border mb-8">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-full bg-gradient-to-br from-accent to-gold flex items-center justify-center text-white font-display font-bold text-xs shadow-md">
                   LW
@@ -148,7 +148,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
 
             {/* Article Content */}
-            <div className="prose prose-lg max-w-none font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
+            <div className="prose prose-lg max-w-none font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl overflow-hidden">
               <MDXRemote source={article.content} components={components} />
             </div>
 
