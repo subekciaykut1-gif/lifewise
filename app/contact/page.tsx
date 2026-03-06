@@ -1,14 +1,13 @@
 import { Metadata } from "next";
 import ContactForm from "@/components/forms/ContactForm";
-
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact Us",
   description: "Get in touch with the LifeWise team. We respond to all inquiries within 48 hours.",
-  alternates: { canonical: `${baseUrl}/contact` },
+  alternates: { canonical: `${SITE_URL}/contact` },
   openGraph: {
-    url: `${baseUrl}/contact`,
+    url: `${SITE_URL}/contact`,
     title: "Contact Us | LifeWise",
     description: "Get in touch with the LifeWise team. We respond to all inquiries within 48 hours.",
   },

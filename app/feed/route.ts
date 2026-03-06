@@ -1,6 +1,6 @@
 import { getPublishedArticles } from "@/lib/articles";
+import { SITE_URL } from "@/lib/site";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
 const SITE_NAME = "LifeWise";
 
 function escapeXml(s: string): string {

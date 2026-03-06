@@ -19,6 +19,7 @@ import PinterestSaveButton from "@/components/social/PinterestSaveButton";
 import ShareBar from "@/components/social/ShareBar";
 import { addAmazonTag } from "@/lib/affiliate";
 import { getPinterestImageUrl } from "@/lib/pinterestImage";
+import { SITE_URL } from "@/lib/site";
 
 interface ArticlePageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -31,8 +32,6 @@ export async function generateStaticParams() {
     slug: article.slug,
   }));
 }
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
   const { slug, category } = await params;
@@ -81,8 +80,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     description: article.excerpt,
     datePublished: publishedAt,
     dateModified: article.dateModified || publishedAt,
-    author: { "@type": "Person", name: article.author || "WiseTips Editorial" },
-    publisher: { "@type": "Organization", name: "WiseTips", url: SITE_URL },
+    author: { "@type": "Person", name: article.author || "LifeWise Editorial" },
+    publisher: { "@type": "Organization", name: "LifeWise", url: SITE_URL },
   };
 
   const breadcrumbJsonLd = {
@@ -100,7 +99,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <ReadingProgress />
-      <ArticleAnalytics articleTitle={article.title} category={categorySlug} author={article.author || "WiseTips Editorial"} />
+      <ArticleAnalytics articleTitle={article.title} category={categorySlug} author={article.author || "LifeWise Editorial"} />
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 md:gap-10">
           <article className="min-w-0">
@@ -129,7 +128,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   LW
                 </div>
                 <div>
-                  <div className="font-ui text-sm font-bold text-primary">{article.author || "WiseTips Editorial"}</div>
+                  <div className="font-ui text-sm font-bold text-primary">{article.author || "LifeWise Editorial"}</div>
                   <div className="font-ui text-xs text-muted">
                     {format(new Date(article.date), "MMMM d, yyyy")}
                     {article.dateModified && (

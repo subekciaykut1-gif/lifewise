@@ -3,8 +3,11 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center px-6 text-center">
-      <h1 className="font-display text-[3rem] md:text-[4rem] font-extrabold text-primary mb-4">
+      <p className="font-display text-[3rem] md:text-[4rem] font-extrabold text-primary mb-4" aria-hidden="true">
         404
+      </p>
+      <h1 className="font-display text-2xl md:text-3xl font-bold text-primary mb-4">
+        Page not found
       </h1>
       <p className="font-body text-xl text-muted mb-8 max-w-md">
         This page couldn’t be found. It may have been moved or the link might be broken.

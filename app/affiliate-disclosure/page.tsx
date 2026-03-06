@@ -1,8 +1,15 @@
 import { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Affiliate Disclosure",
   description: "LifeWise Affiliate Disclosure. We believe in transparency about how we earn money.",
+  alternates: { canonical: `${SITE_URL}/affiliate-disclosure` },
+  openGraph: {
+    url: `${SITE_URL}/affiliate-disclosure`,
+    title: "Affiliate Disclosure | LifeWise",
+    description: "LifeWise Affiliate Disclosure. We believe in transparency about how we earn money.",
+  },
 };
 
 export default function AffiliateDisclosurePage() {

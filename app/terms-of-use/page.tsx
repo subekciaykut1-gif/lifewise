@@ -1,8 +1,15 @@
 import { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
   description: "LifeWise Terms of Use. Read our terms and conditions for using our website.",
+  alternates: { canonical: `${SITE_URL}/terms-of-use` },
+  openGraph: {
+    url: `${SITE_URL}/terms-of-use`,
+    title: "Terms of Use | LifeWise",
+    description: "LifeWise Terms of Use. Read our terms and conditions for using our website.",
+  },
 };
 
 export default function TermsOfUsePage() {

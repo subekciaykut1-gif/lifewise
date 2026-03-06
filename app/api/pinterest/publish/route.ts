@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getArticleBySlug } from "@/lib/articles";
 import { createPin, isPinterestConfigured } from "@/lib/pinterest";
 import { getPinterestImageUrl } from "@/lib/pinterestImage";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
+import { SITE_URL } from "@/lib/site";
 
 export async function POST(request: NextRequest) {
   try {

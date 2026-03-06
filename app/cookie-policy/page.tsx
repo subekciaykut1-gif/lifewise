@@ -1,8 +1,15 @@
 import { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Cookie Policy",
   description: "LifeWise Cookie Policy. Understand what cookies are and how we use them on our site.",
+  alternates: { canonical: `${SITE_URL}/cookie-policy` },
+  openGraph: {
+    url: `${SITE_URL}/cookie-policy`,
+    title: "Cookie Policy | LifeWise",
+    description: "LifeWise Cookie Policy. Understand what cookies are and how we use them on our site.",
+  },
 };
 
 export default function CookiePolicyPage() {

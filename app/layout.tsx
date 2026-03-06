@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Source_Serif_4, Inter } from "next/font/google";
 import Script from "next/script";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
     default: "LifeWise — Smarter Living, Every Day",
   },
   description: "Smarter Living, Every Day. Discover life hacks, health tips, cleaning tricks, and viral stories.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     siteName: "LifeWise",
     type: "website",
@@ -69,7 +70,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
-        <link rel="alternate" type="application/rss+xml" title="LifeWise RSS" href={`${process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co"}/feed`} />
+        <link rel="alternate" type="application/rss+xml" title="LifeWise RSS" href={`${SITE_URL}/feed`} />
         <link rel="apple-touch-icon" href="/favicon.ico" />
         <meta name="p:domain_verify" content="f953a2206b94ac2b1c8eda09eb16381c"/>
         <GoogleAnalytics gaId={gaId} />
@@ -91,8 +92,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "LifeWise",
-              url: process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co",
-              logo: `${process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co"}/favicon.ico`,
+              url: SITE_URL,
+              logo: `${SITE_URL}/favicon.ico`,
             }),
           }}
         />

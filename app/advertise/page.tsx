@@ -1,13 +1,12 @@
 import { Metadata } from "next";
-
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Advertise with Us",
   description: "Reach 50,000+ monthly readers with LifeWise advertising. Display ads, sponsored content, and newsletter sponsorships.",
-  alternates: { canonical: `${baseUrl}/advertise` },
+  alternates: { canonical: `${SITE_URL}/advertise` },
   openGraph: {
-    url: `${baseUrl}/advertise`,
+    url: `${SITE_URL}/advertise`,
     title: "Advertise with Us | LifeWise",
     description: "Reach 50,000+ monthly readers with LifeWise advertising. Display ads, sponsored content, and newsletter sponsorships.",
   },

@@ -5,6 +5,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import AdSlot from "@/components/monetization/AdSlot";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
@@ -15,8 +16,6 @@ export async function generateStaticParams() {
     slug: cat.slug,
   }));
 }
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;

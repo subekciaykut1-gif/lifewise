@@ -1,8 +1,15 @@
 import { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "LifeWise Privacy Policy. Learn how we collect, use, and protect your personal information.",
+  alternates: { canonical: `${SITE_URL}/privacy-policy` },
+  openGraph: {
+    url: `${SITE_URL}/privacy-policy`,
+    title: "Privacy Policy | LifeWise",
+    description: "LifeWise Privacy Policy. Learn how we collect, use, and protect your personal information.",
+  },
 };
 
 export default function PrivacyPolicyPage() {

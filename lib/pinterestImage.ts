@@ -4,16 +4,16 @@
  */
 
 import type { Article } from "./articles";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
+import { SITE_URL } from "./site";
 
 /**
  * Returns the public URL for the Pinterest-optimized image (1000×1500 with title overlay).
  * This URL is consumed by the /api/pinterest-image route and by the Save button.
  */
-export function getPinterestImageUrl(article: Pick<Article, "slug" | "category">, baseUrl = SITE_URL): string {
+export function getPinterestImageUrl(article: Pick<Article, "slug" | "category">, baseUrl?: string): string {
+  const base = baseUrl ?? SITE_URL;
   const params = new URLSearchParams({ slug: article.slug, category: article.category });
-  return `${baseUrl.replace(/\/$/, "")}/api/pinterest-image?${params.toString()}`;
+  return `${base.replace(/\/$/, "")}/api/pinterest-image?${params.toString()}`;
 }
 
 /**

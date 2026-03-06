@@ -1,13 +1,12 @@
 import { Metadata } from "next";
-
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About Us",
   description: "Learn about LifeWise, our mission to help you live smarter every day, and our editorial standards.",
-  alternates: { canonical: `${baseUrl}/about` },
+  alternates: { canonical: `${SITE_URL}/about` },
   openGraph: {
-    url: `${baseUrl}/about`,
+    url: `${SITE_URL}/about`,
     title: "About Us | LifeWise",
     description: "Learn about LifeWise, our mission to help you live smarter every day, and our editorial standards.",
   },

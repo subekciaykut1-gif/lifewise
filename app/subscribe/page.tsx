@@ -1,15 +1,14 @@
 import { Metadata } from "next";
 import SubscribeForm from "@/components/forms/SubscribeForm";
-
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Subscribe to LifeWise",
   description: "Join 50,000+ smart readers. Get the best life hacks, health tips, and viral stories delivered weekly.",
-  alternates: { canonical: `${baseUrl}/subscribe` },
+  alternates: { canonical: `${SITE_URL}/subscribe` },
   openGraph: {
-    url: `${baseUrl}/subscribe`,
-    title: "Subscribe to LifeWise | LifeWise",
+    url: `${SITE_URL}/subscribe`,
+    title: "Subscribe | LifeWise",
     description: "Join 50,000+ smart readers. Get the best life hacks, health tips, and viral stories delivered weekly.",
   },
 };
