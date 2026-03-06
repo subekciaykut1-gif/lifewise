@@ -106,7 +106,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] lg:grid-cols-[260px_1fr_320px] gap-8 md:gap-10">
           {/* Left Column: TOC (Desktop only) */}
           <aside className="hidden lg:block">
-            <div className="sticky top-28">
+            <div className="sticky top-36">
               <TableOfContents />
             </div>
           </aside>
@@ -215,7 +215,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           <aside className="space-y-8 min-w-0">
             <AdSlot slot="sidebar-top" format="rectangle" height={300} />
             <NewsletterBanner sidebar />
-            <div className="sticky top-28">
+            <div className="sticky top-36">
               <AdSlot slot="sidebar-sticky" format="vertical" height={600} />
             </div>
           </aside>
