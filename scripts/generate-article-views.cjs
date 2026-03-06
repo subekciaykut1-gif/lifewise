@@ -33,15 +33,27 @@ function main() {
   if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
   const files = getFiles(ARTICLES_DIR);
-  const views = {};
-  const now = new Date();
+  
+  let views = {};
+  if (fs.existsSync(VIEWS_FILE)) {
+    try {
+      views = JSON.parse(fs.readFileSync(VIEWS_FILE, "utf8"));
+    } catch (e) {
+      console.warn("Could not parse existing views file, starting fresh.");
+    }
+  }
+
   for (const filePath of files) {
     const content = fs.readFileSync(filePath, "utf8");
     const { data } = matter(content);
     const slug = path.basename(filePath, ".mdx");
     const category = data.category || "life-hacks";
     const key = `${category}/${slug}`;
-    views[key] = 0;
+    
+    // Only set to 0 if it doesn't already exist
+    if (views[key] === undefined) {
+      views[key] = 0;
+    }
   }
 
   fs.writeFileSync(VIEWS_FILE, JSON.stringify(views, null, 2) + "\n", "utf8");

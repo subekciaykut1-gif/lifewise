@@ -40,13 +40,11 @@ export function incrementArticleViews(category: string, slug: string): number {
   const map = loadViewsMap();
   map[key] = (map[key] || 0) + 1;
   
-  // During local development, persist to the literal file so we can view changes
-  if (process.env.NODE_ENV !== "production") {
-    try {
-      fs.writeFileSync(VIEWS_FILE, JSON.stringify(map, null, 2), "utf8");
-    } catch (err) {
-      console.error("Failed to write views JSON:", err);
-    }
+  // Persist to the file on every increment so we don't lose data on restart
+  try {
+    fs.writeFileSync(VIEWS_FILE, JSON.stringify(map, null, 2), "utf8");
+  } catch (err) {
+    console.error("Failed to write views JSON:", err);
   }
   
   return map[key];
