@@ -3,25 +3,25 @@
     "sarah-jenkins": {
       "name": "Sarah Jenkins",
       "bio": "Sarah Jenkins is a professional home organizer with over 10 years of experience helping families declutter and find peace in their living spaces. Her methods focus on sustainable, long-term organization systems.",
-      "image": "https://i.pravatar.cc/300?u=sarah",
+      "image": "/images/authors/sarah-jenkins.png",
       "role": "Home & Organization Expert"
     },
     "dr-mike-ross": {
       "name": "Dr. Mike Ross",
       "bio": "Dr. Mike Ross is a licensed nutritionist and wellness advocate focused on practical, science-based advice for better everyday health. He specializes in gut health and anti-inflammatory cooking.",
-      "image": "https://i.pravatar.cc/300?u=mike",
+      "image": "/images/authors/dr-mike-ross.png",
       "role": "Wellness & Nutrition Specialist"
     },
     "elena-vance": {
       "name": "Elena Vance",
       "bio": "Elena Vance is a DIY enthusiast and sustainability consultant who believes that a beautiful home doesn't have to cost the earth. She has been featured in multiple home renovation magazines for her creative upcycling.",
-      "image": "https://i.pravatar.cc/300?u=elena",
+      "image": "/images/authors/elena-vance.png",
       "role": "DIY & Sustainability Consultant"
     },
     "david-chen": {
       "name": "David Chen",
       "bio": "David Chen is a lifestyle journalist covering the intersection of technology and everyday efficiency. He is specialized in uncovering hidden life hacks and testing the latest home gadgets.",
-      "image": "https://i.pravatar.cc/300?u=david",
+      "image": "/images/authors/david-chen.png",
       "role": "Lifestyle Journalist"
     }
   },

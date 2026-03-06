@@ -99,7 +99,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     image: [article.image || "/images/placeholder.jpg"].filter(Boolean),
     datePublished: publishedAt,
     dateModified: article.dateModified || publishedAt,
-    author: { "@type": "Person", name: article.author || "LifeWise Editorial" },
+    author: { "@type": "Person", name: getAuthorPersona(article.author || article.category).name },
     publisher: { 
       "@type": "Organization", 
       name: "LifeWise", 
@@ -126,13 +126,15 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     ],
   };
 
+  const persona = getAuthorPersona(article.author || article.category);
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <ViewTracker slug={slug} category={categorySlug} />
       <ReadingProgress />
-      <ArticleAnalytics articleTitle={article.title} category={categorySlug} author={article.author || "LifeWise Editorial"} />
+      <ArticleAnalytics articleTitle={article.title} category={categorySlug} author={persona.name} />
       <div className="max-w-[1440px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] lg:grid-cols-[260px_1fr_320px] gap-8 md:gap-10">
           {/* Left Column: TOC (Desktop only) */}
@@ -161,11 +163,19 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
             <div className="flex flex-wrap items-center gap-4 sm:gap-6 pb-6 border-b border-border mb-8">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-accent to-gold flex items-center justify-center text-white font-display font-bold text-xs shadow-md">
-                  LW
+                <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-accent/20 shadow-sm bg-muted flex-shrink-0">
+                  <Image 
+                    src={persona.image} 
+                    alt={persona.name} 
+                    fill 
+                    className="object-cover"
+                    sizes="40px"
+                  />
                 </div>
                 <div>
-                  <div className="font-ui text-sm font-bold text-primary">{article.author || "LifeWise Editorial"}</div>
+                  <div className="font-ui text-sm font-bold text-primary group-hover:text-accent transition-colors">
+                    {persona.name}
+                  </div>
                   <div className="font-ui text-xs text-muted">
                     {format(new Date(article.date), "MMMM d, yyyy")}
                     {article.dateModified && (
