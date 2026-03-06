@@ -11,6 +11,7 @@ import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -65,7 +66,7 @@ export default function RootLayout({
   const adsenseId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID;
 
   return (
-    <html lang="en" className={`${playfair.variable} ${sourceSerif.variable} ${inter.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${sourceSerif.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -85,20 +86,22 @@ export default function RootLayout({
           />
         )}
       </head>
-      <body className="antialiased min-h-screen flex flex-col bg-bg text-primary font-body">
-        <OrganizationSchema />
-        <a href="#main" className="skip-link">
-          Skip to main content
-        </a>
-        <Header />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <CookieBanner />
-        <BackToTop />
-        <Analytics />
-        <SpeedInsights />
+      <body className="antialiased min-h-screen flex flex-col bg-bg text-primary font-body transition-colors duration-300">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <OrganizationSchema />
+          <a href="#main" className="skip-link">
+            Skip to main content
+          </a>
+          <Header />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <CookieBanner />
+          <BackToTop />
+          <Analytics />
+          <SpeedInsights />
+        </ThemeProvider>
       </body>
     </html>
   );

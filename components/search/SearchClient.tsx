@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useMemo, Suspense, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Fuse from "fuse.js";
 import { Article } from "@/lib/articles";
 import { format } from "date-fns";
 import { Clock } from "lucide-react";
@@ -20,16 +21,16 @@ function SearchResults({ articles }: SearchClientProps) {
   useEffect(() => setInputValue(qParam), [qParam]);
   const q = qParam.toLowerCase();
 
+  const fuse = useMemo(() => new Fuse(articles, {
+    keys: ['title', 'excerpt', 'content', 'tags', 'category'],
+    threshold: 0.4,
+    ignoreLocation: true,
+  }), [articles]);
+
   const results = useMemo(() => {
     if (!q) return [];
-    return articles.filter(
-      (a) =>
-        a.title.toLowerCase().includes(q) ||
-        (a.excerpt ?? "").toLowerCase().includes(q) ||
-        (a.tags ?? []).some((t) => t.toLowerCase().includes(q)) ||
-        a.category.toLowerCase().includes(q)
-    );
-  }, [articles, q]);
+    return fuse.search(q).map(result => result.item);
+  }, [fuse, q]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

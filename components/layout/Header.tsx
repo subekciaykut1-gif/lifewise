@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { categories } from "@/lib/categories";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export default function Header() {
   return (
@@ -10,6 +11,7 @@ export default function Header() {
           Life<span className="text-accent">Wise</span>
         </Link>
         <div className="flex gap-2 sm:gap-3 items-center shrink-0">
+          <ThemeToggle />
           <Link href="/search" className="bg-transparent border-[1.5px] border-border rounded-full w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer text-muted text-sm hover:border-accent hover:text-accent transition-colors" aria-label="Search">
             <Search size={20} />
           </Link>
@@ -18,17 +20,17 @@ export default function Header() {
           </Link>
         </div>
       </div>
-      <div className="bg-primary w-full">
+      <div className="bg-primary dark:bg-surface w-full">
         <nav className="max-w-[1280px] mx-auto overflow-x-auto scrollbar-hide overscroll-x-contain" aria-label="Main categories">
           <div className="px-4 md:px-6 flex whitespace-nowrap min-w-max py-1">
-            <Link href="/" className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-white/70 hover:text-white border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center min-w-[48px]">
+            <Link href="/" className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center min-w-[48px]">
               🏠 Home
             </Link>
             {categories.map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/category/${cat.slug}`}
-                className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-white/70 hover:text-white border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
+                className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
               >
                 <span>{cat.icon}</span> <span>{cat.name}</span>
               </Link>

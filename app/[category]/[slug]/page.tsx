@@ -1,4 +1,4 @@
-import { getArticleBySlug, getAllArticles, getPublishedArticles } from "@/lib/articles";
+import { getArticleBySlug, getAllArticles, getPublishedArticles, getRelatedArticles } from "@/lib/articles";
 import { getCategoryBySlug } from "@/lib/categories";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
@@ -20,6 +20,7 @@ import ShareBar from "@/components/social/ShareBar";
 import { addAmazonTag } from "@/lib/affiliate";
 import { getPinterestImageUrl } from "@/lib/pinterestImage";
 import { SITE_URL } from "@/lib/site";
+import ViewTracker from "@/components/analytics/ViewTracker";
 
 interface ArticlePageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -69,9 +70,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const publishedAt = article.publishedAt || article.date;
   if (new Date(publishedAt) > new Date()) notFound();
 
-  const relatedArticles = getPublishedArticles()
-    .filter((a) => a.category === categorySlug && a.slug !== slug)
-    .slice(0, 6);
+  const relatedArticles = getRelatedArticles(article, 6);
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -98,6 +97,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <ViewTracker slug={slug} category={categorySlug} />
       <ReadingProgress />
       <ArticleAnalytics articleTitle={article.title} category={categorySlug} author={article.author || "LifeWise Editorial"} />
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">

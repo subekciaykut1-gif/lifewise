@@ -112,3 +112,29 @@ export function getMostReadArticles(): Article[] {
   const articles = getPublishedArticles();
   return articles.filter((article) => article.mostRead);
 }
+
+export function getRelatedArticles(currentArticle: Article, limit: number = 3): Article[] {
+  const allArticles = getPublishedArticles();
+  
+  return allArticles
+    .filter((a) => a.slug !== currentArticle.slug)
+    .map(article => {
+      // Calculate relevance score
+      let score = 0;
+      if (article.category === currentArticle.category) score += 2; // Category match weight
+      
+      const commonTags = (article.tags || []).filter(tag => 
+        (currentArticle.tags || []).includes(tag)
+      );
+      score += commonTags.length; // 1 point per matching tag
+      
+      return { article, score };
+    })
+    .filter(item => item.score > 0)
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score; // Sort by relevance score
+      return (b.article.views || 0) - (a.article.views || 0); // Break ties with views
+    })
+    .map(item => item.article)
+    .slice(0, limit);
+}

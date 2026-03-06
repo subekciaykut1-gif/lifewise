@@ -33,11 +33,25 @@ export function getArticleViews(category: string, slug: string): number {
   return typeof n === "number" && n >= 0 ? n : 0;
 }
 
-/**
- * Format view count for display (e.g. 1200 -> "1.2K", 128000 -> "128K").
- */
 export function formatViewCount(views: number): string {
   if (views >= 1_000_000) return `${(views / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`;
   if (views >= 1_000) return `${(views / 1_000).toFixed(1).replace(/\.0$/, "")}K`;
   return String(views);
+}
+
+export function incrementArticleViews(category: string, slug: string): number {
+  const key = `${category}/${slug}`;
+  const map = loadViewsMap();
+  map[key] = (map[key] || 0) + 1;
+  
+  // During local development, persist to the literal file so we can view changes
+  if (process.env.NODE_ENV !== "production") {
+    try {
+      fs.writeFileSync(VIEWS_FILE, JSON.stringify(map, null, 2), "utf8");
+    } catch (err) {
+      console.error("Failed to write views JSON:", err);
+    }
+  }
+  
+  return map[key];
 }

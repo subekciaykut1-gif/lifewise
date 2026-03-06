@@ -10,6 +10,9 @@
   --color-muted: #6B7280;
   --color-border: #E5E7EB;
   --color-gold: #C9A84C;
+  --color-ad-border: var(--ad-border-color);
+  --color-ad-text-muted: var(--ad-text-muted-color);
+  --color-ad-text-light: var(--ad-text-light-color);
 
   /* Fonts */
   --font-display: var(--font-playfair-display), serif;
@@ -44,9 +47,22 @@
 }
 
 @layer base {
+  .dark {
+    --color-bg: #0F0F1A;
+    --color-surface: #1A1A2E;
+    --color-primary: #FAFAF7;
+    --color-accent: #E8572A;
+    --color-accent-soft: rgba(232, 87, 42, 0.15);
+    --color-muted: #9CA3AF;
+    --color-border: #2D2D4E;
+    --color-gold: #C9A84C;
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  }
+
   :root {
     /* Custom Gradients */
-    --gradient-hero: linear-gradient(135deg, #1A1A2E 0%, #2d2d4e 50%, #3a1a0e 100%);
+    --gradient-hero: linear-gradient(135deg, var(--color-primary) 0%, #2d2d4e 50%, #3a1a0e 100%);
     --gradient-overlay: radial-gradient(ellipse at 70% 40%, rgba(232,87,42,0.25) 0%, transparent 60%),
                         radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.15) 0%, transparent 50%),
                         linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.85) 100%);
@@ -55,9 +71,18 @@
     
     /* Ad Slot Colors */
     --ad-bg: linear-gradient(135deg, #f8f8f5 0%, #f0ede8 100%);
-    --ad-border: #d1cdc7;
-    --ad-text-muted: #a0998f;
-    --ad-text-light: #c0b9b0;
+    --ad-border-color: #d1cdc7;
+    --ad-text-muted-color: #a0998f;
+    --ad-text-light-color: #c0b9b0;
+  }
+
+  .dark {
+    --gradient-hero: linear-gradient(135deg, var(--color-surface) 0%, #151525 50%, #211009 100%);
+    --gradient-newsletter: linear-gradient(135deg, var(--color-surface) 0%, #151525 100%);
+    --ad-bg: linear-gradient(135deg, var(--color-surface) 0%, #151525 100%);
+    --ad-border-color: var(--color-border);
+    --ad-text-muted-color: var(--color-muted);
+    --ad-text-light-color: var(--color-muted);
   }
 
   body {
