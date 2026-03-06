@@ -10,6 +10,31 @@ export interface AuthorPersona {
 const AUTHORS = authorsData.authors as Record<string, AuthorPersona>;
 const CATEGORY_MAP = authorsData.categoryMapping as Record<string, string>;
 
+/** Robust slugify for author names */
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '') // remove non-word chars except spaces/hyphens
+    .replace(/\s+/g, '-')      // replace spaces with hyphens
+    .replace(/-+/g, '-');      // remove consecutive hyphens
+}
+
+export function getAuthorSlug(nameOrCategory: string): string {
+  // 1. If it's a known author key directly
+  if (AUTHORS[nameOrCategory.toLowerCase()]) return nameOrCategory.toLowerCase();
+  
+  // 2. If it's a name that needs slugifying
+  const slug = slugify(nameOrCategory);
+  if (AUTHORS[slug]) return slug;
+
+  // 3. If it's a category mapping
+  const authorKeyFromCategory = CATEGORY_MAP[nameOrCategory];
+  if (authorKeyFromCategory) return authorKeyFromCategory;
+
+  // 4. Default
+  return "david-chen";
+}
+
 export function getAllAuthors(): Array<AuthorPersona & { slug: string }> {
   return Object.entries(AUTHORS).map(([slug, persona]) => ({ slug, ...persona }));
 }

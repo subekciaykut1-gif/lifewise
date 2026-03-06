@@ -4,6 +4,7 @@ import { Article } from "@/lib/articles";
 import { Clock, Calendar, Eye } from "lucide-react";
 import { format } from "date-fns";
 import { formatViewCount } from "@/lib/article-views";
+import { getAuthorPersona, getAuthorSlug } from "@/lib/authors";
 
 interface HeroArticleProps {
   article: Article;
@@ -53,6 +54,20 @@ export default function HeroArticle({ article }: HeroArticleProps) {
           </Link>
           
           <div className="flex flex-wrap gap-4 items-center mb-6 text-white/70">
+            <div className="flex items-center gap-2 pr-4 border-r border-white/10">
+              <Link href={`/author/${getAuthorSlug(article.author || article.category)}`} className="relative w-7 h-7 rounded-full overflow-hidden border border-white/20">
+                <Image 
+                  src={getAuthorPersona(article.author || article.category).image} 
+                  alt={getAuthorPersona(article.author || article.category).name}
+                  fill
+                  className="object-cover"
+                  sizes="28px"
+                />
+              </Link>
+              <Link href={`/author/${getAuthorSlug(article.author || article.category)}`} className="font-ui text-xs font-bold text-white hover:text-accent-soft transition-colors">
+                {getAuthorPersona(article.author || article.category).name}
+              </Link>
+            </div>
             <span className="font-ui text-xs flex items-center gap-1.5">
               <Calendar size={14} /> {format(new Date(article.date), "MMMM d, yyyy")}
             </span>

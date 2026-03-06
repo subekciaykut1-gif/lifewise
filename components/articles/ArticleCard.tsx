@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Article } from "@/lib/articles";
 import { Clock, Calendar } from "lucide-react";
 import { format } from "date-fns";
+import { getAuthorPersona, getAuthorSlug } from "@/lib/authors";
 
 interface ArticleCardProps {
   article: Article;
@@ -37,13 +38,29 @@ export default function ArticleCard({ article }: ArticleCardProps) {
         <p className="font-body text-[0.82rem] text-muted leading-relaxed mb-3 line-clamp-2 flex-1">
           {excerpt}
         </p>
-        <div className="flex gap-3 items-center mt-auto">
-          <span className="font-ui text-[0.7rem] text-muted flex items-center gap-1">
-            <Clock size={12} /> {article.readTime} min
-          </span>
-          <span className="font-ui text-[0.7rem] text-muted flex items-center gap-1">
-            <Calendar size={12} /> {format(new Date(article.date), "MMM d")}
-          </span>
+        <div className="flex items-center justify-between mt-auto pt-3 border-t border-border/50">
+          <div className="flex items-center gap-2">
+            <Link href={`/author/${getAuthorSlug(article.author || article.category)}`} className="relative w-6 h-6 rounded-full overflow-hidden border border-accent/20">
+              <Image 
+                src={getAuthorPersona(article.author || article.category).image} 
+                alt={getAuthorPersona(article.author || article.category).name}
+                fill
+                className="object-cover"
+                sizes="24px"
+              />
+            </Link>
+            <Link href={`/author/${getAuthorSlug(article.author || article.category)}`} className="font-ui text-[0.7rem] font-bold text-primary hover:text-accent transition-colors">
+              {getAuthorPersona(article.author || article.category).name}
+            </Link>
+          </div>
+          <div className="flex gap-3 items-center">
+            <span className="font-ui text-[0.7rem] text-muted flex items-center gap-1">
+              <Clock size={12} /> {article.readTime} min
+            </span>
+            <span className="font-ui text-[0.7rem] text-muted flex items-center gap-1">
+              <Calendar size={12} /> {format(new Date(article.date), "MMM d")}
+            </span>
+          </div>
         </div>
       </div>
     </article>

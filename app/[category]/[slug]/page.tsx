@@ -29,7 +29,7 @@ import LiveViewCounter from "@/components/analytics/LiveViewCounter";
 import SmartAffiliateBox from "@/components/monetization/SmartAffiliateBox";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import AuthorBio from "@/components/article/AuthorBio";
-import { getAuthorPersona } from "@/lib/authors";
+import { getAuthorPersona, getAuthorSlug } from "@/lib/authors";
 import ArticleReactions from "@/components/article/ArticleReactions";
 
 interface ArticlePageProps {
@@ -174,11 +174,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   />
                 </div>
                 <div>
-                  <div className="font-ui text-sm font-bold text-primary group-hover:text-accent transition-colors">
-                    <Link href={`/author/${article.author?.toLowerCase().replace(/\s+/g, '-') || categorySlug}`} className="hover:text-accent transition-colors">
-                      {persona.name}
-                    </Link>
-                  </div>
+                  <Link href={`/author/${getAuthorSlug(article.author || categorySlug)}`} className="font-ui text-sm font-bold text-primary group-hover:text-accent transition-colors">
+                    {persona.name}
+                  </Link>
                   <div className="font-ui text-xs text-muted">
                     {format(new Date(article.date), "MMMM d, yyyy")}
                     {article.dateModified && (

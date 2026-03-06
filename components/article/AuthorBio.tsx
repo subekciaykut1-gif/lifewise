@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Facebook, Twitter, Instagram, Globe } from "lucide-react";
-import { AuthorPersona } from "@/lib/authors";
+import { AuthorPersona, getAuthorSlug } from "@/lib/authors";
+import Link from "next/link";
 
 interface AuthorBioProps {
   persona: AuthorPersona;
@@ -26,6 +27,13 @@ export default function AuthorBio({ persona }: AuthorBioProps) {
         <p className="font-body text-[0.95rem] text-muted leading-relaxed mb-4">
           {bio}
         </p>
+
+        <Link 
+          href={`/author/${getAuthorSlug(name)}`}
+          className="inline-block text-accent font-ui text-[0.8rem] font-bold hover:underline mb-4"
+        >
+          View Full Profile & All Articles →
+        </Link>
         
         <div className="flex justify-center md:justify-start gap-3">
           <a href="#" className="text-muted hover:text-accent transition-colors"><Twitter size={16} /></a>
