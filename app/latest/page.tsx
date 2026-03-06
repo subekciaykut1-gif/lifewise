@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   description: "Read the latest tips, tricks, and life hacks on LifeWise.",
 };
 
-export default function LatestPage() {
-  const articles = getPublishedArticles(); // Only published, sorted by date
+export default async function LatestPage() {
+  const articles = await getPublishedArticles(); // Only published, sorted by date
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">

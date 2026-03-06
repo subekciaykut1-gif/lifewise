@@ -5,10 +5,10 @@ import { categories } from "@/lib/categories";
 import AdSlot from "@/components/monetization/AdSlot";
 import { getPublishedArticles, getMostReadArticles } from "@/lib/articles";
 
-export default function Sidebar() {
-  const articles = getPublishedArticles();
+export default async function Sidebar() {
+  const articles = await getPublishedArticles();
   // Get real most read articles or fallback to first 5
-  const mostReadArticles = getMostReadArticles().slice(0, 5);
+  const mostReadArticles = (await getMostReadArticles()).slice(0, 5);
   const displayArticles = mostReadArticles.length > 0 ? mostReadArticles : articles.slice(0, 5);
 
   // Calculate category counts

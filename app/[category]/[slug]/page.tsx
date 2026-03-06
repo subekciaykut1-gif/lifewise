@@ -36,7 +36,7 @@ interface ArticlePageProps {
 }
 
 export async function generateStaticParams() {
-  const articles = getAllArticles();
+  const articles = await getAllArticles();
   return articles.map((article) => ({
     category: article.category,
     slug: article.slug,
@@ -45,7 +45,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
   const { slug, category } = await params;
-  const article = getArticleBySlug(slug, category);
+  const article = await getArticleBySlug(slug, category);
   if (!article) return {};
   const canonical = `${SITE_URL}/${category}/${slug}`;
   const pinterestImage = getPinterestImageUrl(article, SITE_URL);
@@ -81,15 +81,15 @@ const components = {
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { category: categorySlug, slug } = await params;
-  const article = getArticleBySlug(slug, categorySlug);
+  const article = await getArticleBySlug(slug, categorySlug);
   const category = getCategoryBySlug(categorySlug);
-
+  
   if (!article) notFound();
 
   const publishedAt = article.publishedAt || article.date;
   if (new Date(publishedAt) > new Date()) notFound();
 
-  const relatedArticles = getRelatedArticles(article, 6);
+  const relatedArticles = await getRelatedArticles(article, 6);
 
   const articleJsonLd = {
     "@context": "https://schema.org",

@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   description: "Most popular tips and life hacks on LifeWise this week.",
 };
 
-export default function TrendingPage() {
-  const mostRead = getMostReadArticles();
-  const trending = mostRead.length > 0 ? mostRead : getPublishedArticles().slice(0, 9);
+export default async function TrendingPage() {
+  const mostRead = await getMostReadArticles();
+  const trending = mostRead.length > 0 ? mostRead : (await getPublishedArticles()).slice(0, 9);
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">

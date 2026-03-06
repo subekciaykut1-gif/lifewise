@@ -7,9 +7,9 @@ interface ReadNextProps {
   currentArticle: Article;
 }
 
-export default function ReadNext({ currentArticle }: ReadNextProps) {
+export default async function ReadNext({ currentArticle }: ReadNextProps) {
   // Get 1 related article that isn't the current one
-  const nextArticles = getRelatedArticles(currentArticle, 1);
+  const nextArticles = await getRelatedArticles(currentArticle, 1);
   const next = nextArticles[0];
 
   if (!next) return null;

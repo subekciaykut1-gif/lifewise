@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { getArticleImage } from "./article-images";
-import { getArticleViews } from "./article-views";
+import { getArticleViews, getAllArticleViews } from "./article-views";
 import { cache } from "react";
 
 const articlesDirectory = path.join(process.cwd(), "content/articles");
@@ -26,7 +26,7 @@ export interface Article {
   content: string;
   /** SEO keywords for meta tags and schema (optional). */
   keywords?: string[];
-  /** View count from data/article-views.json (optional). */
+  /** View count from Neon Database (optional). */
   views?: number;
 }
 
@@ -39,10 +39,13 @@ function getFiles(dir: string): string[] {
   return files.reduce((a, f) => a.concat(f), []);
 }
 
-function loadAllArticles(): Article[] {
+async function loadAllArticles(): Promise<Article[]> {
   if (!fs.existsSync(articlesDirectory)) return [];
 
   const filePaths = getFiles(articlesDirectory);
+  
+  // Fetch ALL views in one go for performance
+  const viewsMap = await getAllArticleViews();
 
   const allArticles = filePaths
     .filter((filePath) => filePath.endsWith(".mdx"))
@@ -58,7 +61,8 @@ function loadAllArticles(): Article[] {
       );
 
       const category = data.category || "life-hacks";
-      const views = getArticleViews(category, slug);
+      const views = viewsMap.get(`${category}/${slug}`) || 0;
+      
       return {
         slug,
         content,
@@ -72,13 +76,13 @@ function loadAllArticles(): Article[] {
 }
 
 /** Cached list of all articles. Uses React's Built-in Cache function. */
-export const getAllArticles = cache((): Article[] => {
+export const getAllArticles = cache(async (): Promise<Article[]> => {
   return loadAllArticles();
 });
 
 /** Returns only articles whose publishedAt (or date) is on or before now. Use for public listing. */
-export function getPublishedArticles(): Article[] {
-  const all = getAllArticles();
+export async function getPublishedArticles(): Promise<Article[]> {
+  const all = await getAllArticles();
   const now = new Date();
   return all
     .filter((a) => {
@@ -92,16 +96,16 @@ export function getPublishedArticles(): Article[] {
     });
 }
 
-export function getArticleBySlug(slug: string, category?: string): Article | undefined {
-  const articles = getAllArticles();
+export async function getArticleBySlug(slug: string, category?: string): Promise<Article | undefined> {
+  const articles = await getAllArticles();
   const match = articles.find((article) => article.slug === slug);
   if (!match) return undefined;
   if (category != null && match.category !== category) return undefined;
   return match;
 }
 
-export function getArticlesByCategory(categorySlug: string): Article[] {
-  const articles = getAllArticles();
+export async function getArticlesByCategory(categorySlug: string): Promise<Article[]> {
+  const articles = await getAllArticles();
   return articles.filter((article) => article.category === categorySlug);
 }
 
@@ -122,20 +126,20 @@ function getDynamicScore(article: Article): number {
   return score;
 }
 
-export function getFeaturedArticles(): Article[] {
-  const articles = getPublishedArticles();
+export async function getFeaturedArticles(): Promise<Article[]> {
+  const articles = await getPublishedArticles();
   return [...articles].sort((a, b) => getDynamicScore(b) - getDynamicScore(a));
 }
 
-export function getMostReadArticles(): Article[] {
-  const articles = getPublishedArticles();
+export async function getMostReadArticles(): Promise<Article[]> {
+  const articles = await getPublishedArticles();
   // Most read focuses more on views but still respects basic popularity
   return [...articles].sort((a, b) => (b.views || 0) - (a.views || 0));
 }
 
 
-export function getRelatedArticles(currentArticle: Article, limit: number = 3): Article[] {
-  const allArticles = getPublishedArticles();
+export async function getRelatedArticles(currentArticle: Article, limit: number = 3): Promise<Article[]> {
+  const allArticles = await getPublishedArticles();
   
   return allArticles
     .filter((a) => a.slug !== currentArticle.slug)

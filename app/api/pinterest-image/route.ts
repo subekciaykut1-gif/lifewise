@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Missing slug or category" }, { status: 400 });
     }
 
-    const article = getArticleBySlug(slug, category);
+    const article = await getArticleBySlug(slug, category);
     if (!article) {
       return NextResponse.json({ error: "Article not found" }, { status: 404 });
     }

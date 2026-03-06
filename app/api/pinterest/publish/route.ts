@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const article = getArticleBySlug(slug, category);
+    const article = await getArticleBySlug(slug, category);
     if (!article) {
       return NextResponse.json({ error: "Article not found" }, { status: 404 });
     }

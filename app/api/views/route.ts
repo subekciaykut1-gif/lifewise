@@ -9,7 +9,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing slug or category' }, { status: 400 });
     }
 
-    const views = incrementArticleViews(category, slug);
+    const views = await incrementArticleViews(category, slug);
     return NextResponse.json({ success: true, views }, { status: 200 });
   } catch (error) {
     console.error('Views API Error:', error);
@@ -25,6 +25,6 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Missing slug or category' }, { status: 400 });
   }
 
-  const views = getArticleViews(category, slug);
+  const views = await getArticleViews(category, slug);
   return NextResponse.json({ views }, { status: 200 });
 }

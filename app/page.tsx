@@ -7,12 +7,13 @@ import AdSlot from "@/components/monetization/AdSlot";
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Home() {
-  const articles = getPublishedArticles();
-  const featured = getFeaturedArticles()[0] || articles[0]; // Fallback to first
+export default async function Home() {
+  const articles = await getPublishedArticles();
+  const featuredArticles = await getFeaturedArticles();
+  const featured = featuredArticles[0] || articles[0]; // Fallback to first
   const latest = articles.slice(0, 6);
   const trending = articles.slice(6, 9); // Mock trending
-  const mostRead = getMostReadArticles().slice(0, 5); // For mobile strip
+  const mostRead = (await getMostReadArticles()).slice(0, 5); // For mobile strip
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-8 overflow-hidden">

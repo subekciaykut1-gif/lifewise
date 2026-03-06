@@ -1,51 +1,64 @@
-/**
- * Article view count utilities.
- * NOTE: Filesystem logic (fs/path) is only used on the server.
- */
 import { formatViewCount } from "./article-views-shared";
-import fs from "fs";
-import path from "path";
+import { sql } from "./db";
 
 export { formatViewCount };
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const VIEWS_FILE = path.join(DATA_DIR, "article-views.json");
+export interface ViewStats {
+  category: string;
+  slug: string;
+  views: number;
+}
 
-let viewsMap: Record<string, number> | null = null;
-
-function loadViewsMap(): Record<string, number> {
-  if (viewsMap !== null) return viewsMap;
+/**
+ * Fetches the view count for a single article.
+ */
+export async function getArticleViews(category: string, slug: string): Promise<number> {
   try {
-    if (fs.existsSync(VIEWS_FILE)) {
-      const raw = fs.readFileSync(VIEWS_FILE, "utf8");
-      viewsMap = JSON.parse(raw) as Record<string, number>;
-    } else {
-      viewsMap = {};
+    const result = await sql`
+      SELECT views FROM article_views 
+      WHERE category = ${category} AND slug = ${slug}
+      LIMIT 1
+    `;
+    return result[0]?.views || 0;
+  } catch (error) {
+    console.error(`Error fetching views for ${category}/${slug}:`, error);
+    return 0;
+  }
+}
+
+/**
+ * Fetches ALL view counts in a single query for optimized bulk loading.
+ * Returns a Map for fast O(1) lookups.
+ */
+export async function getAllArticleViews(): Promise<Map<string, number>> {
+  try {
+    const results = await sql`SELECT category, slug, views FROM article_views`;
+    const viewsMap = new Map<string, number>();
+    for (const row of results) {
+      viewsMap.set(`${row.category}/${row.slug}`, row.views);
     }
-  } catch {
-    viewsMap = {};
+    return viewsMap;
+  } catch (error) {
+    console.error("Error fetching all article views:", error);
+    return new Map();
   }
-  return viewsMap;
 }
 
-export function getArticleViews(category: string, slug: string): number {
-  const key = `${category}/${slug}`;
-  const map = loadViewsMap();
-  const n = map[key];
-  return typeof n === "number" && n >= 0 ? n : 0;
-}
-
-export function incrementArticleViews(category: string, slug: string): number {
-  const key = `${category}/${slug}`;
-  const map = loadViewsMap();
-  map[key] = (map[key] || 0) + 1;
-  
-  // Persist to the file on every increment so we don't lose data on restart
+/**
+ * Increments the view count for an article using atomic SQL update.
+ */
+export async function incrementArticleViews(category: string, slug: string): Promise<number> {
   try {
-    fs.writeFileSync(VIEWS_FILE, JSON.stringify(map, null, 2), "utf8");
-  } catch (err) {
-    console.error("Failed to write views JSON:", err);
+    const result = await sql`
+      INSERT INTO article_views (category, slug, views)
+      VALUES (${category}, ${slug}, 1)
+      ON CONFLICT (category, slug)
+      DO UPDATE SET views = article_views.views + 1
+      RETURNING views
+    `;
+    return result[0]?.views || 0;
+  } catch (error) {
+    console.error(`Error incrementing views for ${category}/${slug}:`, error);
+    return 0;
   }
-  
-  return map[key];
 }

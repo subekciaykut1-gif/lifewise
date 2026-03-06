@@ -43,7 +43,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   
   if (!category) notFound();
 
-  const allArticles = getPublishedArticles().filter((a) => a.category === slug);
+  const allArticles = (await getPublishedArticles()).filter((a) => a.category === slug);
   const currentPage = typeof resolvedSearchParams.page === 'string' ? parseInt(resolvedSearchParams.page, 10) : 1;
   const limit = 10;
   const totalPages = Math.ceil(allArticles.length / limit);

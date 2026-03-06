@@ -2,8 +2,8 @@ import Link from "next/link";
 import { getFeaturedArticles } from "@/lib/articles";
 import { Zap } from "lucide-react";
 
-export default function TrendingTicker() {
-  const trending = getFeaturedArticles().slice(0, 5);
+export default async function TrendingTicker() {
+  const trending = (await getFeaturedArticles()).slice(0, 5);
 
   if (trending.length === 0) return null;
 

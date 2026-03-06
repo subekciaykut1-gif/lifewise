@@ -13,7 +13,7 @@ function escapeXml(s: string): string {
 }
 
 export async function GET() {
-  const articles = getPublishedArticles().slice(0, 50);
+  const articles = (await getPublishedArticles()).slice(0, 50);
   const lastBuild = articles[0] ? new Date(articles[0].publishedAt || articles[0].date).toUTCString() : new Date().toUTCString();
 
   const items = articles
