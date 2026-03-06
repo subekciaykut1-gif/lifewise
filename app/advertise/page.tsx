@@ -71,10 +71,10 @@ export default function AdvertisePage() {
           Contact our advertising team to request a media kit and discuss custom packages.
         </p>
         <a 
-          href="mailto:advertise@lifewise.com" 
+          href="mailto:hello@wisetips.co" 
           className="inline-block bg-accent text-white font-ui font-bold text-sm uppercase tracking-widest px-8 py-4 rounded-lg hover:bg-white hover:text-primary transition-all shadow-lg hover:-translate-y-1"
         >
-          Email Us: advertise@lifewise.com
+          Email Us: hello@wisetips.co
         </a>
       </div>
     </div>

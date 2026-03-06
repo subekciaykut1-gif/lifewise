@@ -25,7 +25,7 @@ export default function ContactPage() {
       <div className="mt-12 text-center font-body text-muted">
         <p>
           Prefer email? You can reach us directly at: <br />
-          <a href="mailto:hello@lifewise.com" className="text-accent font-bold hover:underline">hello@lifewise.com</a>
+          <a href="mailto:hello@wisetips.co" className="text-accent font-bold hover:underline">hello@wisetips.co</a>
         </p>
       </div>
     </div>

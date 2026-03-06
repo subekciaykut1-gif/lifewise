@@ -55,7 +55,7 @@ export default function AffiliateDisclosurePage() {
 
         <h2>Questions?</h2>
         <p>
-          If you have any questions about our affiliate relationships or how we make money, please don't hesitate to contact us at <a href="mailto:hello@lifewise.com">hello@lifewise.com</a>.
+          If you have any questions about our affiliate relationships or how we make money, please don't hesitate to contact us at <a href="mailto:hello@wisetips.co">hello@wisetips.co</a>.
         </p>
       </div>
     </div>

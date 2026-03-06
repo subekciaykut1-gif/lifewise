@@ -64,6 +64,11 @@ export default function CookiePolicyPage() {
           <li>Google Ad Settings: <a href="https://adssettings.google.com">https://adssettings.google.com</a></li>
           <li>Network Advertising Initiative: <a href="http://optout.networkadvertising.org">http://optout.networkadvertising.org</a></li>
         </ul>
+
+        <h2>Contact Us</h2>
+        <p>
+          If you have any questions about our use of cookies, please contact us at <a href="mailto:hello@wisetips.co">hello@wisetips.co</a>.
+        </p>
       </div>
     </div>
   );

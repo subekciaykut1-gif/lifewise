@@ -107,7 +107,7 @@ export default function PrivacyPolicyPage() {
 
         <h2>Contact Us</h2>
         <p>
-          If you have any questions about our Privacy Policy, please do not hesitate to contact us at <a href="mailto:hello@lifewise.com">hello@lifewise.com</a>.
+          If you have any questions about our Privacy Policy, please do not hesitate to contact us at <a href="mailto:hello@wisetips.co">hello@wisetips.co</a>.
         </p>
       </div>
     </div>

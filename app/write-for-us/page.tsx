@@ -48,7 +48,7 @@ export default function WriteForUsPage() {
         
         <div className="bg-accent-soft border-l-4 border-accent p-6 my-8 rounded-r-lg">
           <p className="font-bold text-lg mb-2 text-primary">Submission Email:</p>
-          <a href="mailto:submissions@lifewise.com" className="text-accent font-bold text-xl hover:underline">submissions@lifewise.com</a>
+          <a href="mailto:hello@wisetips.co" className="text-accent font-bold text-xl hover:underline">hello@wisetips.co</a>
           <p className="text-sm text-muted mt-2">Please use the subject line: "Guest Post Pitch: [Your Topic]"</p>
         </div>
 

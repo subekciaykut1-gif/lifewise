@@ -90,6 +90,11 @@ export default function TermsOfUsePage() {
         <p>
           These Terms will be governed by and interpreted in accordance with the laws of the State of California, and you submit to the non-exclusive jurisdiction of the state and federal courts located in California for the resolution of any disputes.
         </p>
+
+        <h2>12. Contact Us</h2>
+        <p>
+          If you have any questions about these Terms of Use, please contact us at <a href="mailto:hello@wisetips.co">hello@wisetips.co</a>.
+        </p>
       </div>
     </div>
   );
