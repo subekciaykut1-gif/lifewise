@@ -1,16 +1,9 @@
+# *
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://wisetips.co/sitemaps/sitemap-index.xml
+# Host
+Host: https://wisetips.co
 
-# RSS feed (latest articles)
-# https://wisetips.co/feed
-
-# Optional: limit aggressive crawling (some bots ignore Crawl-delay)
-# Crawl-delay: 10
-
-# Search and pagination (noindex these if you use query params for filters)
-Disallow: /search?
-Disallow: /*?page=
-Disallow: /*?filter=
+# Sitemaps
+Sitemap: https://wisetips.co/sitemap.xml

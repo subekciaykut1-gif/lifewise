@@ -10,6 +10,7 @@ import BackToTop from "@/components/ui/BackToTop";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import OrganizationSchema from "@/components/seo/OrganizationSchema";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -85,18 +86,7 @@ export default function RootLayout({
         )}
       </head>
       <body className="antialiased min-h-screen flex flex-col bg-bg text-primary font-body">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "LifeWise",
-              url: SITE_URL,
-              logo: `${SITE_URL}/favicon.ico`,
-            }),
-          }}
-        />
+        <OrganizationSchema />
         <a href="#main" className="skip-link">
           Skip to main content
         </a>
