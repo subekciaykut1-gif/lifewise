@@ -3,8 +3,13 @@
 import { Mail } from "lucide-react";
 import { useState } from "react";
 import { trackNewsletterSignup } from "@/lib/analytics";
+import { cn } from "@/lib/utils";
 
-export default function NewsletterBanner() {
+interface NewsletterBannerProps {
+  sidebar?: boolean;
+}
+
+export default function NewsletterBanner({ sidebar }: NewsletterBannerProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
@@ -28,7 +33,7 @@ export default function NewsletterBanner() {
         setStatus("success");
         setMessage(data.message);
         setEmail("");
-        trackNewsletterSignup("newsletter_banner", "Subscribe Free");
+        trackNewsletterSignup(sidebar ? "sidebar_newsletter" : "newsletter_banner", "Subscribe Free");
       } else {
         setStatus("error");
         setMessage(data.error || "Subscription failed.");
@@ -40,7 +45,10 @@ export default function NewsletterBanner() {
   };
 
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-gradient-newsletter p-6 md:p-12 flex flex-col items-center md:flex-row md:items-center gap-6 md:gap-8 mb-10 shadow-lg">
+    <div className={cn(
+      "relative overflow-hidden rounded-2xl bg-gradient-newsletter flex flex-col items-center gap-6 shadow-lg",
+      sidebar ? "p-6" : "md:p-12 md:flex-row md:items-center md:gap-8 p-6 mb-10"
+    )}>
       {/* Decorative Circle */}
       <div className="absolute -top-10 -right-10 w-[200px] h-[200px] rounded-full bg-accent/30 blur-3xl pointer-events-none"></div>
       
