@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Search } from "lucide-react";
 import { categories } from "@/lib/categories";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import TrendingTicker from "./TrendingTicker";
 
 export default function Header() {
   return (
@@ -38,6 +39,7 @@ export default function Header() {
           </div>
         </nav>
       </div>
+      <TrendingTicker />
     </header>
   );
 }
