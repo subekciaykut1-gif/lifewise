@@ -213,11 +213,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
           {/* Right Column: Sidebar */}
           <aside className="space-y-8 min-w-0">
-            <div className="sticky top-28 space-y-8">
-              <AdSlot slot="sidebar-sticky" format="vertical" height={600} />
-            </div>
             <AdSlot slot="sidebar-top" format="rectangle" height={300} />
             <NewsletterBanner sidebar />
+            <div className="sticky top-28">
+              <AdSlot slot="sidebar-sticky" format="vertical" height={600} />
+            </div>
           </aside>
         </div>
       </div>

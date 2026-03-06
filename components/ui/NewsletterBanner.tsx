@@ -52,19 +52,30 @@ export default function NewsletterBanner({ sidebar }: NewsletterBannerProps) {
       {/* Decorative Circle */}
       <div className="absolute -top-10 -right-10 w-[200px] h-[200px] rounded-full bg-accent/30 blur-3xl pointer-events-none"></div>
       
-      <div className="text-[3rem] md:text-[3.5rem] flex-shrink-0 animate-bounce">📬</div>
-      
-      <div className="flex-1 text-center md:text-left z-10 w-full">
-        <h3 className="font-display text-[1.4rem] md:text-[1.5rem] font-bold text-white mb-2 leading-tight">
+        <div className={cn(
+          "w-16 h-16 bg-accent-soft rounded-2xl flex items-center justify-center mx-auto mb-4 rotate-2",
+          sidebar ? "w-12 h-12 mb-3" : "w-16 h-16 mb-4"
+        )}>
+           <Mail className="text-accent" size={sidebar ? 24 : 32} />
+        </div>
+
+        <h3 className={cn(
+          "font-display font-bold text-white mb-2 leading-tight",
+          sidebar ? "text-[1.2rem]" : "text-[1.4rem] md:text-[1.5rem]"
+        )}>
           Join 50,000+ Smart Readers
         </h3>
-        <p className="font-ui text-[0.9rem] text-white/70 leading-relaxed max-w-[400px] mx-auto md:mx-0">
-          Get the best life hacks, health tips & viral stories delivered weekly — free!
-        </p>
-      </div>
-
+        {!sidebar && (
+          <p className="font-ui text-[0.9rem] text-white/70 leading-relaxed max-w-[400px] mx-auto md:mx-0">
+            Get the best life hacks, health tips & viral stories delivered weekly — free!
+          </p>
+        )}
+ 
       <form 
-        className="flex flex-col gap-3 w-full md:w-auto flex-shrink-0 z-10"
+        className={cn(
+          "flex flex-col gap-3 w-full z-10",
+          sidebar ? "" : "md:w-auto md:flex-shrink-0"
+        )}
         onSubmit={handleSubmit}
       >
         <input 
@@ -74,11 +85,17 @@ export default function NewsletterBanner({ sidebar }: NewsletterBannerProps) {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white font-ui text-[0.9rem] w-full md:w-[240px] focus:outline-none focus:border-white/50 focus:bg-white/15 placeholder:text-white/40 transition-all"
+          className={cn(
+            "bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white font-ui text-[0.9rem] w-full focus:outline-none focus:border-white/50 focus:bg-white/15 placeholder:text-white/40 transition-all",
+            sidebar ? "" : "md:w-[240px]"
+          )}
         />
         
         {message && (
-          <div className={`p-2 rounded-md text-xs font-ui ${status === "success" ? "bg-green-500/20 text-green-100" : "bg-red-500/20 text-red-100"}`}>
+          <div className={cn(
+            "p-2 rounded-md text-xs font-ui",
+            status === "success" ? "bg-green-500/20 text-green-100" : "bg-red-500/20 text-red-100"
+          )}>
             {message}
           </div>
         )}
