@@ -30,13 +30,13 @@ export default function ArticleAnalytics({ articleTitle, category, author }: Art
       });
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [articleTitle]);
+  }, [articleTitle, category, author]);
 
   // Click Tracking Delegation
   useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
+    const handleClick = (e: Event) => {
       const target = (e.target as HTMLElement).closest("a");
       if (!target) return;
 
@@ -61,21 +61,10 @@ export default function ArticleAnalytics({ articleTitle, category, author }: Art
       // but specific link tracking can be added here if needed.
     };
 
-    const articleContainer = document.querySelector("article");
-    if (articleContainer) {
-      articleContainer.addEventListener("click", handleClick);
-    } else {
-      document.addEventListener("click", handleClick);
-    }
-
-    return () => {
-      if (articleContainer) {
-        articleContainer.removeEventListener("click", handleClick);
-      } else {
-        document.removeEventListener("click", handleClick);
-      }
-    };
-  }, [articleTitle]);
+    const container = document.querySelector("article") ?? document;
+    container.addEventListener("click", handleClick);
+    return () => container.removeEventListener("click", handleClick);
+  }, [articleTitle, category]);
 
   return null;
 }

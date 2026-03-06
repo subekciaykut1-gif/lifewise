@@ -11,7 +11,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const mailchimpUrl = process.env.NEXT_PUBLIC_MAILCHIMP_URL;
+    // Server-only env var (no NEXT_PUBLIC_ prefix so it's never exposed to the browser)
+    const mailchimpUrl = process.env.MAILCHIMP_URL ?? process.env.NEXT_PUBLIC_MAILCHIMP_URL;
 
     if (!mailchimpUrl || mailchimpUrl === '#') {
       return NextResponse.json(

@@ -10,9 +10,9 @@ const SLOT_TO_ENV: Record<string, string> = {
   "sidebar-sticky": "NEXT_PUBLIC_AD_SLOT_SIDEBAR_STICKY",
   "home-mid": "NEXT_PUBLIC_AD_SLOT_HOME_MID",
   "category-mid": "NEXT_PUBLIC_AD_SLOT_CATEGORY_MID",
-  "trending-bottom": "NEXT_PUBLIC_AD_SLOT_CATEGORY_MID",
-  "latest-bottom": "NEXT_PUBLIC_AD_SLOT_CATEGORY_MID",
-  "in-content-1": "NEXT_PUBLIC_AD_SLOT_CATEGORY_MID",
+  "trending-bottom": "NEXT_PUBLIC_AD_SLOT_TRENDING_BOTTOM",
+  "latest-bottom": "NEXT_PUBLIC_AD_SLOT_LATEST_BOTTOM",
+  "in-content-1": "NEXT_PUBLIC_AD_SLOT_IN_CONTENT_1",
 };
 
 interface AdSlotProps {
