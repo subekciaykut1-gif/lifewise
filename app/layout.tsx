@@ -37,6 +37,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
   },
+  other: {
+    "pinterest-rich-pin": "true",
+  },
   twitter: {
     card: "summary_large_image",
   },

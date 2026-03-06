@@ -14,7 +14,9 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import AffiliateLink from "@/components/monetization/AffiliateLink";
 import ArticleAnalytics from "@/components/analytics/ArticleAnalytics";
 import DisqusComments from "@/components/ui/DisqusComments";
+import PinterestSaveButton from "@/components/social/PinterestSaveButton";
 import { addAmazonTag } from "@/lib/affiliate";
+import { getPinterestImageUrl } from "@/lib/pinterestImage";
 
 interface ArticlePageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -35,11 +37,13 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   const article = getArticleBySlug(slug, category);
   if (!article) return {};
   const canonical = `${SITE_URL}/${category}/${slug}`;
+  const pinterestImage = getPinterestImageUrl(article, SITE_URL);
   return {
     title: article.title,
     description: article.excerpt,
     openGraph: {
-      images: [article.image || "/images/placeholder.jpg"],
+      type: "article",
+      images: [pinterestImage, article.image || "/images/placeholder.jpg"].filter(Boolean),
     },
     alternates: { canonical },
     robots: "index, follow, max-snippet:-1, max-image-preview:large",
@@ -119,8 +123,13 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               
               <div className="h-8 w-px bg-border hidden sm:block"></div>
               
-              <div className="flex gap-4 text-muted font-ui text-xs">
+              <div className="flex flex-wrap items-center gap-4 text-muted font-ui text-xs">
                 <span className="flex items-center gap-1.5"><Clock size={14} /> {article.readTime} min read</span>
+                <PinterestSaveButton
+                  url={`${SITE_URL}/${categorySlug}/${slug}`}
+                  imageUrl={getPinterestImageUrl(article, SITE_URL)}
+                  description={article.title}
+                />
               </div>
             </div>
 
