@@ -175,7 +175,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 </div>
                 <div>
                   <div className="font-ui text-sm font-bold text-primary group-hover:text-accent transition-colors">
-                    {persona.name}
+                    <Link href={`/author/${article.author?.toLowerCase().replace(/\s+/g, '-') || categorySlug}`} className="hover:text-accent transition-colors">
+                      {persona.name}
+                    </Link>
                   </div>
                   <div className="font-ui text-xs text-muted">
                     {format(new Date(article.date), "MMMM d, yyyy")}
