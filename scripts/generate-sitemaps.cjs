@@ -9,6 +9,7 @@ const matter = require("gray-matter");
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
 const ARTICLES_DIR = path.join(process.cwd(), "content", "articles");
 const SITEMAP_DIR = path.join(process.cwd(), "public", "sitemaps");
+const PUBLIC_DIR = path.join(process.cwd(), "public");
 
 function getFiles(dir) {
   if (!fs.existsSync(dir)) return [];
@@ -94,7 +95,7 @@ ${urlset}
   </sitemap>
 ${indexEntries.map((e) => `  <sitemap>\n    <loc>${escapeXml(e.loc)}</loc>\n    <lastmod>${e.lastmod}</lastmod>\n  </sitemap>`).join("\n")}
 </sitemapindex>`;
-  fs.writeFileSync(path.join(SITEMAP_DIR, "sitemap-index.xml"), indexXml);
+  fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap.xml"), indexXml);
 
   const staticUrls = [
     { path: "", priority: "1.0" },
