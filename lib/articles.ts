@@ -105,15 +105,34 @@ export function getArticlesByCategory(categorySlug: string): Article[] {
   return articles.filter((article) => article.category === categorySlug);
 }
 
+function getDynamicScore(article: Article): number {
+  let score = article.views || 0;
+  
+  // Recency Boost
+  const pubDate = new Date(article.publishedAt || article.date);
+  const now = new Date();
+  const daysOld = (now.getTime() - pubDate.getTime()) / (1000 * 60 * 60 * 24);
+  
+  if (daysOld < 7) score += 2000;
+  else if (daysOld < 30) score += 1000;
+  
+  // Manual Feature Weight (Editor's Choice)
+  if (article.featured) score += 5000;
+  
+  return score;
+}
+
 export function getFeaturedArticles(): Article[] {
   const articles = getPublishedArticles();
-  return articles.filter((article) => article.featured);
+  return [...articles].sort((a, b) => getDynamicScore(b) - getDynamicScore(a));
 }
 
 export function getMostReadArticles(): Article[] {
   const articles = getPublishedArticles();
-  return articles.filter((article) => article.mostRead);
+  // Most read focuses more on views but still respects basic popularity
+  return [...articles].sort((a, b) => (b.views || 0) - (a.views || 0));
 }
+
 
 export function getRelatedArticles(currentArticle: Article, limit: number = 3): Article[] {
   const allArticles = getPublishedArticles();
