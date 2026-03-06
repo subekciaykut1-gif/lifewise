@@ -29,6 +29,7 @@ import LiveViewCounter from "@/components/analytics/LiveViewCounter";
 import SmartAffiliateBox from "@/components/monetization/SmartAffiliateBox";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import AuthorBio from "@/components/article/AuthorBio";
+import { getAuthorPersona } from "@/lib/authors";
 
 interface ArticlePageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -215,7 +216,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
             <SmartAffiliateBox category={article.category} keywords={article.keywords || article.tags} />
 
-            <AuthorBio name={article.author || "WiseTips Editorial"} />
+            {(() => {
+              const persona = getAuthorPersona(article.author || article.category);
+              return <AuthorBio persona={persona} />;
+            })()}
 
             <p className="my-8 py-4 px-4 rounded-lg bg-surface border border-border text-center font-body text-muted text-sm">
               Get more tips in your inbox —{" "}
