@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Article } from "@/lib/articles";
-import { Clock, Eye, Calendar } from "lucide-react";
+import { Clock, Calendar, Eye } from "lucide-react";
 import { format } from "date-fns";
+import { formatViewCount } from "@/lib/article-views";
 
 interface HeroArticleProps {
   article: Article;
@@ -58,9 +59,11 @@ export default function HeroArticle({ article }: HeroArticleProps) {
             <span className="font-ui text-xs flex items-center gap-1.5">
               <Clock size={14} /> {article.readTime} min read
             </span>
-            <span className="font-ui text-xs flex items-center gap-1.5">
-              <Eye size={14} /> 128K views
-            </span>
+            {typeof article.views === "number" && (
+              <span className="font-ui text-xs flex items-center gap-1.5">
+                <Eye size={14} /> {formatViewCount(article.views)} views
+              </span>
+            )}
           </div>
 
           <Link 

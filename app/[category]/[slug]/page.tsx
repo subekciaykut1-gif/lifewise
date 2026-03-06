@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Link from "next/link";
 import { format } from "date-fns";
-import { Clock } from "lucide-react";
+import { Clock, Eye } from "lucide-react";
+import { formatViewCount } from "@/lib/article-views";
 import Image from "next/image";
 import Sidebar from "@/components/layout/Sidebar";
 import AdSlot from "@/components/monetization/AdSlot";
@@ -125,6 +126,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               
               <div className="flex flex-wrap items-center gap-4 text-muted font-ui text-xs">
                 <span className="flex items-center gap-1.5"><Clock size={14} /> {article.readTime} min read</span>
+                {typeof article.views === "number" && (
+                  <span className="flex items-center gap-1.5"><Eye size={14} /> {formatViewCount(article.views)} views</span>
+                )}
                 <PinterestSaveButton
                   url={`${SITE_URL}/${categorySlug}/${slug}`}
                   imageUrl={getPinterestImageUrl(article, SITE_URL)}

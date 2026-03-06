@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint .",
     "generate:sitemaps": "node scripts/generate-sitemaps.cjs",
-    "generate:articles": "node scripts/generate-598-articles.cjs"
+    "generate:articles": "node scripts/generate-598-articles.cjs",
+    "generate:article-views": "node scripts/generate-article-views.cjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

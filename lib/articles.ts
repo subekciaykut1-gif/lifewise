@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { getArticleImage } from "./article-images";
+import { getArticleViews } from "./article-views";
 
 const articlesDirectory = path.join(process.cwd(), "content/articles");
 const publicDirectory = path.join(process.cwd(), "public");
@@ -24,6 +25,8 @@ export interface Article {
   mostRead: boolean;
   author?: string;
   content: string;
+  /** View count from data/article-views.json (optional). */
+  views?: number;
 }
 
 function getFiles(dir: string): string[] {
@@ -53,11 +56,14 @@ function loadAllArticles(): Article[] {
         publicDirectory
       );
 
+      const category = data.category || "life-hacks";
+      const views = getArticleViews(category, slug);
       return {
         slug,
         content,
         ...data,
         image: imagePath,
+        views,
       } as Article;
     });
 
