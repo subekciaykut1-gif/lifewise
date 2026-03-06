@@ -19,6 +19,8 @@ export interface Article {
   tags: string[];
   date: string;
   publishedAt?: string;
+  /** When the article was last updated (optional). Use in schema and show "Updated ..." in UI. */
+  dateModified?: string;
   readTime: number;
   image: string;
   featured: boolean;

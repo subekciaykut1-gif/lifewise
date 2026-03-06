@@ -2,6 +2,10 @@ import Link from "next/link";
 import { Facebook, Twitter, Instagram, Youtube, PinIcon } from "lucide-react";
 import { categories } from "@/lib/categories";
 
+const twitterUrl = process.env.NEXT_PUBLIC_TWITTER_URL || "#";
+const youtubeUrl = process.env.NEXT_PUBLIC_YOUTUBE_URL || "#";
+const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL || "#";
+
 export default function Footer() {
   return (
     <footer className="bg-primary text-white/70 mt-12 md:mt-16">
@@ -21,13 +25,13 @@ export default function Footer() {
               <a href="https://www.pinterest.com/wisetipsco/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-white/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on Pinterest">
                 <PinIcon size={18} />
               </a>
-              <a href="#" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-white/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on X (Twitter)">
+              <a href={twitterUrl} target="_blank" rel="noopener noreferrer" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-white/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on X (Twitter)">
                 <Twitter size={18} />
               </a>
-              <a href="#" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-white/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on YouTube">
+              <a href={youtubeUrl} target="_blank" rel="noopener noreferrer" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-white/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on YouTube">
                 <Youtube size={18} />
               </a>
-              <a href="#" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-white/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on Instagram">
+              <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-white/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on Instagram">
                 <Instagram size={18} />
               </a>
             </div>
@@ -69,6 +73,7 @@ export default function Footer() {
             <Link href="/privacy-policy" className="font-ui text-[0.72rem] text-white/35 hover:text-white/60 transition-colors min-h-[44px] flex items-center">Privacy Policy</Link>
             <Link href="/cookie-policy" className="font-ui text-[0.72rem] text-white/35 hover:text-white/60 transition-colors min-h-[44px] flex items-center">Cookie Policy</Link>
             <Link href="/sitemap.xml" className="font-ui text-[0.72rem] text-white/35 hover:text-white/60 transition-colors min-h-[44px] flex items-center">Sitemap</Link>
+            <Link href="/feed" className="font-ui text-[0.72rem] text-white/35 hover:text-white/60 transition-colors min-h-[44px] flex items-center">RSS</Link>
           </div>
         </div>
       </div>

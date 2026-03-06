@@ -64,6 +64,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${sourceSerif.variable} ${inter.variable}`}>
       <head>
+        <link rel="alternate" type="application/rss+xml" title="LifeWise RSS" href={`${process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co"}/feed`} />
         <meta name="p:domain_verify" content="f953a2206b94ac2b1c8eda09eb16381c"/>
         <GoogleAnalytics gaId={gaId} />
         {adsenseId && (

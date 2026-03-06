@@ -16,6 +16,7 @@ import AffiliateLink from "@/components/monetization/AffiliateLink";
 import ArticleAnalytics from "@/components/analytics/ArticleAnalytics";
 import DisqusComments from "@/components/ui/DisqusComments";
 import PinterestSaveButton from "@/components/social/PinterestSaveButton";
+import ShareBar from "@/components/social/ShareBar";
 import { addAmazonTag } from "@/lib/affiliate";
 import { getPinterestImageUrl } from "@/lib/pinterestImage";
 
@@ -79,14 +80,25 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     headline: article.title,
     description: article.excerpt,
     datePublished: publishedAt,
-    dateModified: publishedAt,
+    dateModified: article.dateModified || publishedAt,
     author: { "@type": "Person", name: article.author || "WiseTips Editorial" },
     publisher: { "@type": "Organization", name: "WiseTips", url: SITE_URL },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: category?.name || categorySlug, item: `${SITE_URL}/category/${categorySlug}` },
+      { "@type": "ListItem", position: 3, name: article.title, item: `${SITE_URL}/${categorySlug}/${slug}` },
+    ],
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <ReadingProgress />
       <ArticleAnalytics articleTitle={article.title} category={categorySlug} author={article.author || "WiseTips Editorial"} />
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">
@@ -118,7 +130,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 </div>
                 <div>
                   <div className="font-ui text-sm font-bold text-primary">{article.author || "WiseTips Editorial"}</div>
-                  <div className="font-ui text-xs text-muted">{format(new Date(article.date), "MMMM d, yyyy")}</div>
+                  <div className="font-ui text-xs text-muted">
+                    {format(new Date(article.date), "MMMM d, yyyy")}
+                    {article.dateModified && (
+                      <span className="ml-1"> · Updated {format(new Date(article.dateModified), "MMM d, yyyy")}</span>
+                    )}
+                  </div>
                 </div>
               </div>
               
@@ -134,6 +151,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   imageUrl={getPinterestImageUrl(article, SITE_URL)}
                   description={article.title}
                 />
+                <ShareBar url={`${SITE_URL}/${categorySlug}/${slug}`} title={article.title} description={article.excerpt} />
               </div>
             </div>
 
