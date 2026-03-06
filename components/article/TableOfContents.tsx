@@ -53,8 +53,8 @@ export default function TableOfContents() {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="hidden lg:block h-fit max-h-[calc(100vh-8rem)] overflow-y-auto w-full p-6 bg-surface border border-border rounded-xl shadow-sm">
-      <h4 className="font-display text-[1rem] font-bold text-primary mb-4 uppercase tracking-wider border-b border-border pb-2">
+    <nav className="hidden lg:block h-fit max-h-[calc(100vh-8rem)] overflow-y-auto w-full py-2 pr-6">
+      <h4 className="font-display text-[0.9rem] font-bold text-primary mb-6 uppercase tracking-[0.2em] opacity-50">
         In This Article
       </h4>
       <ul className="space-y-3">

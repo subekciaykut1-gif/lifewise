@@ -102,8 +102,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <ViewTracker slug={slug} category={categorySlug} />
       <ReadingProgress />
       <ArticleAnalytics articleTitle={article.title} category={categorySlug} author={article.author || "LifeWise Editorial"} />
-      <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 md:gap-10">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_320px] lg:grid-cols-[260px_1fr_320px] gap-8 md:gap-10">
+          {/* Left Column: TOC (Desktop only) */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-28">
+              <TableOfContents />
+            </div>
+          </aside>
+
+          {/* Center Column: Article Content */}
           <article className="min-w-0 prose-article">
             {/* Breadcrumbs */}
             <nav className="flex items-center gap-2 text-xs text-muted font-ui mb-5 overflow-hidden" aria-label="Breadcrumb">
@@ -201,12 +209,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               url={`${SITE_URL}/${categorySlug}/${slug}`}
               title={article.title}
             />
-
           </article>
 
+          {/* Right Column: Sidebar */}
           <aside className="space-y-8 min-w-0">
             <div className="sticky top-28 space-y-8">
-              <TableOfContents />
               <AdSlot slot="sidebar-sticky" format="vertical" height={600} />
             </div>
             <AdSlot slot="sidebar-top" format="rectangle" height={300} />
