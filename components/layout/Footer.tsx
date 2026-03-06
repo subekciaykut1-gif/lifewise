@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Facebook, Twitter, Instagram, Youtube, PinIcon } from "lucide-react";
-import { categories } from "@/lib/categories";
 import { getPublishedArticles } from "@/lib/articles";
 
 const twitterUrl = process.env.NEXT_PUBLIC_TWITTER_URL || "#";
@@ -13,7 +12,6 @@ export default async function Footer() {
     <footer className="no-print bg-primary dark:bg-surface text-bg/70 dark:text-primary/70 mt-12 md:mt-16">
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 py-10 md:py-12 pb-6 md:pb-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 md:gap-10 pb-8 md:pb-10 border-b border-bg/10 dark:border-primary/10 mb-6 md:mb-8">
-          {/* ... (rest of the footer content) */}
           <div>
             <div className="font-display text-[1.8rem] font-extrabold text-bg dark:text-primary tracking-tighter mb-3">
               Life<span className="text-accent">Wise</span>
@@ -21,7 +19,6 @@ export default async function Footer() {
             <p className="font-body text-[0.85rem] text-bg/50 dark:text-primary/70 italic mb-5 leading-relaxed">
               Smarter living, every day. Tips, life hacks, health advice and viral stories for curious minds.
             </p>
-            {/* ... social links ... */}
             <div className="flex gap-3">
               <a href="https://www.facebook.com/wisetipsco/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-bg/10 dark:bg-primary/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on Facebook">
                 <Facebook size={18} />

@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { getArticleImage } from "./article-images";
-import { getArticleViews, getAllArticleViews } from "./article-views";
+import { getAllArticleViews } from "./article-views";
 import { cache } from "react";
 
 const articlesDirectory = path.join(process.cwd(), "content/articles");
