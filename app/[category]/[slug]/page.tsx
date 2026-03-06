@@ -11,6 +11,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import AdSlot from "@/components/monetization/AdSlot";
 import RelatedArticles from "@/components/articles/RelatedArticles";
 import ReadingProgress from "@/components/ui/ReadingProgress";
+import NewsletterBanner from "@/components/ui/NewsletterBanner";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import AffiliateLink from "@/components/monetization/AffiliateLink";
 import ArticleAnalytics from "@/components/analytics/ArticleAnalytics";
@@ -21,6 +22,7 @@ import { addAmazonTag } from "@/lib/affiliate";
 import { getPinterestImageUrl } from "@/lib/pinterestImage";
 import { SITE_URL } from "@/lib/site";
 import ViewTracker from "@/components/analytics/ViewTracker";
+import TableOfContents from "@/components/article/TableOfContents";
 
 interface ArticlePageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -102,7 +104,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <ArticleAnalytics articleTitle={article.title} category={categorySlug} author={article.author || "LifeWise Editorial"} />
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 md:gap-10">
-          <article className="min-w-0">
+          <article className="min-w-0 prose-article">
             {/* Breadcrumbs */}
             <nav className="flex items-center gap-2 text-xs text-muted font-ui mb-5 overflow-hidden" aria-label="Breadcrumb">
               <Link href="/" className="hover:text-accent transition-colors shrink-0">Home</Link>
@@ -202,7 +204,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
           </article>
 
-          <Sidebar />
+          <aside className="space-y-8">
+            <TableOfContents />
+            <AdSlot slot="sidebar-top" format="rectangle" height={300} />
+            <NewsletterBanner />
+            <AdSlot slot="sidebar-sticky" format="vertical" className="sticky top-28" height={600} />
+          </aside>
         </div>
       </div>
     </>

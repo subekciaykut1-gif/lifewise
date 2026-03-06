@@ -12,6 +12,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import ExitIntentModal from "@/components/ui/ExitIntentModal";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -99,6 +100,7 @@ export default function RootLayout({
           <Footer />
           <CookieBanner />
           <BackToTop />
+          <ExitIntentModal />
           <Analytics />
           <SpeedInsights />
         </ThemeProvider>
