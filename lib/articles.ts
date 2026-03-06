@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { getArticleImage } from "./article-images";
 
 const articlesDirectory = path.join(process.cwd(), "content/articles");
 const publicDirectory = path.join(process.cwd(), "public");
@@ -39,20 +40,13 @@ export function getAllArticles(): Article[] {
       const fileContents = fs.readFileSync(filePath, "utf8");
       const { data, content } = matter(fileContents);
       const slug = path.basename(filePath, ".mdx");
-      
-      // Check if image exists in public folder
-      let imagePath = data.image;
-      if (imagePath) {
-        const fullImagePath = path.join(publicDirectory, imagePath);
-        if (!fs.existsSync(fullImagePath)) {
-          // If image doesn't exist locally, use fallback
-          imagePath = `https://picsum.photos/seed/${slug}/600/400`;
-        }
-      } else {
-        // If no image specified, use fallback
-        imagePath = `https://picsum.photos/seed/${slug}/600/400`;
-      }
-      
+      const imagePath = getArticleImage(
+        slug,
+        data.category || "life-hacks",
+        data.image,
+        publicDirectory
+      );
+
       return {
         slug,
         content,
