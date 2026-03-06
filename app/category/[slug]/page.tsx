@@ -1,16 +1,14 @@
 import { getPublishedArticles } from "@/lib/articles";
 import { getCategoryBySlug, categories } from "@/lib/categories";
-import ArticleGrid from "@/components/articles/ArticleGrid";
+import ArticleGridWithLoadMore from "@/components/articles/ArticleGridWithLoadMore";
 import Sidebar from "@/components/layout/Sidebar";
 import AdSlot from "@/components/monetization/AdSlot";
-import Pagination from "@/components/ui/Pagination";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateStaticParams() {
@@ -36,18 +34,13 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   };
 }
 
-export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
+export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = await params;
-  const resolvedSearchParams = await searchParams;
   const category = getCategoryBySlug(slug);
   
   if (!category) notFound();
 
   const allArticles = (await getPublishedArticles()).filter((a) => a.category === slug);
-  const currentPage = typeof resolvedSearchParams.page === 'string' ? parseInt(resolvedSearchParams.page, 10) : 1;
-  const limit = 10;
-  const totalPages = Math.ceil(allArticles.length / limit);
-  const articles = allArticles.slice((currentPage - 1) * limit, currentPage * limit);
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">
@@ -64,11 +57,8 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 md:gap-10">
         <main className="min-w-0">
-          {articles.length > 0 ? (
-            <>
-              <ArticleGrid articles={articles} />
-              <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl={`/category/${slug}`} />
-            </>
+          {allArticles.length > 0 ? (
+            <ArticleGridWithLoadMore articles={allArticles} initialCount={12} perPage={12} />
           ) : (
             <div className="text-center py-20 bg-surface border border-border rounded-xl">
               <p className="text-muted font-ui text-sm">No articles found on this page.</p>

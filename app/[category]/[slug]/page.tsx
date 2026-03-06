@@ -30,6 +30,7 @@ import SmartAffiliateBox from "@/components/monetization/SmartAffiliateBox";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import AuthorBio from "@/components/article/AuthorBio";
 import { getAuthorPersona } from "@/lib/authors";
+import ArticleReactions from "@/components/article/ArticleReactions";
 
 interface ArticlePageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -230,6 +231,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               const persona = getAuthorPersona(article.author || article.category);
               return <AuthorBio persona={persona} />;
             })()}
+            <ArticleReactions category={categorySlug} slug={slug} />
 
             <p className="my-8 py-4 px-4 rounded-lg bg-surface border border-border text-center font-body text-muted text-sm">
               Get more tips in your inbox —{" "}
