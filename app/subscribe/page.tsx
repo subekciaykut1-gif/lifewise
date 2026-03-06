@@ -1,9 +1,17 @@
 import { Metadata } from "next";
 import SubscribeForm from "@/components/forms/SubscribeForm";
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
+
 export const metadata: Metadata = {
   title: "Subscribe to LifeWise",
   description: "Join 50,000+ smart readers. Get the best life hacks, health tips, and viral stories delivered weekly.",
+  alternates: { canonical: `${baseUrl}/subscribe` },
+  openGraph: {
+    url: `${baseUrl}/subscribe`,
+    title: "Subscribe to LifeWise | LifeWise",
+    description: "Join 50,000+ smart readers. Get the best life hacks, health tips, and viral stories delivered weekly.",
+  },
 };
 
 export default function SubscribePage() {

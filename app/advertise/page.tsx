@@ -1,8 +1,16 @@
 import { Metadata } from "next";
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
+
 export const metadata: Metadata = {
   title: "Advertise with Us",
   description: "Reach 50,000+ monthly readers with LifeWise advertising. Display ads, sponsored content, and newsletter sponsorships.",
+  alternates: { canonical: `${baseUrl}/advertise` },
+  openGraph: {
+    url: `${baseUrl}/advertise`,
+    title: "Advertise with Us | LifeWise",
+    description: "Reach 50,000+ monthly readers with LifeWise advertising. Display ads, sponsored content, and newsletter sponsorships.",
+  },
 };
 
 export default function AdvertisePage() {

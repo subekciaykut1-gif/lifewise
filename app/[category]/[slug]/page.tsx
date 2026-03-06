@@ -174,6 +174,14 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               <MDXRemote source={article.content} components={components} />
             </div>
 
+            <p className="my-8 py-4 px-4 rounded-lg bg-surface border border-border text-center font-body text-muted text-sm">
+              Get more tips in your inbox —{" "}
+              <Link href="/subscribe" className="text-accent font-semibold hover:underline">
+                Subscribe free
+              </Link>
+              .
+            </p>
+
             <div className="my-10 pt-8 border-t border-border">
                <h3 className="font-display text-xl font-bold mb-4">Tags</h3>
                <div className="flex flex-wrap gap-2">

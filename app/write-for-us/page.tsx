@@ -1,8 +1,16 @@
 import { Metadata } from "next";
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
+
 export const metadata: Metadata = {
   title: "Write for Us",
   description: "Contribute to LifeWise! We're looking for expert writers in health, home, and lifestyle topics.",
+  alternates: { canonical: `${baseUrl}/write-for-us` },
+  openGraph: {
+    url: `${baseUrl}/write-for-us`,
+    title: "Write for Us | LifeWise",
+    description: "Contribute to LifeWise! We're looking for expert writers in health, home, and lifestyle topics.",
+  },
 };
 
 export default function WriteForUsPage() {

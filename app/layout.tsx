@@ -70,6 +70,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
         <link rel="alternate" type="application/rss+xml" title="LifeWise RSS" href={`${process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co"}/feed`} />
+        <link rel="apple-touch-icon" href="/favicon.ico" />
         <meta name="p:domain_verify" content="f953a2206b94ac2b1c8eda09eb16381c"/>
         <GoogleAnalytics gaId={gaId} />
         {adsenseId && (
@@ -83,6 +84,18 @@ export default function RootLayout({
         )}
       </head>
       <body className="antialiased min-h-screen flex flex-col bg-bg text-primary font-body">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "LifeWise",
+              url: process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co",
+              logo: `${process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co"}/favicon.ico`,
+            }),
+          }}
+        />
         <a href="#main" className="skip-link">
           Skip to main content
         </a>

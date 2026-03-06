@@ -1,8 +1,16 @@
 import { Metadata } from "next";
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
+
 export const metadata: Metadata = {
   title: "About Us",
   description: "Learn about LifeWise, our mission to help you live smarter every day, and our editorial standards.",
+  alternates: { canonical: `${baseUrl}/about` },
+  openGraph: {
+    url: `${baseUrl}/about`,
+    title: "About Us | LifeWise",
+    description: "Learn about LifeWise, our mission to help you live smarter every day, and our editorial standards.",
+  },
 };
 
 export default function AboutPage() {
