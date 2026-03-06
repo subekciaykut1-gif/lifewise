@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-bg: #FAFAF7;
+  --color-surface: #FFFFFF;
+  --color-primary: #1A1A2E;
+  --color-accent: #E8572A;
+  --color-accent-soft: #FFF0EB;
+  --color-muted: #6B7280;
+  --color-border: #E5E7EB;
+  --color-gold: #C9A84C;
+
+  /* Fonts */
+  --font-display: var(--font-playfair-display), serif;
+  --font-body: var(--font-source-serif-4), serif;
+  --font-ui: var(--font-inter), sans-serif;
+
+  /* Spacing (Gaps/Padding) - Removed to fix max-width conflict */
+
+  /* Border Radius */
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 16px 40px rgba(26, 26, 46, 0.1);
+  --shadow-cta-hover: 0 8px 24px rgba(232, 87, 42, 0.4);
+  --shadow-cookie: 0 24px 48px rgba(0, 0, 0, 0.3);
+
+  /* Animations */
+  --ease-fast: 0.1s ease;
+  --ease-normal: 0.2s ease;
+  --ease-slow: 0.4s ease;
+}
+
+@layer base {
+  :root {
+    /* Custom Gradients */
+    --gradient-hero: linear-gradient(135deg, #1A1A2E 0%, #2d2d4e 50%, #3a1a0e 100%);
+    --gradient-overlay: radial-gradient(ellipse at 70% 40%, rgba(232,87,42,0.25) 0%, transparent 60%),
+                        radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.15) 0%, transparent 50%),
+                        linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.85) 100%);
+    --gradient-newsletter: linear-gradient(135deg, var(--color-primary) 0%, #2d2d4e 100%);
+    --gradient-author: linear-gradient(135deg, var(--color-accent) 0%, var(--color-gold) 100%);
+    
+    /* Ad Slot Colors */
+    --ad-bg: linear-gradient(135deg, #f8f8f5 0%, #f0ede8 100%);
+    --ad-border: #d1cdc7;
+    --ad-text-muted: #a0998f;
+    --ad-text-light: #c0b9b0;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+  }
+
+  /* Global Fix for Paragraph Wrapping Issue - REMOVED */
+}
+
+/* Utilities for custom gradients */
+@utility bg-gradient-hero {
+  background-image: var(--gradient-hero);
+}
+@utility bg-gradient-overlay {
+  background-image: var(--gradient-overlay);
+}
+@utility bg-gradient-newsletter {
+  background-image: var(--gradient-newsletter);
+}
+@utility bg-gradient-author {
+  background-image: var(--gradient-author);
+}
+@utility bg-ad {
+  background-image: var(--ad-bg);
+}

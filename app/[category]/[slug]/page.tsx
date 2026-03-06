@@ -1,0 +1,150 @@
+import { getArticleBySlug, getAllArticles, getArticlesByCategory } from "@/lib/articles";
+import { getCategoryBySlug } from "@/lib/categories";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
+import Link from "next/link";
+import { format } from "date-fns";
+import { Clock } from "lucide-react";
+import Image from "next/image";
+import Sidebar from "@/components/layout/Sidebar";
+import AdSlot from "@/components/monetization/AdSlot";
+import RelatedArticles from "@/components/articles/RelatedArticles";
+import ReadingProgress from "@/components/ui/ReadingProgress";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import AffiliateLink from "@/components/monetization/AffiliateLink";
+import ArticleAnalytics from "@/components/analytics/ArticleAnalytics";
+import DisqusComments from "@/components/ui/DisqusComments";
+
+interface ArticlePageProps {
+  params: Promise<{ category: string; slug: string }>;
+}
+
+export async function generateStaticParams() {
+  const articles = getAllArticles();
+  return articles.map((article) => ({
+    category: article.category,
+    slug: article.slug,
+  }));
+}
+
+export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
+  const { slug, category } = await params;
+  const article = getArticleBySlug(slug, category);
+  if (!article) return {};
+  
+  return {
+    title: article.title,
+    description: article.excerpt,
+    openGraph: {
+      images: [article.image || "/images/placeholder.jpg"],
+    },
+  };
+}
+
+const components = {
+  AffiliateLink,
+  AdSlot,
+  // Add more custom components here
+};
+
+export default async function ArticlePage({ params }: ArticlePageProps) {
+  const { category: categorySlug, slug } = await params;
+  const article = getArticleBySlug(slug, categorySlug);
+  const category = getCategoryBySlug(categorySlug);
+
+  if (!article) notFound();
+
+  // Related articles (same category, exclude current)
+  const relatedArticles = getArticlesByCategory(categorySlug)
+    .filter(a => a.slug !== slug);
+
+  return (
+    <>
+      <ReadingProgress />
+      <ArticleAnalytics articleTitle={article.title} category={categorySlug} author="LifeWise Editorial" />
+      <div className="max-w-[1280px] mx-auto px-6 mt-10 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10">
+          <article className="min-w-0">
+            {/* Breadcrumbs */}
+            <nav className="flex items-center gap-2 text-xs text-muted font-ui mb-5">
+              <Link href="/" className="hover:text-accent transition-colors">Home</Link>
+              <span>›</span>
+              <Link href={`/category/${categorySlug}`} className="hover:text-accent transition-colors capitalize">
+                {category?.name || categorySlug}
+              </Link>
+              <span>›</span>
+              <span className="truncate max-w-[200px] text-primary font-medium">{article.title}</span>
+            </nav>
+
+            <span className="inline-block bg-accent-soft text-accent font-ui text-[0.68rem] font-bold uppercase tracking-widest px-3 py-1.5 rounded mb-4">
+              {category?.icon} {category?.name}
+            </span>
+
+            <h1 className="font-display text-[2.2rem] md:text-[2.8rem] font-extrabold text-primary leading-tight mb-5 tracking-tight">
+              {article.title}
+            </h1>
+
+            <div className="flex flex-wrap items-center gap-6 pb-6 border-b border-border mb-8">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-accent to-gold flex items-center justify-center text-white font-display font-bold text-xs shadow-md">
+                  LW
+                </div>
+                <div>
+                  <div className="font-ui text-sm font-bold text-primary">LifeWise Editorial</div>
+                  <div className="font-ui text-xs text-muted">{format(new Date(article.date), "MMMM d, yyyy")}</div>
+                </div>
+              </div>
+              
+              <div className="h-8 w-px bg-border hidden sm:block"></div>
+              
+              <div className="flex gap-4 text-muted font-ui text-xs">
+                <span className="flex items-center gap-1.5"><Clock size={14} /> {article.readTime} min read</span>
+              </div>
+            </div>
+
+            <AdSlot slot="article-top" format="leaderboard" height={90} className="mb-8" />
+
+            {/* Hero Image */}
+            <div className="aspect-video rounded-xl overflow-hidden mb-8 shadow-lg relative bg-primary">
+              <Image
+                src={article.image || `https://picsum.photos/seed/${article.slug}/1200/630`}
+                alt={article.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 1280px"
+                priority
+              />
+            </div>
+
+            {/* Article Content */}
+            <div className="prose prose-lg max-w-none font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
+              <MDXRemote source={article.content} components={components} />
+            </div>
+
+            <div className="my-10 pt-8 border-t border-border">
+               <h3 className="font-display text-xl font-bold mb-4">Tags</h3>
+               <div className="flex flex-wrap gap-2">
+                 {article.tags?.map(tag => (
+                   <span key={tag} className="bg-bg border border-border px-3 py-1 rounded-full text-xs font-ui text-muted uppercase tracking-wide">#{tag}</span>
+                 ))}
+               </div>
+            </div>
+
+            <AdSlot slot="article-bottom" format="auto" height={250} className="my-10" />
+
+            <RelatedArticles articles={relatedArticles} />
+
+            <DisqusComments
+              identifier={`${categorySlug}/${slug}`}
+              url={`${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/${categorySlug}/${slug}`}
+              title={article.title}
+            />
+
+          </article>
+
+          <Sidebar />
+        </div>
+      </div>
+    </>
+  );
+}
