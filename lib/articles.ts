@@ -24,6 +24,8 @@ export interface Article {
   mostRead: boolean;
   author?: string;
   content: string;
+  /** SEO keywords for meta tags and schema (optional). */
+  keywords?: string[];
   /** View count from data/article-views.json (optional). */
   views?: number;
 }

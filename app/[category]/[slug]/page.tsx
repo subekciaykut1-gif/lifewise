@@ -45,9 +45,19 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   return {
     title: article.title,
     description: article.excerpt,
+    keywords: article.keywords || article.tags?.join(", "),
     openGraph: {
       type: "article",
-      images: [pinterestImage, article.image || "/images/placeholder.jpg"].filter(Boolean),
+      title: article.title,
+      description: article.excerpt,
+      images: [pinterestImage, article.image || "/images/placeholder.jpg"].filter(Boolean).map(url => ({ url })),
+      url: canonical,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [article.image || "/images/placeholder.jpg"].filter(Boolean),
     },
     alternates: { canonical },
     robots: "index, follow, max-snippet:-1, max-image-preview:large",
@@ -79,10 +89,24 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     "@type": "Article",
     headline: article.title,
     description: article.excerpt,
+    image: [article.image || "/images/placeholder.jpg"].filter(Boolean),
     datePublished: publishedAt,
     dateModified: article.dateModified || publishedAt,
     author: { "@type": "Person", name: article.author || "LifeWise Editorial" },
-    publisher: { "@type": "Organization", name: "LifeWise", url: SITE_URL },
+    publisher: { 
+      "@type": "Organization", 
+      name: "LifeWise", 
+      url: SITE_URL,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/logo.png` 
+      }
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/${categorySlug}/${slug}`
+    },
+    keywords: article.keywords?.join(", ") || article.tags?.join(", ")
   };
 
   const breadcrumbJsonLd = {
