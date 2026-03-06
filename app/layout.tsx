@@ -59,8 +59,9 @@ export default function RootLayout({
         <meta name="p:domain_verify" content="f953a2206b94ac2b1c8eda09eb16381c"/>
         <GoogleAnalytics gaId={gaId} />
         {adsenseId && (
-          <Script 
-            async 
+          <Script
+            id="adsense"
+            async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`}
             crossOrigin="anonymous"
             strategy="afterInteractive"

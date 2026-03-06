@@ -58,11 +58,12 @@ export default function Home() {
               {mostRead.map((article, i) => (
                 <Link key={article.slug} href={`/${article.category}/${article.slug}`} className="flex-shrink-0 w-[240px] group no-underline">
                   <div className="relative aspect-[3/2] rounded-lg overflow-hidden mb-3">
-                    <Image 
+                    <Image
                       src={article.image}
-                      alt={article.title} 
+                      alt={article.title}
                       fill
-                      style={{ objectFit: 'cover' }}
+                      sizes="240px"
+                      style={{ objectFit: "cover" }}
                       className="transition-transform duration-500 group-hover:scale-105"
                     />
                     <span className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm text-primary font-display font-bold text-xs w-6 h-6 flex items-center justify-center rounded-full shadow-sm">

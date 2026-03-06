@@ -16,11 +16,12 @@ export default function ArticleCard({ article }: ArticleCardProps) {
   return (
     <article className="group bg-surface border border-border rounded-xl overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-card-hover cursor-pointer h-full flex flex-col">
       <Link href={`/${article.category}/${article.slug}`} className="block relative aspect-[16/9] md:aspect-[3/2] overflow-hidden bg-gray-100">
-        <Image 
+        <Image
           src={article.image}
           alt={article.title}
           fill
-          style={{ objectFit: 'cover' }}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
+          style={{ objectFit: "cover" }}
           className="transition-transform duration-500 group-hover:scale-105"
         />
         <span className="absolute bottom-2.5 left-2.5 bg-accent text-white font-ui text-[0.6rem] font-bold uppercase tracking-widest px-2.5 py-1 rounded-[3px] z-10">

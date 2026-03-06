@@ -15,11 +15,12 @@ export default function HeroArticle({ article }: HeroArticleProps) {
     <section className="relative w-full aspect-[4/3] md:aspect-[16/7] rounded-2xl overflow-hidden group cursor-pointer shadow-lg mb-10">
       {/* Background Image & Overlay */}
       <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
-        <Image 
+        <Image
           src={article.image}
           alt={article.title}
           fill
-          style={{ objectFit: 'cover' }}
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 1280px"
+          style={{ objectFit: "cover" }}
           priority
         />
       </div>

@@ -18,11 +18,18 @@ export default function Footer() {
               <a href="https://www.facebook.com/wisetipsco/" target="_blank" rel="noopener noreferrer" className="w-[34px] h-[34px] bg-white/10 rounded-full flex items-center justify-center text-[0.8rem] hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on Facebook">
                 <Facebook size={16} />
               </a>
-              {[Twitter, PinIcon, Youtube, Instagram].map((Icon, i) => (
-                <a key={i} href="#" className="w-[34px] h-[34px] bg-white/10 rounded-full flex items-center justify-center text-[0.8rem] hover:bg-accent hover:text-white transition-colors" aria-label={`Social link ${i + 2}`}>
-                  <Icon size={16} />
-                </a>
-              ))}
+              <a href="https://www.pinterest.com/wisetipsco/" target="_blank" rel="noopener noreferrer" className="w-[34px] h-[34px] bg-white/10 rounded-full flex items-center justify-center text-[0.8rem] hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on Pinterest">
+                <PinIcon size={16} />
+              </a>
+              <a href="#" className="w-[34px] h-[34px] bg-white/10 rounded-full flex items-center justify-center text-[0.8rem] hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on X (Twitter)">
+                <Twitter size={16} />
+              </a>
+              <a href="#" className="w-[34px] h-[34px] bg-white/10 rounded-full flex items-center justify-center text-[0.8rem] hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on YouTube">
+                <Youtube size={16} />
+              </a>
+              <a href="#" className="w-[34px] h-[34px] bg-white/10 rounded-full flex items-center justify-center text-[0.8rem] hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on Instagram">
+                <Instagram size={16} />
+              </a>
             </div>
           </div>
           
