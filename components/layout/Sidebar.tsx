@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Trophy, FolderOpen } from "lucide-react";
+import { Trophy, FolderOpen, Clock } from "lucide-react";
 import { categories } from "@/lib/categories";
 import AdSlot from "@/components/monetization/AdSlot";
 import { getPublishedArticles, getMostReadArticles } from "@/lib/articles";
@@ -42,6 +42,34 @@ export default function Sidebar() {
             <p className="font-display text-[0.82rem] font-semibold text-primary leading-snug group-hover:text-accent transition-colors line-clamp-2">
               {article.title}
             </p>
+          </Link>
+        ))}
+      </div>
+
+      <div className="bg-surface border border-border rounded-xl p-5 mb-6">
+        <div className="font-display text-base font-bold text-primary mb-4 pb-2.5 border-b-2 border-border flex items-center gap-2">
+          <Clock size={18} className="text-accent" /> Latest Tips
+        </div>
+        
+        {articles.slice(0, 5).map((article) => (
+          <Link key={article.slug} href={`/${article.category}/${article.slug}`} className="flex gap-3 items-center py-2 border-b border-border last:border-0 cursor-pointer group no-underline">
+            <div className="w-10 h-10 rounded-full shrink-0 overflow-hidden relative border border-border">
+               <Image 
+                 src={article.image}
+                 alt={article.title} 
+                 fill
+                 style={{ objectFit: 'cover' }}
+                 className="transition-transform duration-500 group-hover:scale-110"
+               />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="font-display text-[0.78rem] font-bold text-primary leading-tight group-hover:text-accent transition-colors line-clamp-2">
+                {article.title}
+              </p>
+              <span className="text-[0.6rem] text-muted uppercase tracking-wider font-ui mt-0.5 block">
+                {article.category}
+              </span>
+            </div>
           </Link>
         ))}
       </div>

@@ -58,7 +58,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
           {category.name}
         </h1>
         <p className="font-body text-muted max-w-[600px] w-full mx-auto text-base md:text-lg leading-relaxed text-center px-1">
-          Explore our latest articles, guides, and tips about {category.name.toLowerCase()}.
+          {category.description || `Explore our latest articles, guides, and tips about ${category.name.toLowerCase()}.`}
         </p>
       </div>
 

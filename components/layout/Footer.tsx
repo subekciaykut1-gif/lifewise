@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Facebook, Twitter, Instagram, Youtube, PinIcon } from "lucide-react";
 import { categories } from "@/lib/categories";
+import { getPublishedArticles } from "@/lib/articles";
 
 const twitterUrl = process.env.NEXT_PUBLIC_TWITTER_URL || "#";
 const youtubeUrl = process.env.NEXT_PUBLIC_YOUTUBE_URL || "#";
@@ -38,10 +39,14 @@ export default function Footer() {
           </div>
           
           <div className="footer-col">
-            <h4 className="font-ui text-[0.7rem] font-bold uppercase tracking-widest text-bg/40 dark:text-primary/50 mb-4">Categories</h4>
-            <ul className="list-none space-y-2">
-              {categories.slice(0, 6).map(cat => (
-                <li key={cat.slug}><Link href={`/category/${cat.slug}`} className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{cat.name}</Link></li>
+            <h4 className="font-ui text-[0.7rem] font-bold uppercase tracking-widest text-bg/40 dark:text-primary/50 mb-4">Latest Articles</h4>
+            <ul className="list-none space-y-2.5">
+              {getPublishedArticles().slice(0, 5).map(article => (
+                <li key={article.slug}>
+                  <Link href={`/${article.category}/${article.slug}`} className="font-ui text-[0.8rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors line-clamp-1">
+                    {article.title}
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>
