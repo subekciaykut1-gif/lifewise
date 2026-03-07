@@ -53,7 +53,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
           ) : (
             <button 
               onClick={() => setIsAuthModalOpen(true)}
-              className="hidden sm:inline-flex bg-accent text-white border-none px-[18px] py-2.5 min-h-[44px] items-center rounded-[20px] font-ui text-[0.8rem] font-semibold cursor-pointer tracking-normal hover:shadow-cta-hover transition-all transform hover:-translate-y-px no-underline"
+              className="inline-flex bg-accent text-white border-none px-4 sm:px-[18px] py-2 sm:py-2.5 min-h-[40px] sm:min-h-[44px] items-center rounded-[20px] font-ui text-[0.75rem] sm:text-[0.8rem] font-semibold cursor-pointer tracking-normal hover:shadow-cta-hover transition-all transform hover:-translate-y-px no-underline"
             >
               Sign In
             </button>
