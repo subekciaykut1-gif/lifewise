@@ -19,8 +19,16 @@
   },
   "Article": {
     "minRead": "min read",
+    "views": "views",
+    "helpful": "Helpful?",
+    "youLikedThis": "You liked this!",
+    "saveThisHack": "Save this hack",
+    "removeBookmark": "Remove from saved hacks",
+    "shareArticle": "Share this article",
     "relatedArticles": "Related Articles",
     "tags": "Tags",
+    "subscribePrompt": "Get more tips in your inbox —",
+    "subscribeFree": "Subscribe free",
     "tableOfContents": "Table of Contents",
     "wasThisHelpful": "Was this article helpful?",
     "thanksForReaction": "Thanks for your reaction!"
