@@ -13,6 +13,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import ExitIntentModal from "@/components/ui/ExitIntentModal";
+import SessionWrapper from "@/components/auth/SessionWrapper";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -89,20 +90,22 @@ export default function RootLayout({
       </head>
       <body className="antialiased min-h-screen flex flex-col bg-bg text-primary font-body transition-colors duration-300">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <OrganizationSchema />
-          <a href="#main" className="skip-link">
-            Skip to main content
-          </a>
-          <Header />
-          <main id="main" className="flex-1">
-            {children}
-          </main>
-          <Footer />
-          <CookieBanner />
-          <BackToTop />
-          <ExitIntentModal />
-          <Analytics />
-          <SpeedInsights />
+          <SessionWrapper>
+            <OrganizationSchema />
+            <a href="#main" className="skip-link">
+              Skip to main content
+            </a>
+            <Header />
+            <main id="main" className="flex-1">
+              {children}
+            </main>
+            <Footer />
+            <CookieBanner />
+            <BackToTop />
+            <ExitIntentModal />
+            <Analytics />
+            <SpeedInsights />
+          </SessionWrapper>
         </ThemeProvider>
       </body>
     </html>
