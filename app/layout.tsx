@@ -13,6 +13,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import ExitIntentModal from "@/components/ui/ExitIntentModal";
+import Pollfish from "@/components/monetization/Pollfish";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -65,6 +66,7 @@ export default function RootLayout({
 }>) {
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "";
   const adsenseId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID;
+  const pollfishApiKey = process.env.NEXT_PUBLIC_POLLFISH_API_KEY || "";
 
   return (
     <html lang="en" className={`${playfair.variable} ${sourceSerif.variable} ${inter.variable}`} suppressHydrationWarning>
@@ -101,6 +103,7 @@ export default function RootLayout({
           <CookieBanner />
           <BackToTop />
           <ExitIntentModal />
+          <Pollfish apiKey={pollfishApiKey} />
           <Analytics />
           <SpeedInsights />
         </ThemeProvider>
