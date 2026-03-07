@@ -54,15 +54,12 @@ files.forEach(file => {
   const content = fs.readFileSync(filePath, 'utf8');
   const { data, content: body } = matter(content);
   
-  if (data.image && data.image.includes('photo-1?')) {
+  if (data.image && (data.image.includes('photo-1?') || data.image.includes('images.unsplash.com'))) {
     const category = data.category || 'life-hacks';
-    const images = VALID_IMAGES[category] || VALID_IMAGES['life-hacks'];
     
-    // Choose a random image from the pool, seeded by slug to keep it consistent
-    const seed = file.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    const chosenImage = images[seed % images.length];
-    
-    data.image = chosenImage;
+    // Use picsum.photos with the slug as a unique seed to ensure no duplicates
+    // We add category to the seed to keep it thematic if needed, but slug is unique enough
+    data.image = `https://picsum.photos/seed/${file}-${category}/1200/800`;
     
     const newFileContent = matter.stringify(body, data);
     fs.writeFileSync(filePath, newFileContent);
@@ -70,4 +67,5 @@ files.forEach(file => {
   }
 });
 
-console.log(`Successfully fixed ${updatedCount} placeholder images.`);
+console.log(`Successfully updated ${updatedCount} articles with unique seeded images.`);
+
