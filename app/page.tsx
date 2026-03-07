@@ -1,4 +1,7 @@
 import { getPublishedArticles, getFeaturedArticles, getMostReadArticles } from "@/lib/articles";
+
+export const revalidate = 3600; // Revalidate every hour
+
 import HeroArticle from "@/components/articles/HeroArticle";
 import ArticleGrid from "@/components/articles/ArticleGrid";
 import Sidebar from "@/components/layout/Sidebar";

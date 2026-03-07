@@ -1,5 +1,9 @@
 # Publishing Schedule: March 7 - December 31, 2026
 
+> [!NOTE]
+> This file is a **manual reference document**. The **Status** column does not update automatically. Actual article publication is controlled by the `publishedAt` field in each article's `.mdx` file.
+
+
 | # | Filename | Title | Category | Date | Time | Status |
 |---|----------|-------|----------|------|------|--------|
 | 1 | hydrogen-peroxide-cleaning-uses.mdx | Hydrogen Peroxide Cleaning Uses | cleaning | 2026-03-07 | 09:00:00Z | Scheduled |

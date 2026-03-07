@@ -1,4 +1,7 @@
 import { getArticleBySlug, getAllArticles, getPublishedArticles, getRelatedArticles } from "@/lib/articles";
+
+export const revalidate = 3600; // Revalidate every hour
+
 import { getCategoryBySlug } from "@/lib/categories";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";

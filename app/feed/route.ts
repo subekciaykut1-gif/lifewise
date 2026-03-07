@@ -1,4 +1,7 @@
 import { getPublishedArticles } from "@/lib/articles";
+
+export const revalidate = 3600; // Revalidate every hour
+
 import { SITE_URL } from "@/lib/site";
 
 const SITE_NAME = "LifeWise";
