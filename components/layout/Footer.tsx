@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Facebook, Twitter, Instagram, Youtube, PinIcon } from "lucide-react";
 import { getPublishedArticles } from "@/lib/articles";
+import { Article } from "@/lib/types";
 
 const twitterUrl = process.env.NEXT_PUBLIC_TWITTER_URL || "#";
 const youtubeUrl = process.env.NEXT_PUBLIC_YOUTUBE_URL || "#";

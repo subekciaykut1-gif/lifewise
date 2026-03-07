@@ -1,3 +1,5 @@
+"use server";
+
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -8,27 +10,7 @@ import { cache } from "react";
 const articlesDirectory = path.join(process.cwd(), "content/articles");
 const publicDirectory = path.join(process.cwd(), "public");
 
-export interface Article {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  tags: string[];
-  date: string;
-  publishedAt?: string;
-  /** When the article was last updated (optional). Use in schema and show "Updated ..." in UI. */
-  dateModified?: string;
-  readTime: number;
-  image: string;
-  featured: boolean;
-  mostRead: boolean;
-  author?: string;
-  content: string;
-  /** SEO keywords for meta tags and schema (optional). */
-  keywords?: string[];
-  /** View count from Neon Database (optional). */
-  views?: number;
-}
+import { Article } from "./types";
 
 function getFiles(dir: string): string[] {
   const subdirs = fs.readdirSync(dir);

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Article, getRelatedArticles } from "@/lib/articles";
+import { Article } from "@/lib/types";
+import { getRelatedArticles } from "@/lib/articles";
 import { ArrowRight } from "lucide-react";
 
 interface ReadNextProps {

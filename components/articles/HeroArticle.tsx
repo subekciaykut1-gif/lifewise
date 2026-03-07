@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Article } from "@/lib/articles";
+import { Article } from "@/lib/types";
 import { Clock, Calendar, Eye } from "lucide-react";
 import { format } from "date-fns";
 import { formatViewCount } from "@/lib/article-views";

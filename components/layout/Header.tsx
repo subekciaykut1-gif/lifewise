@@ -6,10 +6,9 @@ import { useSession, signOut } from "next-auth/react";
 import { Search } from "lucide-react";
 import { categories } from "@/lib/categories";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
-import TrendingTicker from "./TrendingTicker";
 import AuthModal from "@/components/auth/AuthModal";
 
-export default function Header() {
+export default function Header({ children }: { children?: React.ReactNode }) {
   const { data: session, status } = useSession();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
@@ -87,7 +86,7 @@ export default function Header() {
           </div>
         </nav>
       </div>
-      <TrendingTicker />
+      {children}
     </header>
   );
 }

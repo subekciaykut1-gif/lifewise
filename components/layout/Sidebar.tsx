@@ -5,6 +5,7 @@ import { categories } from "@/lib/categories";
 import AdSlot from "@/components/monetization/AdSlot";
 import CustomSurvey from "@/components/ui/CustomSurvey";
 import { getPublishedArticles, getMostReadArticles } from "@/lib/articles";
+import { Article } from "@/lib/types";
 
 export default async function Sidebar() {
   const articles = await getPublishedArticles();

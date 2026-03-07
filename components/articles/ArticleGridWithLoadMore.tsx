@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Article } from "@/lib/articles";
+import { Article } from "@/lib/types";
 import ArticleGrid from "./ArticleGrid";
 import { ChevronDown, Loader2 } from "lucide-react";
 

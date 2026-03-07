@@ -1,3 +1,5 @@
+"use server";
+
 import { formatViewCount } from "./article-views-shared";
 import { sql } from "./db";
 

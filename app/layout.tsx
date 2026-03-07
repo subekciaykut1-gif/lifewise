@@ -14,6 +14,7 @@ import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import ExitIntentModal from "@/components/ui/ExitIntentModal";
 import SessionWrapper from "@/components/auth/SessionWrapper";
+import TrendingTicker from "@/components/layout/TrendingTicker";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -95,7 +96,9 @@ export default function RootLayout({
             <a href="#main" className="skip-link">
               Skip to main content
             </a>
-            <Header />
+            <Header>
+              <TrendingTicker />
+            </Header>
             <main id="main" className="flex-1">
               {children}
             </main>

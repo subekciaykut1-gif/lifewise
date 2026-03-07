@@ -1,4 +1,4 @@
-import { Article } from "@/lib/articles";
+import { Article } from "@/lib/types";
 import ArticleCard from "./ArticleCard";
 
 interface ArticleGridProps {
