@@ -24,6 +24,12 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }: Au
     password: "",
   });
 
+  const [portalNode, setPortalNode] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setPortalNode(document.body);
+  }, []);
+
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -63,12 +69,6 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }: Au
       setLoading(false);
     }
   };
-
-  const [portalNode, setPortalNode] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    setPortalNode(document.body);
-  }, []);
 
   if (!isOpen || !portalNode) return null;
 
