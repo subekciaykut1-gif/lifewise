@@ -3,7 +3,7 @@
  * Use getPinterestImageUrl to get a 1000×1500 image URL (served by /api/pinterest-image).
  */
 
-import type { Article } from "./articles";
+import type { Article } from "./types";
 import { SITE_URL } from "./site";
 
 /**
