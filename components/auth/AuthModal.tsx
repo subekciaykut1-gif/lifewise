@@ -64,20 +64,20 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }: Au
     }
   };
 
-  const [mounted, setMounted] = useState(false);
+  const [portalNode, setPortalNode] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
-    setMounted(true);
+    setPortalNode(document.body);
   }, []);
 
-  if (!isOpen || !mounted) return null;
+  if (!isOpen || !portalNode) return null;
 
   return createPortal(
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div className="absolute inset-0 bg-primary/40 backdrop-blur-sm" onClick={onClose} />
       
-      {/* Modal */}
+      {/* Modal ... */}
       <div className="relative w-full max-w-md max-h-[90vh] overflow-y-auto bg-surface/90 backdrop-blur-xl border border-border rounded-3xl shadow-2xl animate-in zoom-in duration-300">
         <button 
           onClick={onClose}
@@ -176,6 +176,6 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }: Au
         </div>
       </div>
     </div>,
-    document.body
+    portalNode
   );
 }
