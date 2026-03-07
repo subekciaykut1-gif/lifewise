@@ -1,17 +1,9 @@
 import { getPublishedArticles } from "@/lib/articles";
 import { SITE_URL } from "@/lib/site";
-import { NextResponse } from "next/server";
 
 export const revalidate = 3600; // Revalidate every hour
 
 const SITE_NAME = "LifeWise";
-
-const FEED_LANGUAGE: Record<string, string> = {
-  es: "es",
-  fr: "fr",
-  de: "de",
-  pt: "pt",
-};
 
 function escapeXml(s: string): string {
   return String(s)
@@ -22,28 +14,16 @@ function escapeXml(s: string): string {
     .replace(/'/g, "&apos;");
 }
 
-/** Locale-specific feeds: /es/feed, /fr/feed, /de/feed, /pt/feed. English redirects to /feed. */
-export async function GET(
-  _request: Request,
-  context: { params: Promise<{ locale: string }> }
-) {
-  const { locale } = await context.params;
-
-  if (locale === "en") {
-    return NextResponse.redirect(`${SITE_URL}/feed`, 302);
-  }
-
-  const articles = (await getPublishedArticles(locale)).slice(0, 50);
+/** English-only feed at /feed (canonical). Locale feeds at /es/feed, /fr/feed, etc. */
+export async function GET() {
+  const articles = (await getPublishedArticles("en")).slice(0, 50);
   const lastBuild = articles[0]
     ? new Date(articles[0].publishedAt || articles[0].date).toUTCString()
     : new Date().toUTCString();
 
-  const selfLink = `${SITE_URL}/${locale}/feed`;
-  const lang = FEED_LANGUAGE[locale] ?? locale;
-
   const items = articles
     .map((a) => {
-      const link = `${SITE_URL}/${locale}/${a.category}/${a.slug}`;
+      const link = `${SITE_URL}/en/${a.category}/${a.slug}`;
       const pubDate = new Date(a.publishedAt || a.date).toUTCString();
       const title = escapeXml(a.title);
       const description = escapeXml(a.excerpt || "");
@@ -61,11 +41,11 @@ export async function GET(
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>${escapeXml(SITE_NAME)}</title>
-    <link>${SITE_URL}/${locale}</link>
+    <link>${SITE_URL}/en</link>
     <description>Smarter Living, Every Day. Life hacks, health tips, cleaning tricks, and viral stories.</description>
-    <language>${lang}</language>
+    <language>en</language>
     <lastBuildDate>${lastBuild}</lastBuildDate>
-    <atom:link href="${selfLink}" rel="self" type="application/rss+xml" />
+    <atom:link href="${SITE_URL}/feed" rel="self" type="application/rss+xml" />
 ${items}
   </channel>
 </rss>`;
