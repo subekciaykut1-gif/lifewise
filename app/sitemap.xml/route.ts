@@ -51,16 +51,18 @@ export async function GET() {
   
   // Add English articles
   const englishArticles = await getAllArticles();
-  englishArticles.forEach(article => {
-    allArticles.push({ ...article, locale: 'en' });
-  });
+  for (const article of englishArticles) {
+    const articleWithLocale = { ...article, locale: 'en' };
+    allArticles.push(articleWithLocale);
+  }
   
   // Add localized articles
   for (const locale of locales) {
     const localeArticles = await getAllArticles(locale);
-    localeArticles.forEach(article => {
-      allArticles.push({ ...article, locale });
-    });
+    for (const article of localeArticles) {
+      const articleWithLocale = { ...article, locale };
+      allArticles.push(articleWithLocale);
+    }
   }
 
   const staticLastmod = new Date().toISOString().slice(0, 10);
