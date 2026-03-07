@@ -49,7 +49,7 @@ function escapeXml(s: string): string {
 export async function GET() {
   const allArticles: any[] = [];
   
-  // Add English articles
+  // Add English articles (call with no parameters to use default)
   const englishArticles = await getAllArticles();
   for (const article of englishArticles) {
     allArticles.push(Object.assign({}, article, { locale: 'en' }));
