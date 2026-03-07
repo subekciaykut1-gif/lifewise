@@ -6,6 +6,13 @@ const articlesDir = path.join(process.cwd(), 'content/articles');
 const files = fs.readdirSync(articlesDir).filter(f => f.endsWith('.mdx'));
 
 // Pool of valid Unsplash IDs per category based on existing working articles
+const POOL_FILE = path.join(__dirname, '..', 'unsplash-ids-pool.json');
+let pool = { categoryPool: {} };
+
+if (fs.existsSync(POOL_FILE)) {
+  pool = JSON.parse(fs.readFileSync(POOL_FILE, 'utf8'));
+}
+
 const STOP_WORDS = new Set(['the', 'and', 'for', 'with', 'your', 'best', 'tips', 'guide', 'how', 'to', 'this', 'that', 'from', 'uses', 'into', 'top', 'simple', 'easy', 'practical', 'master', 'searching', 'place', 'right', 'effective']);
 
 function getKeywordsFromTitle(title, category) {
@@ -22,12 +29,12 @@ files.forEach(file => {
   const content = fs.readFileSync(filePath, 'utf8');
   const { data, content: body } = matter(content);
   
-  // Force update to refresh relevance with new title-based keywords
+  // Refresh images that are generic or LoremFlickr
   const isGeneric = !data.image || 
                   data.image === "" || 
                   data.image.includes('picsum.photos') || 
                   data.image.includes('photo-1?') ||
-                  data.image.includes('loremflickr.com'); // Force refresh LoremFlickr too
+                  data.image.includes('loremflickr.com'); 
 
   if (isGeneric) {
     const category = data.category || 'life-hacks';
@@ -41,8 +48,17 @@ files.forEach(file => {
     }
     const seed = Math.abs(hash);
 
-    // Use LoremFlickr with title-based keywords + lock for uniqueness
-    data.image = `https://loremflickr.com/1200/800/${keywords}?lock=${seed}`;
+    // Pick from pool if possible
+    const categoryPool = pool.categoryPool[category] || [];
+    if (categoryPool.length > 0) {
+      const index = seed % categoryPool.length;
+      const baseUrl = categoryPool[index];
+      // Append sig and auto-format for uniqueness and quality
+      data.image = `${baseUrl}?auto=format&fit=crop&q=80&w=1200&sig=${seed}`;
+    } else {
+      // Fallback to high-quality Unsplash keyword-based random if pool is empty
+      data.image = `https://images.unsplash.com/photo-1?auto=format&fit=crop&q=80&w=1200&sig=${seed}&q=${keywords}`;
+    }
     
     const newFileContent = matter.stringify(body, data);
     fs.writeFileSync(filePath, newFileContent);
