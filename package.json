@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "generate:sitemaps": "node scripts/generate-sitemaps.cjs",
     "generate:articles": "node scripts/generate-598-articles.cjs",
-    "generate:article-views": "node scripts/generate-article-views.cjs"
+    "generate:article-views": "node scripts/generate-article-views.cjs",
+    "translate:articles": "node scripts/translate-articles-libretranslate.cjs"
   },
   "dependencies": {
     "@auth/neon-adapter": "^1.11.1",

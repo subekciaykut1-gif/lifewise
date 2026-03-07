@@ -1,4 +1,5 @@
 import { getPublishedArticles } from "@/lib/articles";
+import { getLocale } from "next-intl/server";
 
 export const revalidate = 3600; // Revalidate every hour
 
@@ -13,7 +14,8 @@ export const metadata: Metadata = {
 };
 
 export default async function LatestPage() {
-  const articles = await getPublishedArticles(); // Only published, sorted by date
+  const locale = await getLocale();
+  const articles = await getPublishedArticles(locale);
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">

@@ -1,4 +1,5 @@
 import { getMostReadArticles, getPublishedArticles } from "@/lib/articles";
+import { getLocale } from "next-intl/server";
 import ArticleGrid from "@/components/articles/ArticleGrid";
 import Sidebar from "@/components/layout/Sidebar";
 import AdSlot from "@/components/monetization/AdSlot";
@@ -10,8 +11,9 @@ export const metadata: Metadata = {
 };
 
 export default async function TrendingPage() {
-  const mostRead = await getMostReadArticles();
-  const trending = mostRead.length > 0 ? mostRead : (await getPublishedArticles()).slice(0, 9);
+  const locale = await getLocale();
+  const mostRead = await getMostReadArticles(locale);
+  const trending = mostRead.length > 0 ? mostRead : (await getPublishedArticles(locale)).slice(0, 9);
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">

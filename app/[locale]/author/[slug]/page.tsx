@@ -10,18 +10,22 @@ import { SITE_URL } from "@/lib/site";
 import { BookOpen, Tag } from "lucide-react";
 
 interface AuthorPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }
 
+const LOCALES = ["en", "es", "fr", "de", "pt"] as const;
+
 export async function generateStaticParams() {
-  return getAllAuthors().map((a) => ({ slug: a.slug }));
+  return getAllAuthors().flatMap((a) =>
+    LOCALES.map((locale) => ({ slug: a.slug, locale }))
+  );
 }
 
 export async function generateMetadata({ params }: AuthorPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const author = getAuthorBySlug(slug);
   if (!author) return {};
-  const canonical = `${SITE_URL}/author/${slug}`;
+  const canonical = `${SITE_URL}/${locale}/author/${slug}`;
   return {
     title: `${author.name} — ${author.role}`,
     description: author.bio,
@@ -36,11 +40,11 @@ export async function generateMetadata({ params }: AuthorPageProps): Promise<Met
 }
 
 export default async function AuthorPage({ params }: AuthorPageProps) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const author = getAuthorBySlug(slug);
   if (!author) notFound();
 
-  const allArticles = await getPublishedArticles();
+  const allArticles = await getPublishedArticles(locale);
   const authorCategories = getAuthorCategories(slug);
 
   // Articles where frontmatter author matches OR category mapping matches

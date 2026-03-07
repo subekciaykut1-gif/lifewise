@@ -15,14 +15,18 @@ function escapeXml(s: string): string {
     .replace(/'/g, "&apos;");
 }
 
-export async function GET() {
-  const articles = (await getPublishedArticles()).slice(0, 50);
+export async function GET(
+  _request: Request,
+  context: { params: Promise<{ locale?: string }> }
+) {
+  const { locale = "en" } = await context.params;
+  const articles = (await getPublishedArticles(locale)).slice(0, 50);
   const lastBuild = articles[0] ? new Date(articles[0].publishedAt || articles[0].date).toUTCString() : new Date().toUTCString();
 
   const items = articles
     .map(
       (a) => {
-        const link = `${SITE_URL}/${a.category}/${a.slug}`;
+        const link = `${SITE_URL}/${locale}/${a.category}/${a.slug}`;
         const pubDate = new Date(a.publishedAt || a.date).toUTCString();
         const title = escapeXml(a.title);
         const description = escapeXml(a.excerpt || "");

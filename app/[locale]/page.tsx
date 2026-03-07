@@ -11,14 +11,19 @@ import NewsletterBanner from "@/components/ui/NewsletterBanner";
 import AdSlot from "@/components/monetization/AdSlot";
 import Image from "next/image";
 
-export default async function Home() {
-  const articles = await getPublishedArticles();
-  const featuredArticles = await getFeaturedArticles();
+interface HomeProps {
+  params: Promise<{ locale: string }>;
+}
+
+export default async function Home({ params }: HomeProps) {
+  const { locale } = await params;
+  const articles = await getPublishedArticles(locale);
+  const featuredArticles = await getFeaturedArticles(locale);
   const featured = featuredArticles[0] || articles[0]; // Fallback to first
   const latest = articles.slice(0, 6);
   const trending = articles.slice(6, 9); // Mock trending
-  const mostRead = (await getMostReadArticles()).slice(0, 5); // For mobile strip
-  
+  const mostRead = (await getMostReadArticles(locale)).slice(0, 5); // For mobile strip
+
   const tHome = await getTranslations("Home");
   const tNav = await getTranslations("Nav");
   const tCat = await getTranslations("Categories");

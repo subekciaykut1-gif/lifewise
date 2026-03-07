@@ -5,12 +5,12 @@ import { categories } from "@/lib/categories";
 import AdSlot from "@/components/monetization/AdSlot";
 import CustomSurvey from "@/components/ui/CustomSurvey";
 import { getPublishedArticles, getMostReadArticles } from "@/lib/articles";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 
 export default async function Sidebar() {
-  const articles = await getPublishedArticles();
-  // Get real most read articles or fallback to first 5
-  const mostReadArticles = (await getMostReadArticles()).slice(0, 5);
+  const locale = await getLocale();
+  const articles = await getPublishedArticles(locale);
+  const mostReadArticles = (await getMostReadArticles(locale)).slice(0, 5);
   const displayArticles = mostReadArticles.length > 0 ? mostReadArticles : articles.slice(0, 5);
   
   const tHome = await getTranslations("Home");

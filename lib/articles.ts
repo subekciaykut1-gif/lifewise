@@ -5,12 +5,23 @@ import { getArticleImage } from "./article-images";
 import { getAllArticleViews } from "./article-views";
 import { cache } from "react";
 
-const articlesDirectory = path.join(process.cwd(), "content/articles");
+const contentDir = path.join(process.cwd(), "content");
+const articlesDirectory = path.join(contentDir, "articles");
 const publicDirectory = path.join(process.cwd(), "public");
+
+/** Locale -> content subdir (en = articles, es/fr/pt/de = es/fr/pt/de) */
+const LOCALE_DIRS: Record<string, string> = {
+  en: "articles",
+  es: "es",
+  fr: "fr",
+  pt: "pt",
+  de: "de",
+};
 
 import { Article } from "./types";
 
 function getFiles(dir: string): string[] {
+  if (!fs.existsSync(dir)) return [];
   const subdirs = fs.readdirSync(dir);
   const files = subdirs.map((subdir) => {
     const res = path.resolve(dir, subdir);
@@ -19,12 +30,15 @@ function getFiles(dir: string): string[] {
   return files.reduce((a, f) => a.concat(f), []);
 }
 
-async function loadAllArticles(): Promise<Article[]> {
-  if (!fs.existsSync(articlesDirectory)) return [];
+function getArticlesDirForLocale(locale: string): string {
+  const sub = LOCALE_DIRS[locale];
+  if (sub) return path.join(contentDir, sub);
+  return articlesDirectory;
+}
 
-  const filePaths = getFiles(articlesDirectory);
-  
-  // Fetch ALL views in one go for performance
+async function loadArticlesFromDir(dir: string): Promise<Article[]> {
+  if (!fs.existsSync(dir)) return [];
+  const filePaths = getFiles(dir);
   const viewsMap = await getAllArticleViews();
 
   const allArticles = filePaths
@@ -39,10 +53,8 @@ async function loadAllArticles(): Promise<Article[]> {
         data.image,
         publicDirectory
       );
-
       const category = data.category || "life-hacks";
       const views = viewsMap.get(`${category}/${slug}`) || 0;
-      
       return {
         slug,
         content,
@@ -55,14 +67,19 @@ async function loadAllArticles(): Promise<Article[]> {
   return allArticles.sort((a, b) => (new Date(a.date) > new Date(b.date) ? -1 : 1));
 }
 
+async function loadAllArticles(): Promise<Article[]> {
+  return loadArticlesFromDir(articlesDirectory);
+}
+
 /** Cached list of all articles. Uses React's Built-in Cache function. */
 export const getAllArticles = cache(async (): Promise<Article[]> => {
   return loadAllArticles();
 });
 
 /** Returns only articles whose publishedAt (or date) is on or before now. Use for public listing. */
-export async function getPublishedArticles(): Promise<Article[]> {
-  const all = await getAllArticles();
+export const getPublishedArticles = cache(async (locale: string = "en"): Promise<Article[]> => {
+  const dir = getArticlesDirForLocale(locale);
+  const all = await loadArticlesFromDir(dir);
   const now = new Date();
   return all
     .filter((a) => {
@@ -74,18 +91,30 @@ export async function getPublishedArticles(): Promise<Article[]> {
       const db = new Date(b.publishedAt || b.date).getTime();
       return db - da;
     });
-}
+});
 
-export async function getArticleBySlug(slug: string, category?: string): Promise<Article | undefined> {
-  const articles = await getAllArticles();
-  const match = articles.find((article) => article.slug === slug);
+export async function getArticleBySlug(
+  slug: string,
+  category?: string,
+  locale: string = "en"
+): Promise<Article | undefined> {
+  const dir = getArticlesDirForLocale(locale);
+  let articles = await loadArticlesFromDir(dir);
+  let match = articles.find((a) => a.slug === slug);
+  if (!match && locale !== "en") {
+    articles = await loadArticlesFromDir(articlesDirectory);
+    match = articles.find((a) => a.slug === slug);
+  }
   if (!match) return undefined;
   if (category != null && match.category !== category) return undefined;
   return match;
 }
 
-export async function getArticlesByCategory(categorySlug: string): Promise<Article[]> {
-  const articles = await getAllArticles();
+export async function getArticlesByCategory(
+  categorySlug: string,
+  locale: string = "en"
+): Promise<Article[]> {
+  const articles = await getPublishedArticles(locale);
   return articles.filter((article) => article.category === categorySlug);
 }
 
@@ -106,20 +135,22 @@ function getDynamicScore(article: Article): number {
   return score;
 }
 
-export async function getFeaturedArticles(): Promise<Article[]> {
-  const articles = await getPublishedArticles();
+export async function getFeaturedArticles(locale: string = "en"): Promise<Article[]> {
+  const articles = await getPublishedArticles(locale);
   return [...articles].sort((a, b) => getDynamicScore(b) - getDynamicScore(a));
 }
 
-export async function getMostReadArticles(): Promise<Article[]> {
-  const articles = await getPublishedArticles();
-  // Most read focuses more on views but still respects basic popularity
+export async function getMostReadArticles(locale: string = "en"): Promise<Article[]> {
+  const articles = await getPublishedArticles(locale);
   return [...articles].sort((a, b) => (b.views || 0) - (a.views || 0));
 }
 
-
-export async function getRelatedArticles(currentArticle: Article, limit: number = 3): Promise<Article[]> {
-  const allArticles = await getPublishedArticles();
+export async function getRelatedArticles(
+  currentArticle: Article,
+  limit: number = 3,
+  locale: string = "en"
+): Promise<Article[]> {
+  const allArticles = await getPublishedArticles(locale);
   
   return allArticles
     .filter((a) => a.slug !== currentArticle.slug)

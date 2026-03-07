@@ -1,4 +1,4 @@
-import { getPublishedArticles } from "@/lib/articles";
+import { getArticlesByCategory } from "@/lib/articles";
 import { getCategoryBySlug, categories } from "@/lib/categories";
 import ArticleGridWithLoadMore from "@/components/articles/ArticleGridWithLoadMore";
 import Sidebar from "@/components/layout/Sidebar";
@@ -9,22 +9,24 @@ import { SITE_URL } from "@/lib/site";
 import { getTranslations } from "next-intl/server";
 
 interface CategoryPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }
 
+const LOCALES = ["en", "es", "fr", "de", "pt"] as const;
+
 export async function generateStaticParams() {
-  return categories.map((cat) => ({
-    slug: cat.slug,
-  }));
+  return categories.flatMap((cat) =>
+    LOCALES.map((locale) => ({ slug: cat.slug, locale }))
+  );
 }
 
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const category = getCategoryBySlug(slug);
   if (!category) return {};
   const tCat = await getTranslations("Categories");
   const catName = tCat(`${slug}.name`);
-  const canonical = `${SITE_URL}/category/${slug}`;
+  const canonical = `${SITE_URL}/${locale}/category/${slug}`;
   return {
     title: `${catName} Tips & Articles`,
     description: `Explore the best ${catName.toLowerCase()} tips, tricks, and guides on LifeWise. Practical advice and ideas for smarter living.`,
@@ -38,14 +40,14 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const category = getCategoryBySlug(slug);
   const t = await getTranslations("Category");
   const tCat = await getTranslations("Categories");
-  
+
   if (!category) notFound();
 
-  const allArticles = (await getPublishedArticles()).filter((a) => a.category === slug);
+  const allArticles = await getArticlesByCategory(slug, locale);
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-16 md:mb-20">

@@ -1,14 +1,15 @@
 import { Link } from "@/i18n/routing";
 import { Facebook, Twitter, Instagram, Youtube, PinIcon } from "lucide-react";
 import { getPublishedArticles } from "@/lib/articles";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, getLocale } from "next-intl/server";
 
 const twitterUrl = process.env.NEXT_PUBLIC_TWITTER_URL || "#";
 const youtubeUrl = process.env.NEXT_PUBLIC_YOUTUBE_URL || "#";
 const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL || "#";
 
 export default async function Footer() {
-  const latestArticles = (await getPublishedArticles()).slice(0, 5);
+  const locale = await getLocale();
+  const latestArticles = (await getPublishedArticles(locale)).slice(0, 5);
   const t = await getTranslations("Footer");
   
   return (

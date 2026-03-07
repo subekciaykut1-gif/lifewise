@@ -55,10 +55,10 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
-  const { slug, category } = await params;
-  const article = await getArticleBySlug(slug, category);
+  const { slug, category, locale } = await params;
+  const article = await getArticleBySlug(slug, category, locale);
   if (!article) return {};
-  const canonical = `${SITE_URL}/${category}/${slug}`;
+  const canonical = `${SITE_URL}/${locale}/${category}/${slug}`;
   const pinterestImage = getPinterestImageUrl(article, SITE_URL);
   return {
     title: article.title,
@@ -91,16 +91,16 @@ const components = {
 };
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
-  const { category: categorySlug, slug } = await params;
-  const article = await getArticleBySlug(slug, categorySlug);
+  const { category: categorySlug, slug, locale } = await params;
+  const article = await getArticleBySlug(slug, categorySlug, locale);
   const category = getCategoryBySlug(categorySlug);
-  
+
   if (!article) notFound();
 
   const publishedAt = article.publishedAt || article.date;
   if (new Date(publishedAt) > new Date()) notFound();
 
-  const relatedArticles = await getRelatedArticles(article, 6);
+  const relatedArticles = await getRelatedArticles(article, 6, locale);
   const tNav = await getTranslations("Nav");
   const tArticle = await getTranslations("Article");
 
@@ -124,7 +124,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${SITE_URL}/${categorySlug}/${slug}`
+      "@id": `${SITE_URL}/${locale}/${categorySlug}/${slug}`
     },
     keywords: article.keywords?.join(", ") || article.tags?.join(", ")
   };
@@ -133,9 +133,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: tNav("home"), item: SITE_URL },
-      { "@type": "ListItem", position: 2, name: category?.name || categorySlug, item: `${SITE_URL}/category/${categorySlug}` },
-      { "@type": "ListItem", position: 3, name: article.title, item: `${SITE_URL}/${categorySlug}/${slug}` },
+      { "@type": "ListItem", position: 1, name: tNav("home"), item: `${SITE_URL}/${locale}` },
+      { "@type": "ListItem", position: 2, name: category?.name || categorySlug, item: `${SITE_URL}/${locale}/category/${categorySlug}` },
+      { "@type": "ListItem", position: 3, name: article.title, item: `${SITE_URL}/${locale}/${categorySlug}/${slug}` },
     ],
   };
 
@@ -212,11 +212,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 <ArticleUpvoteButton slug={slug} />
                 <BookmarkButton slug={slug} />
                 <PinterestSaveButton
-                  url={`${SITE_URL}/${categorySlug}/${slug}`}
+                  url={`${SITE_URL}/${locale}/${categorySlug}/${slug}`}
                   imageUrl={getPinterestImageUrl(article, SITE_URL)}
                   description={article.title}
                 />
-                <ShareBar url={`${SITE_URL}/${categorySlug}/${slug}`} title={article.title} description={article.excerpt} />
+                <ShareBar url={`${SITE_URL}/${locale}/${categorySlug}/${slug}`} title={article.title} description={article.excerpt} />
               </div>
             </div>
 
@@ -277,8 +277,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <RelatedArticles articles={relatedArticles} />
 
             <DisqusComments
-              identifier={`${categorySlug}/${slug}`}
-              url={`${SITE_URL}/${categorySlug}/${slug}`}
+              identifier={`${locale}/${categorySlug}/${slug}`}
+              url={`${SITE_URL}/${locale}/${categorySlug}/${slug}`}
               title={article.title}
             />
           </article>
