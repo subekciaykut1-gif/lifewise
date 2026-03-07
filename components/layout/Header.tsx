@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/routing";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { Search } from "lucide-react";
 import { categories } from "@/lib/categories";
@@ -13,6 +13,12 @@ export default function Header({ children }: { children?: React.ReactNode }) {
   const { data: session, status } = useSession();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const t = useTranslations("Nav");
+
+  useEffect(() => {
+    const handleOpenAuth = () => setIsAuthModalOpen(true);
+    window.addEventListener('custom:open-auth', handleOpenAuth);
+    return () => window.removeEventListener('custom:open-auth', handleOpenAuth);
+  }, []);
 
   return (
     <header className="no-print sticky top-0 z-50 backdrop-blur-md bg-surface/90 border-b border-border">

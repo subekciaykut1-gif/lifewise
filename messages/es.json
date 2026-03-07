@@ -8,7 +8,8 @@
     "savedHacks": "Hacks guardadas",
     "myProfile": "Mi perfil",
     "viewAll": "Ver todo →",
-    "playNow": "Comenzar cuestionario"
+    "playNow": "Comenzar cuestionario",
+    "authRequired": "Inicie sesión para guardar este truco"
   },
   "Home": {
     "latestArticles": "Últimos artículos",

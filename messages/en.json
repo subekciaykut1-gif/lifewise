@@ -8,7 +8,8 @@
     "savedHacks": "Saved Hacks",
     "myProfile": "My Profile",
     "viewAll": "View All →",
-    "playNow": "Start Quiz"
+    "playNow": "Start Quiz",
+    "authRequired": "Please sign in to bookmark this hack"
   },
   "Home": {
     "latestArticles": "Latest Articles",

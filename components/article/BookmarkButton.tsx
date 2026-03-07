@@ -15,8 +15,9 @@ export default function BookmarkButton({ slug }: BookmarkButtonProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [animate, setAnimate] = useState(false);
+  const tNav = useTranslations("Nav");
   const t = useTranslations("Article");
-
+  
   useEffect(() => {
     if (status === "authenticated" && session?.user) {
       const fetchBookmarkStatus = async () => {
@@ -36,7 +37,7 @@ export default function BookmarkButton({ slug }: BookmarkButtonProps) {
 
   const toggleBookmark = async () => {
     if (status === "unauthenticated") {
-      signIn();
+      window.dispatchEvent(new CustomEvent('custom:open-auth'));
       return;
     }
 
