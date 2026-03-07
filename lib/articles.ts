@@ -72,8 +72,21 @@ async function loadAllArticles(): Promise<Article[]> {
 }
 
 /** Cached list of all articles. Uses React's Built-in Cache function. */
-export const getAllArticles = cache(async (): Promise<Article[]> => {
-  return loadAllArticles();
+export const getAllArticles = cache(async (locale: string = "en"): Promise<Article[]> => {
+  const dir = getArticlesDirForLocale(locale);
+  let all = await loadArticlesFromDir(dir);
+
+  const now = new Date();
+  return all
+    .filter((a) => {
+      const pub = a.publishedAt || a.date;
+      return new Date(pub) <= now;
+    })
+    .sort((a, b) => {
+      const da = new Date(a.publishedAt || a.date).getTime();
+      const db = new Date(b.publishedAt || b.date).getTime();
+      return db - da;
+    });
 });
 
 /** Returns only articles whose publishedAt (or date) is on or before now. Use for public listing. */
