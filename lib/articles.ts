@@ -170,7 +170,7 @@ export async function getRelatedArticles(
   currentArticle: Article,
   limit: number = 3,
   locale?: string
-): Promise<Article[]> => {
+): Promise<Article[]> {
   const allArticles = await getPublishedArticles(locale);
   
   return allArticles
