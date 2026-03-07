@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Trophy, FolderOpen, Clock } from "lucide-react";
 import { categories } from "@/lib/categories";
 import AdSlot from "@/components/monetization/AdSlot";
+import CustomSurvey from "@/components/ui/CustomSurvey";
 import { getPublishedArticles, getMostReadArticles } from "@/lib/articles";
 
 export default async function Sidebar() {
@@ -20,6 +21,8 @@ export default async function Sidebar() {
   return (
     <aside className="no-print space-y-6 hidden md:block">
       <AdSlot slot="sidebar-top" format="rectangle" height={250} />
+
+      <CustomSurvey type="sidebar" />
 
       <div className="bg-surface border border-border rounded-xl p-5 mb-6">
         <div className="font-display text-base font-bold text-primary mb-4 pb-2.5 border-b-2 border-border flex items-center gap-2">
