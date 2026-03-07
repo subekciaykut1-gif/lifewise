@@ -4,6 +4,7 @@ import { Article } from "@/lib/types";
 import { Clock, Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { getAuthorPersona, getAuthorSlug } from "@/lib/authors";
+import BookmarkButton from "@/components/article/BookmarkButton";
 
 interface ArticleCardProps {
   article: Article;
@@ -29,6 +30,9 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           {article.category}
         </span>
       </Link>
+      <div className="absolute top-2.5 right-2.5 z-20">
+        <BookmarkButton slug={article.slug} />
+      </div>
       <div className="p-[12px] pt-[12px] pb-[14px] md:p-4 md:pt-4 md:pb-5 flex flex-col flex-1">
         <Link href={`/${article.category}/${article.slug}`} className="no-underline">
           <h3 className="font-display text-[1rem] md:text-[1.05rem] font-bold text-primary leading-snug mb-2 line-clamp-2 group-hover:text-accent transition-colors">
