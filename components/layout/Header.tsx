@@ -36,6 +36,12 @@ export default function Header() {
                 <span>{cat.icon}</span> <span>{cat.name}</span>
               </Link>
             ))}
+            <Link 
+              href="/quizzes" 
+              className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
+            >
+              <span>🧠</span> <span>Quizzes</span>
+            </Link>
           </div>
         </nav>
       </div>
