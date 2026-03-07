@@ -7,25 +7,19 @@
     "signOut": "Sign Out",
     "savedHacks": "Saved Hacks",
     "myProfile": "My Profile",
-    "viewAll": "View All →"
+    "viewAll": "View All →",
+    "playNow": "Start Quiz"
   },
   "Home": {
     "latestArticles": "Latest Articles",
     "trendingThisWeek": "Trending This Week",
-    "mostRead": "🔥 Most Read"
+    "mostRead": "🔥 Most Read",
+    "trendingTicker": "Trending"
   },
   "Article": {
     "minRead": "min read",
-    "views": "views",
-    "helpful": "Helpful?",
-    "youLikedThis": "You liked this!",
-    "saveThisHack": "Save this hack",
-    "removeBookmark": "Remove from Saved Hacks",
-    "shareArticle": "Share this article",
     "relatedArticles": "Related Articles",
     "tags": "Tags",
-    "subscribePrompt": "Get more tips in your inbox —",
-    "subscribeFree": "Subscribe free",
     "tableOfContents": "Table of Contents",
     "wasThisHelpful": "Was this article helpful?",
     "thanksForReaction": "Thanks for your reaction!"
@@ -39,7 +33,15 @@
     "placeholder": "Search articles, tips & hacks...",
     "results": "results for",
     "noResults": "No results found for",
-    "tryDifferent": "Try a different search term."
+    "tryDifferent": "Try a different search term.",
+    "loading": "Loading search...",
+    "enterTerm": "Enter a search term above.",
+    "noMatch": "No articles match your search."
+  },
+  "Poll": {
+    "title": "Community Poll",
+    "loading": "Loading poll...",
+    "thanksParticipation": "Thanks for participating! {total} members voted."
   },
   "Auth": {
     "welcomeBack": "Welcome Back",
@@ -58,14 +60,6 @@
     "invalidCredentials": "Invalid email or password",
     "google": "Google"
   },
-  "SavedHacks": {
-    "title": "My Saved Hacks",
-    "userDashboard": "User Dashboard",
-    "subtitle": "Your personal library of bookmarked tips and tricks.",
-    "noSaved": "No saved hacks yet",
-    "noSavedDesc": "When you find a life hack you love, click the bookmark icon on the article to save it here for quick reference.",
-    "exploreTopHacks": "Explore Top Hacks"
-  },
   "Footer": {
     "tagline": "Smarter Living, Every Day",
     "about": "About",
@@ -74,8 +68,13 @@
     "contact": "Contact",
     "advertise": "Advertise",
     "writeForUs": "Write for Us",
-    "allRightsReserved": "All Rights Reserved."
+    "allRightsReserved": "All Rights Reserved.",
+    "latestArticles": "Latest Articles",
+    "company": "Company",
+    "legal": "Legal",
+    "sitemap": "Sitemap"
   },
+
   "Newsletter": {
     "title": "Get LifeWise Tips in Your Inbox",
     "subtitle": "Join thousands of readers who start their week smarter. Free, forever.",

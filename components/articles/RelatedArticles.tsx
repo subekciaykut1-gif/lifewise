@@ -1,14 +1,16 @@
+"use client";
+
 import { Article } from "@/lib/types";
 import ArticleCard from "./ArticleCard";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
 interface RelatedArticlesProps {
   articles: Article[];
 }
 
-export default async function RelatedArticles({ articles }: RelatedArticlesProps) {
+export default function RelatedArticles({ articles }: RelatedArticlesProps) {
+  const t = useTranslations("Article");
   if (!articles || articles.length === 0) return null;
-  const t = await getTranslations("Article");
 
   return (
     <div className="no-print mt-12 pt-8 border-t border-border">

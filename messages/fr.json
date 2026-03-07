@@ -7,12 +7,14 @@
     "signOut": "Se déconnecter",
     "savedHacks": "Hacks enregistrés",
     "myProfile": "Mon profil",
-    "viewAll": "Afficher tout →"
+    "viewAll": "Afficher tout →",
+    "playNow": "Commencer le quiz"
   },
   "Home": {
     "latestArticles": "Derniers articles",
     "trendingThisWeek": "Tendance cette semaine",
-    "mostRead": "🔥 Les plus lus"
+    "mostRead": "🔥 Les plus lus",
+    "trendingTicker": "Tendances"
   },
   "Article": {
     "minRead": "lecture min.",
@@ -39,7 +41,15 @@
     "placeholder": "Rechercher des articles, des conseils et des astuces...",
     "results": "résultats pour",
     "noResults": "Aucun résultat trouvé pour",
-    "tryDifferent": "Essayez un autre terme de recherche."
+    "tryDifferent": "Essayez un autre terme de recherche.",
+    "loading": "Chargement de la recherche...",
+    "enterTerm": "Entrez un terme de recherche ci-dessus.",
+    "noMatch": "Aucun article ne correspond à votre recherche."
+  },
+  "Poll": {
+    "title": "Sondage communautaire",
+    "loading": "Chargement du sondage...",
+    "thanksParticipation": "Merci de votre participation ! {total} membres ont voté."
   },
   "Auth": {
     "welcomeBack": "Content de te revoir",
@@ -74,8 +84,13 @@
     "contact": "Contact",
     "advertise": "Annoncer",
     "writeForUs": "Écrivez pour nous",
-    "allRightsReserved": "Tous droits réservés."
+    "allRightsReserved": "Tous droits réservés.",
+    "latestArticles": "Derniers articles",
+    "company": "Entreprise",
+    "legal": "Mentions légales",
+    "sitemap": "Plan du site"
   },
+
   "Newsletter": {
     "title": "Recevez des conseils LifeWise dans votre boîte de réception",
     "subtitle": "Rejoignez des milliers de lecteurs qui commencent leur semaine plus intelligemment. Gratuit, pour toujours.",

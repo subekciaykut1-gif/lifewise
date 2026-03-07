@@ -1,3 +1,5 @@
+"use client";
+
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import { Article } from "@/lib/types";
@@ -5,14 +7,14 @@ import { Clock, Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { getAuthorPersona, getAuthorSlug } from "@/lib/authors";
 import BookmarkButton from "@/components/article/BookmarkButton";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
 interface ArticleCardProps {
   article: Article;
 }
 
-export default async function ArticleCard({ article }: ArticleCardProps) {
-  const t = await getTranslations("Article");
+export default function ArticleCard({ article }: ArticleCardProps) {
+  const t = useTranslations("Article");
   
   // Image fallback is now handled in lib/articles.ts
   const rawExcerpt = (article.content ?? "").substring(0, 120).replace(/[#*]/g, "").trim();
@@ -73,3 +75,4 @@ export default async function ArticleCard({ article }: ArticleCardProps) {
     </article>
   );
 }
+

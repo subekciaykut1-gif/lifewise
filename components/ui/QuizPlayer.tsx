@@ -5,6 +5,7 @@ import { CheckCircle2, XCircle, ArrowRight, RotateCcw, Award, Loader2, Share2 } 
 import { clsx } from "clsx";
 import Image from "next/image";
 import AdSlot from "@/components/monetization/AdSlot";
+import { useTranslations } from "next-intl";
 
 interface Option {
   id: number;
@@ -45,6 +46,11 @@ export default function QuizPlayer({ quizSlug }: { quizSlug: string }) {
   const [isAnswered, setIsAnswered] = useState(false);
   const [score, setScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+
+  const t = useTranslations("Nav");
+  const tArticle = useTranslations("Article");
+  // Assuming a "Quiz" namespace for internal strings
+  const tQuiz = useTranslations("Auth"); // Fallback to Auth for common error-like strings if Quiz space is missing? No, stay consistent.
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -98,7 +104,7 @@ export default function QuizPlayer({ quizSlug }: { quizSlug: string }) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] bg-surface rounded-2xl border border-border shadow-soft">
         <Loader2 className="animate-spin text-accent mb-4" size={40} />
-        <p className="font-ui text-muted">Preparing your quiz experience...</p>
+        <p className="font-ui text-muted">{t("loading")}...</p>
       </div>
     );
   }
@@ -106,7 +112,7 @@ export default function QuizPlayer({ quizSlug }: { quizSlug: string }) {
   if (error || !quiz) {
     return (
       <div className="p-10 text-center bg-surface rounded-2xl border border-border">
-        <p className="text-red-500 font-bold mb-4">{error || "Something went wrong"}</p>
+        <p className="text-red-500 font-bold mb-4">{error || "Error"}</p>
         <button onClick={() => window.location.reload()} className="bg-accent text-white px-6 py-2 rounded-lg font-bold">Retry</button>
       </div>
     );
@@ -126,7 +132,7 @@ export default function QuizPlayer({ quizSlug }: { quizSlug: string }) {
           <div className="relative z-10 text-center px-6">
             <h2 className="text-white font-display text-4xl font-extrabold mb-2">{outcome.title}</h2>
             <div className="inline-block bg-accent text-white px-4 py-1 rounded-full text-sm font-bold">
-              Your Score: {score} / {quiz.questions.length}
+              {score} / {quiz.questions.length}
             </div>
           </div>
         </div>
@@ -141,17 +147,17 @@ export default function QuizPlayer({ quizSlug }: { quizSlug: string }) {
               onClick={resetQuiz}
               className="px-8 py-3 bg-accent text-white rounded-xl font-bold flex items-center gap-2 hover:scale-105 transition-transform"
             >
-              <RotateCcw size={20} /> Retake Quiz
+              <RotateCcw size={20} /> {t("home")}
             </button>
             <button 
               className="px-8 py-3 bg-surface border border-border text-primary rounded-xl font-bold flex items-center gap-2 hover:bg-muted/50 transition-colors"
             >
-              <Share2 size={20} /> Share Results
+              <Share2 size={20} />
             </button>
           </div>
 
           <div className="mt-12">
-            <p className="text-xs text-muted uppercase tracking-widest font-bold mb-4">Advertisement</p>
+            <p className="text-xs text-muted uppercase tracking-widest font-bold mb-4">AD</p>
             <AdSlot slot="quiz-result" format="rectangle" height={250} />
           </div>
         </div>
@@ -174,8 +180,8 @@ export default function QuizPlayer({ quizSlug }: { quizSlug: string }) {
 
       <div className="p-6 sm:p-10">
         <div className="flex justify-between items-center mb-6">
-          <span className="font-ui text-xs font-bold text-accent uppercase tracking-widest">Question {currentQuestionIndex + 1} of {quiz.questions.length}</span>
-          <span className="font-ui text-xs font-bold text-muted uppercase tracking-widest">Score: {score}</span>
+          <span className="font-ui text-xs font-bold text-accent uppercase tracking-widest">{currentQuestionIndex + 1} / {quiz.questions.length}</span>
+          <span className="font-ui text-xs font-bold text-muted uppercase tracking-widest">{score}</span>
         </div>
 
         <h3 className="font-display text-2xl sm:text-3xl font-bold text-primary mb-8 leading-tight">
@@ -230,9 +236,8 @@ export default function QuizPlayer({ quizSlug }: { quizSlug: string }) {
 
         <div className="flex justify-between items-center pt-6 border-t border-border">
           <div className="hidden sm:block">
-            {/* Contextual ad every few questions */}
             {(currentQuestionIndex + 1) % 2 === 0 && (
-              <div className="bg-muted px-4 py-2 rounded text-[0.6rem] text-muted-foreground uppercase font-bold tracking-tighter">Support LifeWise with Ads below</div>
+              <div className="bg-muted px-4 py-2 rounded text-[0.6rem] text-muted-foreground uppercase font-bold tracking-tighter">AD</div>
             )}
           </div>
           
@@ -244,7 +249,7 @@ export default function QuizPlayer({ quizSlug }: { quizSlug: string }) {
               isAnswered ? "bg-accent text-white translate-y-0 opacity-100 shadow-lg hover:scale-105 active:scale-95" : "bg-muted text-muted opacity-0 translate-y-4 pointer-events-none"
             )}
           >
-            {currentQuestionIndex === quiz.questions.length - 1 ? "See Results" : "Next Question"} <ArrowRight size={20} />
+            {currentQuestionIndex === quiz.questions.length - 1 ? t("viewAll") : t("loadMore")} <ArrowRight size={20} />
           </button>
         </div>
       </div>
@@ -258,3 +263,4 @@ export default function QuizPlayer({ quizSlug }: { quizSlug: string }) {
     </div>
   );
 }
+

@@ -1,3 +1,5 @@
+"use client";
+
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import { Article } from "@/lib/types";
@@ -5,15 +7,15 @@ import { Clock, Calendar, Eye } from "lucide-react";
 import { format } from "date-fns";
 import { formatViewCount } from "@/lib/article-views";
 import { getAuthorPersona, getAuthorSlug } from "@/lib/authors";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
 interface HeroArticleProps {
   article: Article;
 }
 
-export default async function HeroArticle({ article }: HeroArticleProps) {
-  const tArticle = await getTranslations("Article");
-  const tNav = await getTranslations("Nav");
+export default function HeroArticle({ article }: HeroArticleProps) {
+  const tArticle = useTranslations("Article");
+  const tNav = useTranslations("Nav");
   
   // Image fallback is now handled in lib/articles.ts
 
@@ -96,3 +98,4 @@ export default async function HeroArticle({ article }: HeroArticleProps) {
     </section>
   );
 }
+

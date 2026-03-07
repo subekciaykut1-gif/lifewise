@@ -42,7 +42,7 @@ export default async function Footer() {
           </div>
           
           <div className="footer-col">
-            <h4 className="font-ui text-[0.7rem] font-bold uppercase tracking-widest text-bg/40 dark:text-primary/50 mb-4">Latest Articles</h4>
+            <h4 className="font-ui text-[0.7rem] font-bold uppercase tracking-widest text-bg/40 dark:text-primary/50 mb-4">{t("latestArticles")}</h4>
             <ul className="list-none space-y-2.5">
               {latestArticles.map(article => (
                 <li key={article.slug}>
@@ -55,7 +55,7 @@ export default async function Footer() {
           </div>
   
           <div className="footer-col">
-            <h4 className="font-ui text-[0.7rem] font-bold uppercase tracking-widest text-bg/40 dark:text-primary/50 mb-4">Company</h4>
+            <h4 className="font-ui text-[0.7rem] font-bold uppercase tracking-widest text-bg/40 dark:text-primary/50 mb-4">{t("company")}</h4>
             <ul className="list-none space-y-2">
               <li><Link href="/about" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("about")}</Link></li>
               <li><Link href="/contact" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("contact")}</Link></li>
@@ -65,12 +65,12 @@ export default async function Footer() {
           </div>
   
           <div className="footer-col">
-            <h4 className="font-ui text-[0.7rem] font-bold uppercase tracking-widest text-bg/40 dark:text-primary/50 mb-4">Legal</h4>
+            <h4 className="font-ui text-[0.7rem] font-bold uppercase tracking-widest text-bg/40 dark:text-primary/50 mb-4">{t("legal")}</h4>
             <ul className="list-none space-y-2">
               <li><Link href="/privacy-policy" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("privacy")}</Link></li>
               <li><Link href="/cookie-policy" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("terms")}</Link></li>
               <li><Link href="/terms-of-use" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("terms")}</Link></li>
-              <li><Link href="/affiliate-disclosure" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">Affiliate Disclosure</Link></li>
+              <li><Link href="/affiliate-disclosure" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("advertise")}</Link></li>
             </ul>
           </div>
         </div>
@@ -80,10 +80,11 @@ export default async function Footer() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/privacy-policy" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">{t("privacy")}</Link>
             <Link href="/cookie-policy" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">{t("terms")}</Link>
-            <Link href="/sitemap.xml" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">Sitemap</Link>
+            <Link href="/sitemap.xml" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">{t("sitemap")}</Link>
             <Link href="/feed" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">RSS</Link>
           </div>
         </div>
+
       </div>
     </footer>
   );

@@ -1,8 +1,9 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import { Play, Clock, BarChart } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface QuizCardProps {
   quiz: {
@@ -15,6 +16,9 @@ interface QuizCardProps {
 }
 
 export default function QuizCard({ quiz }: QuizCardProps) {
+  const t = useTranslations("Nav");
+  const tArticle = useTranslations("Article");
+
   return (
     <div className="group bg-surface border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
       <div className="relative aspect-[16/10] overflow-hidden">
@@ -48,18 +52,19 @@ export default function QuizCard({ quiz }: QuizCardProps) {
 
         <div className="flex items-center justify-between pt-4 border-t border-border">
           <div className="flex items-center gap-4 text-muted text-xs font-ui">
-            <span className="flex items-center gap-1.5"><Clock size={14} /> 2 min</span>
-            <span className="flex items-center gap-1.5"><BarChart size={14} /> 5 questions</span>
+            <span className="flex items-center gap-1.5"><Clock size={14} /> 2 {tArticle("minRead").split(" ")[0]}</span>
+            <span className="flex items-center gap-1.5"><BarChart size={14} /> {t("quizzes")}</span>
           </div>
           
           <Link 
             href={`/quizzes/${quiz.slug}`}
             className="text-accent font-bold text-sm hover:underline flex items-center gap-1"
           >
-            Start Quiz
+            {t("playNow")}
           </Link>
         </div>
       </div>
     </div>
   );
 }
+

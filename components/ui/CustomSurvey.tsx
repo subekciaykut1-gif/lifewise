@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { CheckCircle2, BarChart3, Loader2 } from "lucide-react";
 import { clsx } from "clsx";
+import { useTranslations } from "next-intl";
 
 interface SurveyOption {
   id: number;
@@ -27,6 +28,7 @@ export default function CustomSurvey({ type = "sidebar", className }: CustomSurv
   const [voting, setVoting] = useState(false);
   const [hasVoted, setHasVoted] = useState(false);
   const [results, setResults] = useState<SurveyOption[]>([]);
+  const t = useTranslations("Poll");
 
   useEffect(() => {
     // Check if user has already voted for this survey in this session
@@ -81,7 +83,7 @@ export default function CustomSurvey({ type = "sidebar", className }: CustomSurv
     return (
       <div className={clsx("bg-surface border border-border rounded-xl p-6 flex flex-col items-center justify-center min-h-[150px]", className)}>
         <Loader2 className="animate-spin text-accent mb-2" size={24} />
-        <span className="text-xs text-muted font-ui">Loading community poll...</span>
+        <span className="text-xs text-muted font-ui">{t("loading")}</span>
       </div>
     );
   }
@@ -100,7 +102,7 @@ export default function CustomSurvey({ type = "sidebar", className }: CustomSurv
         <div className="bg-accent/10 p-1.5 rounded-lg text-accent">
           <BarChart3 size={18} />
         </div>
-        <span className="font-ui text-[0.65rem] font-bold uppercase tracking-[0.15em] text-accent">Community Poll</span>
+        <span className="font-ui text-[0.65rem] font-bold uppercase tracking-[0.15em] text-accent">{t("title")}</span>
       </div>
 
       <h3 className={clsx(
@@ -159,7 +161,7 @@ export default function CustomSurvey({ type = "sidebar", className }: CustomSurv
       {hasVoted && (
         <div className="mt-5 pt-4 border-t border-border flex items-center gap-2 text-[0.7rem] text-muted font-ui animate-in fade-in slide-in-from-bottom-2 duration-700">
           <CheckCircle2 size={12} className="text-green-500" />
-          <span>Thanks for participating! {totalVotes} members voted.</span>
+          <span>{t("thanksParticipation").replace("{total}", totalVotes.toString())}</span>
         </div>
       )}
     </div>

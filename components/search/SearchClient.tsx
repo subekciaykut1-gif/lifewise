@@ -2,12 +2,13 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useMemo, Suspense, useState, useEffect } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import Fuse from "fuse.js";
 import { Article } from "@/lib/types";
 import { format } from "date-fns";
 import { Clock } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface SearchClientProps {
   articles: Article[];
@@ -18,6 +19,10 @@ function SearchResults({ articles }: SearchClientProps) {
   const searchParams = useSearchParams();
   const qParam = (searchParams.get("q") ?? "").trim();
   const [inputValue, setInputValue] = useState(qParam);
+  const t = useTranslations("Search");
+  const tNav = useTranslations("Nav");
+  const tArticle = useTranslations("Article");
+
   useEffect(() => setInputValue(qParam), [qParam]);
   const q = qParam.toLowerCase();
 
@@ -42,7 +47,7 @@ function SearchResults({ articles }: SearchClientProps) {
   return (
     <>
       <h1 className="font-display text-[1.35rem] font-bold text-primary mb-6 flex items-center gap-2.5 before:content-[''] before:w-1 before:h-[22px] before:bg-accent before:rounded-sm">
-        Search
+        {tNav("search")}
       </h1>
       <form className="mb-8" onSubmit={handleSubmit}>
         <input
@@ -50,15 +55,15 @@ function SearchResults({ articles }: SearchClientProps) {
           name="q"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Search articles..."
+          placeholder={t("placeholder")}
           className="w-full bg-bg border border-border rounded-lg px-4 py-3 font-ui text-primary placeholder:text-muted focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent"
-          aria-label="Search articles"
+          aria-label={tNav("search")}
         />
       </form>
       {!q ? (
-        <p className="text-muted font-ui text-sm">Enter a search term above.</p>
+        <p className="text-muted font-ui text-sm">{t("enterTerm")}</p>
       ) : results.length === 0 ? (
-        <p className="text-muted font-ui text-sm">No articles match your search.</p>
+        <p className="text-muted font-ui text-sm">{t("noMatch")}</p>
       ) : (
         <ul className="space-y-6">
           {results.map((article) => (
@@ -87,7 +92,7 @@ function SearchResults({ articles }: SearchClientProps) {
                     {article.excerpt || (article.content ?? "").slice(0, 100).replace(/[#*]/g, "")}...
                   </p>
                   <span className="font-ui text-xs text-muted flex items-center gap-1 mt-2">
-                    <Clock size={12} /> {article.readTime} min · {format(new Date(article.date), "MMM d, yyyy")}
+                    <Clock size={12} /> {article.readTime} {tArticle("minRead").split(" ")[0]} · {format(new Date(article.date), "MMM d, yyyy")}
                   </span>
                 </div>
               </Link>
@@ -100,9 +105,11 @@ function SearchResults({ articles }: SearchClientProps) {
 }
 
 export default function SearchClient(props: SearchClientProps) {
+  const t = useTranslations("Search");
   return (
-    <Suspense fallback={<p className="text-muted font-ui text-sm">Loading search...</p>}>
+    <Suspense fallback={<p className="text-muted font-ui text-sm">{t("loading")}</p>}>
       <SearchResults {...props} />
     </Suspense>
   );
 }
+
