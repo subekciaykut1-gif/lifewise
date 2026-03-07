@@ -35,6 +35,7 @@ import AuthorBio from "@/components/article/AuthorBio";
 import { getAuthorPersona, getAuthorSlug } from "@/lib/authors";
 import ArticleReactions from "@/components/article/ArticleReactions";
 import CustomSurvey from "@/components/ui/CustomSurvey";
+import ArticleUpvoteButton from "@/components/article/ArticleUpvoteButton";
 
 interface ArticlePageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -201,6 +202,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     initialViews={article.views} 
                   />
                 )}
+                <ArticleUpvoteButton slug={slug} />
                 <PinterestSaveButton
                   url={`${SITE_URL}/${categorySlug}/${slug}`}
                   imageUrl={getPinterestImageUrl(article, SITE_URL)}
