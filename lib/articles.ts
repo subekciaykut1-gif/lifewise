@@ -134,7 +134,7 @@ export async function getArticleBySlug(
 export async function getArticlesByCategory(
   categorySlug: string,
   locale?: string
-): Promise<Article[]> => {
+): Promise<Article[]> {
   const articles = await getPublishedArticles(locale);
   return articles.filter((article) => article.category === categorySlug);
 }
@@ -156,12 +156,12 @@ function getDynamicScore(article: Article): number {
   return score;
 }
 
-export async function getFeaturedArticles(locale?: string): Promise<Article[]> => {
+export async function getFeaturedArticles(locale?: string): Promise<Article[]> {
   const articles = await getPublishedArticles(locale);
   return [...articles].sort((a, b) => getDynamicScore(b) - getDynamicScore(a));
 }
 
-export async function getMostReadArticles(locale?: string): Promise<Article[]> => {
+export async function getMostReadArticles(locale?: string): Promise<Article[]> {
   const articles = await getPublishedArticles(locale);
   return [...articles].sort((a, b) => (b.views || 0) - (a.views || 0));
 }
