@@ -13,8 +13,8 @@ export default async function QuizHub() {
   const quizzes = await sql`
     SELECT title, slug, category, description, image_url 
     FROM quizzes 
-    WHERE is_active = true 
-    ORDER BY created_at DESC
+    WHERE is_active = true AND publish_at <= NOW()
+    ORDER BY publish_at DESC
   `;
 
   return (

@@ -20,8 +20,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function QuizPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   
-  // Verify quiz exists
-  const quizCheck = await sql`SELECT id FROM quizzes WHERE slug = ${slug} AND is_active = true`;
+  // Verify quiz exists and is published
+  const quizCheck = await sql`SELECT id FROM quizzes WHERE slug = ${slug} AND is_active = true AND publish_at <= NOW()`;
   if (!quizCheck.length) notFound();
 
   return (
