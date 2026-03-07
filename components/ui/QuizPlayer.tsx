@@ -117,7 +117,7 @@ export default function QuizPlayer({ quizSlug }: { quizSlug: string }) {
 
     return (
       <div className="bg-surface rounded-2xl border border-border overflow-hidden shadow-xl animate-in fade-in zoom-in duration-500">
-        <div className="relative h-64 bg-primary flex items-center justify-center overflow-hidden">
+        <div className="relative h-64 bg-slate-900 flex items-center justify-center overflow-hidden">
           {outcome.image_url ? (
             <Image src={outcome.image_url} alt={outcome.title} fill className="object-cover opacity-60" />
           ) : (
