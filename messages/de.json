@@ -1,0 +1,93 @@
+{
+  "Nav": {
+    "home": "Heim",
+    "quizzes": "Quiz",
+    "search": "Suchen",
+    "signIn": "Anmelden",
+    "signOut": "Abmelden",
+    "savedHacks": "Gespeicherte Hacks",
+    "myProfile": "Mein Profil",
+    "viewAll": "Alle anzeigen →"
+  },
+  "Home": {
+    "latestArticles": "Neueste Artikel",
+    "trendingThisWeek": "Diese Woche im Trend",
+    "mostRead": "🔥 Am meisten gelesen"
+  },
+  "Article": {
+    "minRead": "Min. gelesen",
+    "views": "Ansichten",
+    "helpful": "Hilfreich?",
+    "youLikedThis": "Das hat dir gefallen!",
+    "saveThisHack": "Speichern Sie diesen Hack",
+    "removeBookmark": "Aus gespeicherten Hacks entfernen",
+    "shareArticle": "Teilen Sie diesen Artikel",
+    "relatedArticles": "Verwandte Artikel",
+    "tags": "Schlagworte",
+    "subscribePrompt": "Erhalten Sie weitere Tipps in Ihrem Posteingang –",
+    "subscribeFree": "Kostenlos abonnieren",
+    "tableOfContents": "Inhaltsverzeichnis",
+    "wasThisHelpful": "War dieser Artikel hilfreich?",
+    "thanksForReaction": "Danke für deine Reaktion!"
+  },
+  "Category": {
+    "latestIn": "Neueste in",
+    "loadMore": "Mehr laden",
+    "noArticles": "In dieser Kategorie wurden noch keine Artikel gefunden."
+  },
+  "Search": {
+    "placeholder": "Durchsuchen Sie Artikel, Tipps und Hacks ...",
+    "results": "Ergebnisse für",
+    "noResults": "Keine Ergebnisse gefunden für",
+    "tryDifferent": "Versuchen Sie es mit einem anderen Suchbegriff."
+  },
+  "Auth": {
+    "welcomeBack": "Willkommen zurück",
+    "joinLifeWise": "Treten Sie LifeWise bei",
+    "signInSubtitle": "Melden Sie sich an, um den Überblick über Ihre Life-Hacks zu behalten.",
+    "registerSubtitle": "Beginnen Sie noch heute Ihre Reise zu einem intelligenteren Zuhause.",
+    "emailAddress": "E-Mail-Adresse",
+    "fullName": "Vollständiger Name",
+    "password": "Passwort",
+    "createAccount": "Benutzerkonto erstellen",
+    "orContinueWith": "Oder fahren Sie fort mit",
+    "newToLifeWise": "Neu bei LifeWise?",
+    "alreadyHaveAccount": "Sie haben bereits ein Konto?",
+    "joinNow": "Melden Sie sich jetzt an",
+    "signInHere": "Melden Sie sich hier an",
+    "invalidCredentials": "Ungültige E-Mail-Adresse oder ungültiges Passwort",
+    "google": "Google"
+  },
+  "SavedHacks": {
+    "title": "Meine gespeicherten Hacks",
+    "userDashboard": "Benutzer-Dashboard",
+    "subtitle": "Ihre persönliche Bibliothek mit mit Lesezeichen versehenen Tipps und Tricks.",
+    "noSaved": "Noch keine gespeicherten Hacks",
+    "noSavedDesc": "Wenn Sie einen Life-Hack finden, der Ihnen gefällt, klicken Sie auf das Lesezeichen-Symbol im Artikel, um ihn hier zum schnellen Nachschlagen zu speichern.",
+    "exploreTopHacks": "Entdecken Sie Top-Hacks"
+  },
+  "Footer": {
+    "tagline": "Intelligenteres Leben, jeden Tag",
+    "about": "Um",
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen",
+    "contact": "Kontakt",
+    "advertise": "Werben",
+    "writeForUs": "Schreiben Sie für uns",
+    "allRightsReserved": "Alle Rechte vorbehalten."
+  },
+  "Newsletter": {
+    "title": "Erhalten Sie LifeWise-Tipps in Ihrem Posteingang",
+    "subtitle": "Schließen Sie sich Tausenden von Lesern an, die intelligenter in die Woche starten. Kostenlos, für immer.",
+    "emailPlaceholder": "Ihre E-Mail-Adresse",
+    "subscribe": "Abonnieren",
+    "privacy": "Kein Spam, niemals. Abmelden jederzeit möglich.",
+    "success": "Du bist dabei! Überprüfen Sie Ihren Posteingang auf eine Bestätigung."
+  },
+  "Cookie": {
+    "message": "Wir verwenden Cookies, um Ihr Erlebnis zu verbessern.",
+    "accept": "Akzeptieren",
+    "decline": "Abfall",
+    "learnMore": "Erfahren Sie mehr"
+  }
+}

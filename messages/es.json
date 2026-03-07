@@ -1,0 +1,93 @@
+{
+  "Nav": {
+    "home": "Hogar",
+    "quizzes": "cuestionarios",
+    "search": "Buscar",
+    "signIn": "Iniciar sesión",
+    "signOut": "Desconectar",
+    "savedHacks": "Hacks guardadas",
+    "myProfile": "Mi perfil",
+    "viewAll": "Ver todo →"
+  },
+  "Home": {
+    "latestArticles": "Últimos artículos",
+    "trendingThisWeek": "Tendencia esta semana",
+    "mostRead": "🔥 Más leído"
+  },
+  "Article": {
+    "minRead": "lectura mínima",
+    "views": "vistas",
+    "helpful": "¿Útil?",
+    "youLikedThis": "¡Te gustó esto!",
+    "saveThisHack": "Guarda este truco",
+    "removeBookmark": "Eliminar de los trucos guardados",
+    "shareArticle": "Comparte este artículo",
+    "relatedArticles": "Artículos relacionados",
+    "tags": "Etiquetas",
+    "subscribePrompt": "Recibe más consejos en tu bandeja de entrada:",
+    "subscribeFree": "Suscríbete gratis",
+    "tableOfContents": "Tabla de contenido",
+    "wasThisHelpful": "¿Fue útil este artículo?",
+    "thanksForReaction": "¡Gracias por tu reacción!"
+  },
+  "Category": {
+    "latestIn": "Lo último en",
+    "loadMore": "Cargar más",
+    "noArticles": "Aún no se han encontrado artículos en esta categoría."
+  },
+  "Search": {
+    "placeholder": "Buscar artículos, consejos y trucos...",
+    "results": "resultados para",
+    "noResults": "No se encontraron resultados para",
+    "tryDifferent": "Pruebe con un término de búsqueda diferente."
+  },
+  "Auth": {
+    "welcomeBack": "Bienvenido de nuevo",
+    "joinLifeWise": "Únase a LifeWise",
+    "signInSubtitle": "Inicia sesión para realizar un seguimiento de tus trucos de vida.",
+    "registerSubtitle": "Comience su viaje hacia un hogar más inteligente hoy.",
+    "emailAddress": "Dirección de correo electrónico",
+    "fullName": "Nombre completo",
+    "password": "Contraseña",
+    "createAccount": "Crear una cuenta",
+    "orContinueWith": "O continuar con",
+    "newToLifeWise": "¿Nuevo en LifeWise?",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "joinNow": "Únete ahora",
+    "signInHere": "Regístrate aquí",
+    "invalidCredentials": "Correo electrónico o contraseña no válidos",
+    "google": "Google"
+  },
+  "SavedHacks": {
+    "title": "Mis trucos guardados",
+    "userDashboard": "Panel de usuario",
+    "subtitle": "Tu biblioteca personal de consejos y trucos marcados como favoritos.",
+    "noSaved": "Aún no hay trucos guardados",
+    "noSavedDesc": "Cuando encuentres un truco que te guste, haz clic en el icono de marcador del artículo para guardarlo aquí y poder consultarlo rápidamente.",
+    "exploreTopHacks": "Explora los mejores trucos"
+  },
+  "Footer": {
+    "tagline": "Una vida más inteligente, todos los días",
+    "about": "Acerca de",
+    "privacy": "política de privacidad",
+    "terms": "Condiciones de uso",
+    "contact": "Contacto",
+    "advertise": "Anunciar",
+    "writeForUs": "Escribe para nosotras",
+    "allRightsReserved": "Reservados todos los derechos."
+  },
+  "Newsletter": {
+    "title": "Reciba consejos de LifeWise en su bandeja de entrada",
+    "subtitle": "Únase a miles de lectores que comienzan su semana de manera más inteligente. Gratis, para siempre.",
+    "emailPlaceholder": "Su dirección de correo electrónico",
+    "subscribe": "Suscribir",
+    "privacy": "Nada de spam, nunca. Darse de baja en cualquier momento.",
+    "success": "¡Estás dentro! Revisa tu bandeja de entrada para obtener una confirmación."
+  },
+  "Cookie": {
+    "message": "Utilizamos cookies para mejorar su experiencia.",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "learnMore": "Más información"
+  }
+}

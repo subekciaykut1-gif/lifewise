@@ -3,11 +3,12 @@ import { sql } from "@/lib/db";
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const { slug } = await params;
     const result = await sql`
-      SELECT upvotes FROM article_upvotes WHERE slug = ${params.slug}
+      SELECT upvotes FROM article_upvotes WHERE slug = ${slug}
     `;
 
     if (result.length === 0) {
@@ -23,13 +24,13 @@ export async function GET(
 
 export async function POST(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    // Upsert the upvote count (increase by 1)
+    const { slug } = await params;
     const result = await sql`
       INSERT INTO article_upvotes (slug, upvotes)
-      VALUES (${params.slug}, 1)
+      VALUES (${slug}, 1)
       ON CONFLICT (slug)
       DO UPDATE SET upvotes = article_upvotes.upvotes + 1, updated_at = CURRENT_TIMESTAMP
       RETURNING upvotes;
