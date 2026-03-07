@@ -10,7 +10,7 @@ import BookmarkButton from "@/components/article/BookmarkButton";
 import { useTranslations } from "next-intl";
 
 interface ArticleCardProps {
-  article: Article;
+  article: Article & { locale?: string };
 }
 
 export default function ArticleCard({ article }: ArticleCardProps) {
@@ -22,7 +22,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
   
   return (
     <article className="group bg-surface border border-border rounded-xl overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-card-hover cursor-pointer h-full flex flex-col">
-      <Link href={`/${article.category}/${article.slug}`} className="block relative aspect-[16/9] md:aspect-[3/2] overflow-hidden bg-gray-100">
+      <Link href={article.locale ? `/${article.locale}/${article.category}/${article.slug}` : `/${article.category}/${article.slug}`} className="block relative aspect-[16/9] md:aspect-[3/2] overflow-hidden bg-gray-100">
         <Image
           src={article.image}
           alt={article.title}
