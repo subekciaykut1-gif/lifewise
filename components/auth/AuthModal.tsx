@@ -19,6 +19,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }: Au
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const t = useTranslations("Auth");
+  const tNav = useTranslations("Nav");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -33,8 +34,6 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }: Au
   }, []);
 
   if (!isOpen) return null;
-
-  const tNav = useTranslations("Nav");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,7 +73,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }: Au
     }
   };
 
-  if (!isOpen || !portalNode) return null;
+  if (!portalNode) return null;
 
   return createPortal(
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">

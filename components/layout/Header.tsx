@@ -13,6 +13,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
   const { data: session, status } = useSession();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const t = useTranslations("Nav");
+  const tCat = useTranslations("Categories");
 
   useEffect(() => {
     const handleOpenAuth = () => setIsAuthModalOpen(true);
@@ -76,18 +77,15 @@ export default function Header({ children }: { children?: React.ReactNode }) {
             <Link href="/" className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center min-w-[48px]">
               🏠 {t("home")}
             </Link>
-            {categories.map((cat) => {
-              const tCat = useTranslations("Categories");
-              return (
-                <Link
-                  key={cat.slug}
-                  href={`/category/${cat.slug}`}
-                  className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
-                >
-                  <span>{cat.icon}</span> <span>{tCat(`${cat.slug}.name`)}</span>
-                </Link>
-              );
-            })}
+            {categories.map((cat) => (
+              <Link
+                key={cat.slug}
+                href={`/category/${cat.slug}`}
+                className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
+              >
+                <span>{cat.icon}</span> <span>{tCat(`${cat.slug}.name`)}</span>
+              </Link>
+            ))}
             <Link 
               href="/quizzes" 
               className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
