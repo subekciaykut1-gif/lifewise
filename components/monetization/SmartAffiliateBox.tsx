@@ -1,11 +1,11 @@
 "use client";
 
 import { useMemo } from "react";
-import productsData from "@/data/affiliate-products.json";
+import productsDataFallback from "@/data/affiliate-products.json";
 import { addAmazonTag } from "@/lib/affiliate";
 import { ShoppingCart, ExternalLink, ShieldCheck } from "lucide-react";
 
-interface Product {
+export interface AffiliateProductBox {
   id: string;
   categories: string[];
   keywords: string[];
@@ -17,11 +17,15 @@ interface Product {
 interface SmartAffiliateBoxProps {
   category: string;
   keywords: string[];
+  /** When provided, uses trending/cached Amazon products instead of static list */
+  products?: AffiliateProductBox[] | null;
 }
 
-export default function SmartAffiliateBox({ category, keywords }: SmartAffiliateBoxProps) {
+export default function SmartAffiliateBox({ category, keywords, products: productsProp }: SmartAffiliateBoxProps) {
+  const productsData = productsProp ?? (productsDataFallback as AffiliateProductBox[]);
+
   const bestMatch = useMemo(() => {
-    const activeProducts = (productsData as Product[]).filter(p => p.active);
+    const activeProducts = (productsData || []).filter(p => p.active);
     
     let topProduct = activeProducts[0];
     let topScore = -1;
@@ -45,7 +49,7 @@ export default function SmartAffiliateBox({ category, keywords }: SmartAffiliate
     });
 
     return topProduct;
-  }, [category, keywords]);
+  }, [category, keywords, productsData]);
 
   if (!bestMatch) return null;
 

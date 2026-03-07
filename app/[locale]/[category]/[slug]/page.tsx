@@ -31,6 +31,7 @@ import ReadNext from "@/components/article/ReadNext";
 import AutoInjectedAds from "@/components/article/AutoInjectedAds";
 import LiveViewCounter from "@/components/analytics/LiveViewCounter";
 import SmartAffiliateBox from "@/components/monetization/SmartAffiliateBox";
+import { getAffiliateProducts } from "@/lib/amazon-trending";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import AuthorBio from "@/components/article/AuthorBio";
 import { getAuthorPersona, getAuthorSlug } from "@/lib/authors";
@@ -101,6 +102,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   if (new Date(publishedAt) > new Date()) notFound();
 
   const relatedArticles = await getRelatedArticles(article, 6, locale);
+  const affiliateProducts = getAffiliateProducts();
   const tNav = await getTranslations("Nav");
   const tArticle = await getTranslations("Article");
 
@@ -244,7 +246,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               <MDXRemote source={article.content} components={components} />
             </div>
 
-            <SmartAffiliateBox category={article.category} keywords={article.keywords || article.tags} />
+            <SmartAffiliateBox category={article.category} keywords={article.keywords || article.tags} products={affiliateProducts} />
 
             {(() => {
               const persona = getAuthorPersona(article.author || article.category);

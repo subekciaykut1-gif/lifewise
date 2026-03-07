@@ -43,3 +43,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# amazon trending cache (populated by npm run refresh:amazon-trending)
+/data/amazon-trending-cache.json
