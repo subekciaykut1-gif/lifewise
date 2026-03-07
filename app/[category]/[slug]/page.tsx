@@ -224,6 +224,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               />
             </div>
 
+            {/* Mobile TOC */}
+            <div className="lg:hidden mb-8 p-5 sm:p-6 bg-surface border border-border rounded-xl shadow-sm">
+              <TableOfContents />
+            </div>
+
             {/* Article Content */}
             <div className="prose prose-lg max-w-none font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl overflow-hidden">
               <MDXRemote source={article.content} components={components} />

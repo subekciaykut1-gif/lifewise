@@ -20,7 +20,7 @@ export default async function Sidebar() {
   }, {} as Record<string, number>);
 
   return (
-    <aside className="no-print space-y-6 hidden md:block">
+    <aside className="no-print space-y-6 mt-12 lg:mt-0">
       <AdSlot slot="sidebar-top" format="rectangle" height={250} />
 
       <CustomSurvey type="sidebar" />

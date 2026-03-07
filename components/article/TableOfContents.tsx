@@ -53,7 +53,7 @@ export default function TableOfContents() {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="hidden lg:block h-fit max-h-[calc(100vh-10rem)] overflow-y-auto w-full py-2 pr-6">
+    <nav className="h-fit max-h-64 lg:max-h-[calc(100vh-10rem)] overflow-y-auto w-full py-2 lg:pr-6 scrollbar-hide">
       <h4 className="font-display text-[0.9rem] font-bold text-primary mb-6 uppercase tracking-[0.2em] opacity-50">
         In This Article
       </h4>
