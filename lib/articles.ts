@@ -80,9 +80,14 @@ export const getAllArticles = cache(async (): Promise<Article[]> => {
 export const getPublishedArticles = cache(async (locale: string = "en"): Promise<Article[]> => {
   const dir = getArticlesDirForLocale(locale);
   let all = await loadArticlesFromDir(dir);
+  
+  // Only fall back to English if the localized directory truly has no articles
+  // (not due to parsing errors from malformed publishedAt fields)
   if (locale !== "en" && all.length === 0) {
+    console.log(`No articles found for locale ${locale}, falling back to English`);
     all = await loadArticlesFromDir(articlesDirectory);
   }
+  
   const now = new Date();
   return all
     .filter((a) => {

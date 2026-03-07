@@ -1,5 +1,5 @@
 /**
- * Generates staggered monthly sitemaps + index for SEO (avoids Google spam flags).
+ * Generates single sitemap for SEO.
  * Run: node scripts/generate-sitemaps.cjs
  */
 const fs = require("fs");
@@ -8,7 +8,12 @@ const matter = require("gray-matter");
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://wisetips.co";
 const ARTICLES_DIR = path.join(process.cwd(), "content", "articles");
-const SITEMAP_DIR = path.join(process.cwd(), "public", "sitemaps");
+const LOCALE_DIRS = {
+  es: path.join(process.cwd(), "content", "es"),
+  fr: path.join(process.cwd(), "content", "fr"),
+  de: path.join(process.cwd(), "content", "de"),
+  pt: path.join(process.cwd(), "content", "pt"),
+};
 const PUBLIC_DIR = path.join(process.cwd(), "public");
 
 function getFiles(dir) {
@@ -29,8 +34,11 @@ function parseDate(value) {
   return Number.isNaN(d.getTime()) ? null : d;
 }
 
-function getAllArticles() {
-  const files = getFiles(ARTICLES_DIR);
+function getAllArticles(locale = null) {
+  const dir = locale ? LOCALE_DIRS[locale] : ARTICLES_DIR;
+  if (!fs.existsSync(dir)) return [];
+  
+  const files = getFiles(dir);
   const now = new Date();
   return files
     .map((filePath) => {
@@ -43,6 +51,7 @@ function getAllArticles() {
         category: data.category || "life-hacks",
         date: data.date,
         publishedAt,
+        locale: locale || 'en',
       };
     });
 }
@@ -57,46 +66,19 @@ function escapeXml(s) {
 }
 
 function main() {
-  if (!fs.existsSync(SITEMAP_DIR)) fs.mkdirSync(SITEMAP_DIR, { recursive: true });
-
-  const articles = getAllArticles();
-  const byMonth = {};
-  for (const a of articles) {
-    const key = a.publishedAt.toISOString().slice(0, 7);
-    if (!byMonth[key]) byMonth[key] = [];
-    byMonth[key].push(a);
-  }
-
-  const indexEntries = [];
-
-  for (const [month, monthArticles] of Object.entries(byMonth).sort()) {
-    const filename = `sitemap-${month}.xml`;
-    const urlset = monthArticles
-      .map(
-        (a) =>
-          `  <url>\n    <loc>${escapeXml(SITE_URL + "/" + a.category + "/" + a.slug)}</loc>\n    <lastmod>${a.publishedAt.toISOString().slice(0, 19).replace("T", "T")}Z</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`
-      )
-      .join("\n");
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urlset}
-</urlset>`;
-    fs.writeFileSync(path.join(SITEMAP_DIR, filename), xml);
-    const lastMod = monthArticles[monthArticles.length - 1].publishedAt.toISOString().slice(0, 10);
-    indexEntries.push({ loc: `${SITE_URL}/sitemaps/${filename}`, lastmod: lastMod });
+  const allArticles = [];
+  
+  // Add English articles
+  allArticles.push(...getAllArticles());
+  
+  // Add localized articles
+  for (const locale of Object.keys(LOCALE_DIRS)) {
+    allArticles.push(...getAllArticles(locale));
   }
 
   const staticLastmod = new Date().toISOString().slice(0, 10);
-  const indexXml = `<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>${escapeXml(SITE_URL)}/sitemaps/sitemap-static.xml</loc>
-    <lastmod>${staticLastmod}</lastmod>
-  </sitemap>
-${indexEntries.map((e) => `  <sitemap>\n    <loc>${escapeXml(e.loc)}</loc>\n    <lastmod>${e.lastmod}</lastmod>\n  </sitemap>`).join("\n")}
-</sitemapindex>`;
-  fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap.xml"), indexXml);
-
+  
+  // Static URLs
   const staticUrls = [
     { path: "", priority: "1.0" },
     { path: "about", priority: "0.8" },
@@ -106,15 +88,47 @@ ${indexEntries.map((e) => `  <sitemap>\n    <loc>${escapeXml(e.loc)}</loc>\n    
     { path: "trending", priority: "0.8" },
     { path: "search", priority: "0.6" },
   ];
+  
+  // Add localized static URLs
+  for (const locale of Object.keys(LOCALE_DIRS)) {
+    staticUrls.push({ path: locale, priority: "0.9" });
+    staticUrls.push({ path: `${locale}/about`, priority: "0.8" });
+    staticUrls.push({ path: `${locale}/contact`, priority: "0.7" });
+    staticUrls.push({ path: `${locale}/subscribe`, priority: "0.8" });
+    staticUrls.push({ path: `${locale}/latest`, priority: "0.9" });
+    staticUrls.push({ path: `${locale}/trending`, priority: "0.8" });
+    staticUrls.push({ path: `${locale}/search`, priority: "0.6" });
+  }
+  
   const categorySlugs = ["cleaning", "health", "food", "home-and-garden", "life-hacks", "diy", "beauty", "viral-stories"];
-  for (const c of categorySlugs) staticUrls.push({ path: "category/" + c, priority: "0.8" });
-  const staticXml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${staticUrls.map((u) => `  <url>\n    <loc>${escapeXml(SITE_URL + "/" + u.path)}</loc>\n    <lastmod>${staticLastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`).join("\n")}
-</urlset>`;
-  fs.writeFileSync(path.join(SITEMAP_DIR, "sitemap-static.xml"), staticXml);
+  for (const c of categorySlugs) {
+    staticUrls.push({ path: "category/" + c, priority: "0.8" });
+    // Add localized category URLs
+    for (const locale of Object.keys(LOCALE_DIRS)) {
+      staticUrls.push({ path: `${locale}/category/${c}`, priority: "0.8" });
+    }
+  }
 
-  console.log("Generated sitemap-index.xml +", Object.keys(byMonth).length, "monthly sitemaps + sitemap-static.xml in public/sitemaps/");
+  // Generate article URLs
+  const articleUrls = allArticles.map((a) => {
+    const urlPrefix = a.locale === 'en' ? '' : `/${a.locale}`;
+    return `  <url>\n    <loc>${escapeXml(SITE_URL + urlPrefix + "/" + a.category + "/" + a.slug)}</loc>\n    <lastmod>${a.publishedAt.toISOString().slice(0, 19).replace("T", "T")}Z</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`;
+  });
+
+  // Generate static URLs
+  const staticXmlEntries = staticUrls.map((u) => 
+    `  <url>\n    <loc>${escapeXml(SITE_URL + "/" + u.path)}</loc>\n    <lastmod>${staticLastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`
+  );
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${staticXmlEntries.join("\n")}
+${articleUrls.join("\n")}
+</urlset>`;
+  
+  fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap.xml"), xml);
+
+  console.log("Generated single sitemap.xml with", allArticles.length, "articles and", staticUrls.length, "static pages");
 }
 
 main();
