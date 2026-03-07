@@ -69,7 +69,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }: Au
       <div className="absolute inset-0 bg-primary/40 backdrop-blur-sm" onClick={onClose} />
       
       {/* Modal */}
-      <div className="relative w-full max-w-md bg-surface/90 backdrop-blur-xl border border-border rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in duration-300">
+      <div className="relative w-full max-w-md max-h-[90vh] overflow-y-auto bg-surface/90 backdrop-blur-xl border border-border rounded-3xl shadow-2xl animate-in zoom-in duration-300">
         <button 
           onClick={onClose}
           className="absolute top-4 right-4 p-2 text-muted hover:text-primary transition-colors hover:bg-muted/50 rounded-full"
