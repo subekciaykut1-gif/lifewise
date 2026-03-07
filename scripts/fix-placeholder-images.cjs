@@ -54,12 +54,25 @@ files.forEach(file => {
   const content = fs.readFileSync(filePath, 'utf8');
   const { data, content: body } = matter(content);
   
-  if (data.image && (data.image.includes('photo-1?') || data.image.includes('images.unsplash.com'))) {
-    const category = data.category || 'life-hacks';
+  const isGeneric = !data.image || 
+                  data.image === "" || 
+                  data.image.includes('picsum.photos') || 
+                  data.image.includes('photo-1?');
+
+  if (isGeneric) {
+    const category = data.image?.includes('cleaning') ? 'cleaning' : (data.category || 'life-hacks');
     
-    // Use picsum.photos with the slug as a unique seed to ensure no duplicates
-    // We add category to the seed to keep it thematic if needed, but slug is unique enough
-    data.image = `https://picsum.photos/seed/${file}-${category}/1200/800`;
+    // Create a unique integer seed from the filename
+    let hash = 0;
+    for (let i = 0; i < file.length; i++) {
+      hash = ((hash << 5) - hash) + file.charCodeAt(i);
+      hash |= 0; // Convert to 32bit integer
+    }
+    const seed = Math.abs(hash);
+
+    // Use LoremFlickr for relevance + lock for uniqueness
+    // lock ensures the same seed always gets the same image
+    data.image = `https://loremflickr.com/1200/800/${category}?lock=${seed}`;
     
     const newFileContent = matter.stringify(body, data);
     fs.writeFileSync(filePath, newFileContent);
