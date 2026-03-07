@@ -11,7 +11,7 @@ export async function GET(
     const quizResult = await sql`
       SELECT id, title, slug, category, description, image_url 
       FROM quizzes 
-      WHERE slug = ${slug} AND is_active = true 
+      WHERE slug = ${slug} AND is_active = true AND publish_at <= NOW()
       LIMIT 1
     `;
 
