@@ -79,7 +79,10 @@ export const getAllArticles = cache(async (): Promise<Article[]> => {
 /** Returns only articles whose publishedAt (or date) is on or before now. Use for public listing. */
 export const getPublishedArticles = cache(async (locale: string = "en"): Promise<Article[]> => {
   const dir = getArticlesDirForLocale(locale);
-  const all = await loadArticlesFromDir(dir);
+  let all = await loadArticlesFromDir(dir);
+  if (locale !== "en" && all.length === 0) {
+    all = await loadArticlesFromDir(articlesDirectory);
+  }
   const now = new Date();
   return all
     .filter((a) => {
