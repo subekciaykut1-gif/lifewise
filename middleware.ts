@@ -1,7 +1,21 @@
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export default createMiddleware(routing);
+export default function middleware(request: NextRequest) {
+  // Handle sitemap redirects for locale-specific paths
+  if (request.nextUrl.pathname.endsWith('/sitemap.xml')) {
+    const locale = request.nextUrl.pathname.split('/')[1];
+    if (locale && routing.locales.includes(locale as typeof routing.locales[number])) {
+      // Redirect /de/sitemap.xml to /sitemap.xml
+      return NextResponse.redirect(new URL('/sitemap.xml', request.url));
+    }
+  }
+  
+  // Apply next-intl middleware for other routes
+  return createMiddleware(routing)(request);
+}
 
 export const config = {
   // Match only internationalized pathnames — skip api, static files, etc.
@@ -13,5 +27,6 @@ export const config = {
     "/(de|en|es|fr|pt)/:path*",
     // Enable redirects that add missing locales
     // (e.g. `/pathnames` -> `/en/pathnames`)
-    "/((?!_next|_vercel|api|favicon.ico|icon.png|robots.txt|sitemap.*|feed|.*\\..*).*)"]
+    // Explicitly exclude sitemap.xml and all sitemap files from locale handling
+    "/((?!_next|_vercel|api|favicon.ico|icon.png|robots.txt|sitemap\\.xml|sitemap/|feed|.*\\..*).*)"]
 };
