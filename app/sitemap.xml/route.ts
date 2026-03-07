@@ -47,21 +47,19 @@ function escapeXml(s: string): string {
 }
 
 export async function GET() {
-  const allArticles: (Article & { locale: string })[] = [];
+  const allArticles: any[] = [];
   
   // Add English articles
   const englishArticles = await getAllArticles();
   for (const article of englishArticles) {
-    const articleWithLocale = { ...article, locale: 'en' };
-    allArticles.push(articleWithLocale);
+    allArticles.push(Object.assign({}, article, { locale: 'en' }));
   }
   
   // Add localized articles
   for (const locale of locales) {
     const localeArticles = await getAllArticles(locale);
     for (const article of localeArticles) {
-      const articleWithLocale = { ...article, locale };
-      allArticles.push(articleWithLocale);
+      allArticles.push(Object.assign({}, article, { locale }));
     }
   }
 
