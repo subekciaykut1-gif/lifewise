@@ -11,10 +11,14 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: NeonAdapter(pool),
   providers: [
-    Google({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
-    }),
+    ...(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET
+      ? [
+          Google({
+            clientId: process.env.AUTH_GOOGLE_ID,
+            clientSecret: process.env.AUTH_GOOGLE_SECRET,
+          }),
+        ]
+      : []),
     Credentials({
       name: "Credentials",
       credentials: {
