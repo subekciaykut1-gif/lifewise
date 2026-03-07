@@ -91,6 +91,40 @@
     "sitemap": "Sitemap"
   },
 
+  "Categories": {
+    "cleaning": {
+      "name": "Reinigung",
+      "desc": "Entdecken Sie die besten Reinigungshacks, Tiefenreinigungsanleitungen und Organisationstipps, um Ihr Zuhause strahlend und stressfrei zu halten."
+    },
+    "health": {
+      "name": "Gesundheit",
+      "desc": "Von Experten unterstützte Gesundheitsratschläge, Wellnesstipps und natürliche Heilmittel, die sich auf die Verbesserung Ihres täglichen körperlichen und geistigen Wohlbefindens konzentrieren."
+    },
+    "food": {
+      "name": "Essen & Küche",
+      "desc": "Intelligentere Küchenhacks, gesunde Rezepte und Tipps zur Lebensmittelkonservierung, um Ihnen im Herzen Ihres Zuhauses Zeit, Geld und Mühe zu sparen."
+    },
+    "home-and-garden": {
+      "name": "Haus & Garten",
+      "desc": "Verwandeln Sie Ihren Wohnraum mit praktischen Gartenratgebern, Ideen für die Inneneinrichtung und Tipps zur Hausinstandhaltung für jede Jahreszeit."
+    },
+    "life-hacks": {
+      "name": "Lifehacks",
+      "desc": "Clevere Lösungen für alltägliche Probleme. Unsere besten Produktivitätstipps und Alltagabkürzungen, um Ihr Leben einfacher und effizienter zu gestalten."
+    },
+    "diy": {
+      "name": "Heimwerken",
+      "desc": "Schritt-für-Schritt-Heimwerkerprojekte, Upcycling-Ideen und Tutorials zur Hausverbesserung für den kreativen praktischen Enthusiasten."
+    },
+    "beauty": {
+      "name": "Schönheit & Stil",
+      "desc": "Natürliche Schönheitsmittel, Hautpflegeroutinen und zeitlose Stiltipps, die Ihnen helfen, jeden Tag gut auszusehen und sich wohlzufühlen."
+    },
+    "viral-stories": {
+      "name": "Virale Geschichten",
+      "desc": "Interessante Geschichten, aktuelle Nachrichten und inspirierende menschliche Erfahrungen aus dem Internet, die es wert sind, geteilt zu werden."
+    }
+  },
   "Newsletter": {
     "title": "Erhalten Sie LifeWise-Tipps in Ihrem Posteingang",
     "subtitle": "Schließen Sie sich Tausenden von Lesern an, die intelligenter in die Woche starten. Kostenlos, für immer.",

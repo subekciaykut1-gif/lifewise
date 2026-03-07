@@ -91,6 +91,40 @@
     "sitemap": "Plan du site"
   },
 
+  "Categories": {
+    "cleaning": {
+      "name": "Nettoyage",
+      "desc": "Découvrez les meilleures astuces de nettoyage, des guides de nettoyage en profondeur et des conseils d'organisation pour garder votre maison étincelante et sans stress."
+    },
+    "health": {
+      "name": "Santé",
+      "desc": "Des conseils de santé fournis par des experts, des astuces de bien-être et des remèdes naturels axés sur l'amélioration de votre bien-être physique et mental au quotidien."
+    },
+    "food": {
+      "name": "Cuisine",
+      "desc": "Des astuces de cuisine plus intelligentes, des recettes saines et des conseils de conservation des aliments pour vous faire gagner du temps, de l'argent et des efforts au cœur de votre foyer."
+    },
+    "home-and-garden": {
+      "name": "Maison et Jardin",
+      "desc": "Transformez votre espace de vie avec des guides de jardinage pratiques, des idées de décoration intérieure et des conseils d'entretien de la maison en toutes saisons."
+    },
+    "life-hacks": {
+      "name": "Astuces de vie",
+      "desc": "Des solutions astucieuses aux problèmes courants. Nos meilleurs conseils de productivité et raccourcis quotidiens pour vous simplifier la vie et la rendre plus efficace."
+    },
+    "diy": {
+      "name": "Bricolage",
+      "desc": "Des projets de bricolage étape par étape, des idées d'upcycling et des tutoriels d'amélioration de l'habitat pour les passionnés créatifs."
+    },
+    "beauty": {
+      "name": "Beauté et style",
+      "desc": "Des remèdes de beauté naturels, des routines de soins de la peau et des conseils de style intemporels pour vous aider à paraître et à vous sentir au mieux chaque jour."
+    },
+    "viral-stories": {
+      "name": "Histoires virales",
+      "desc": "Des histoires intéressantes, des nouvelles tendances et des expériences humaines inspirantes provenant du monde entier et qui valent la peine d'être partagées."
+    }
+  },
   "Newsletter": {
     "title": "Recevez des conseils LifeWise dans votre boîte de réception",
     "subtitle": "Rejoignez des milliers de lecteurs qui commencent leur semaine plus intelligemment. Gratuit, pour toujours.",

@@ -91,6 +91,40 @@
     "sitemap": "Mapa del sitio"
   },
 
+  "Categories": {
+    "cleaning": {
+      "name": "Limpieza",
+      "desc": "Descubra los mejores trucos de limpieza, guías de limpieza profunda y consejos de organización para mantener su hogar impecable y libre de estrés."
+    },
+    "health": {
+      "name": "Salud",
+      "desc": "Consejos de salud respaldados por expertos, consejos de bienestar y remedios naturales enfocados en mejorar su bienestar físico y mental diario."
+    },
+    "food": {
+      "name": "Comida y cocina",
+      "desc": "Trucos de cocina más inteligentes, recetas saludables y consejos para conservar alimentos que le ahorrarán tiempo, dinero y esfuerzo en el corazón de su hogar."
+    },
+    "home-and-garden": {
+      "name": "Hogar y jardín",
+      "desc": "Transforme su espacio vital con guías prácticas de jardinería, ideas de decoración de interiores y consejos de mantenimiento del hogar para cada estación."
+    },
+    "life-hacks": {
+      "name": "Trucos de vida",
+      "desc": "Soluciones inteligentes a problemas comunes. Nuestros mejores consejos de productividad y atajos cotidianos para hacer su vida más sencilla y eficiente."
+    },
+    "diy": {
+      "name": "Bricolaje",
+      "desc": "Proyectos de bricolaje paso a paso, ideas de reciclaje y tutoriales de mejoras para el hogar para el entusiasta creativo."
+    },
+    "beauty": {
+      "name": "Belleza y estilo",
+      "desc": "Remedios naturales de belleza, rutinas de cuidado de la piel y consejos de estilo atemporales para ayudarle a verse y sentirse mejor cada día."
+    },
+    "viral-stories": {
+      "name": "Historias virales",
+      "desc": "Historias interesantes, noticias de tendencia y experiencias humanas inspiradoras de toda la web que vale la pena compartir."
+    }
+  },
   "Newsletter": {
     "title": "Reciba consejos de LifeWise en su bandeja de entrada",
     "subtitle": "Únase a miles de lectores que comienzan su semana de manera más inteligente. Gratis, para siempre.",

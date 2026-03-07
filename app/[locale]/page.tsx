@@ -21,6 +21,7 @@ export default async function Home() {
   
   const tHome = await getTranslations("Home");
   const tNav = await getTranslations("Nav");
+  const tCat = await getTranslations("Categories");
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 md:px-6 mt-6 md:mt-8 overflow-hidden">
@@ -81,6 +82,9 @@ export default async function Home() {
                   <h3 className="font-display text-sm font-bold text-primary leading-snug line-clamp-2 group-hover:text-accent transition-colors">
                     {article.title}
                   </h3>
+                  <span className="text-[0.6rem] text-muted uppercase tracking-wider font-ui mt-0.5 block">
+                    {tCat(`${article.category}.name`)}
+                  </span>
                 </Link>
               ))}
             </div>

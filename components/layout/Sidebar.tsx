@@ -15,6 +15,7 @@ export default async function Sidebar() {
   
   const tHome = await getTranslations("Home");
   const tArticle = await getTranslations("Article");
+  const tCat = await getTranslations("Categories");
 
   // Calculate category counts
   const categoryCounts = articles.reduce((acc, article) => {
@@ -55,7 +56,7 @@ export default async function Sidebar() {
 
       <div className="bg-surface border border-border rounded-xl p-5 mb-6">
         <div className="font-display text-base font-bold text-primary mb-4 pb-2.5 border-b-2 border-border flex items-center gap-2">
-          <Clock size={18} className="text-accent" /> Latest Tips
+          <Clock size={18} className="text-accent" /> {tHome("latestTips")}
         </div>
         
         {articles.slice(0, 5).map((article) => (
@@ -74,7 +75,7 @@ export default async function Sidebar() {
                 {article.title}
               </p>
               <span className="text-[0.6rem] text-muted uppercase tracking-wider font-ui mt-0.5 block">
-                {article.category}
+                {tCat(`${article.category}.name`)}
               </span>
             </div>
           </Link>
@@ -90,7 +91,7 @@ export default async function Sidebar() {
             <li key={cat.slug} className="group">
               <Link href={`/category/${cat.slug}`} className="flex items-center justify-between py-2 border-b border-border group-last:border-0 cursor-pointer no-underline">
                 <span className="font-ui text-[0.82rem] font-medium text-primary flex items-center gap-2 group-hover:text-accent transition-colors">
-                  {cat.icon} {cat.name}
+                  {cat.icon} {tCat(`${cat.slug}.name`)}
                 </span>
                 <span className="font-ui text-[0.7rem] text-muted bg-bg px-2 py-0.5 rounded-full group-hover:bg-accent-soft group-hover:text-accent transition-colors">
                   {categoryCounts[cat.slug] || 0}

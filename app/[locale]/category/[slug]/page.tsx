@@ -22,14 +22,16 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   const { slug } = await params;
   const category = getCategoryBySlug(slug);
   if (!category) return {};
+  const tCat = await getTranslations("Categories");
+  const catName = tCat(`${slug}.name`);
   const canonical = `${SITE_URL}/category/${slug}`;
   return {
-    title: `${category.name} Tips & Articles`,
-    description: `Explore the best ${category.name.toLowerCase()} tips, tricks, and guides on LifeWise. Practical advice and ideas for smarter living.`,
+    title: `${catName} Tips & Articles`,
+    description: `Explore the best ${catName.toLowerCase()} tips, tricks, and guides on LifeWise. Practical advice and ideas for smarter living.`,
     alternates: { canonical },
     openGraph: {
-      title: `${category.name} Tips & Articles | LifeWise`,
-      description: `Explore the best ${category.name.toLowerCase()} tips, tricks, and guides.`,
+      title: `${catName} Tips & Articles | LifeWise`,
+      description: `Explore the best ${catName.toLowerCase()} tips, tricks, and guides.`,
       url: canonical,
     },
   };
@@ -39,6 +41,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = await params;
   const category = getCategoryBySlug(slug);
   const t = await getTranslations("Category");
+  const tCat = await getTranslations("Categories");
   
   if (!category) notFound();
 
@@ -50,10 +53,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <div className="absolute top-0 left-0 w-full h-1.5 bg-accent" aria-hidden />
         <div className="text-[2.5rem] md:text-[3.5rem] mb-4 animate-bounce">{category.icon}</div>
         <h1 className="font-display text-[1.75rem] sm:text-[2.25rem] md:text-[2.5rem] font-extrabold text-primary mb-3 tracking-tight">
-          {category.name}
+          {tCat(`${slug}.name`)}
         </h1>
         <p className="font-body text-muted max-w-[600px] w-full mx-auto text-base md:text-lg leading-relaxed text-center px-1">
-          {category.description || `${t("latestIn")} ${category.name.toLowerCase()}.`}
+          {tCat(`${slug}.desc`) || `${t("latestIn")} ${tCat(`${slug}.name`).toLowerCase()}.`}
         </p>
       </div>
 

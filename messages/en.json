@@ -75,6 +75,40 @@
     "sitemap": "Sitemap"
   },
 
+  "Categories": {
+    "cleaning": {
+      "name": "Cleaning",
+      "desc": "Discover the best cleaning hacks, deep-cleaning guides, and organization tips to keep your home sparkling and stress-free."
+    },
+    "health": {
+      "name": "Health",
+      "desc": "Expert-backed health advice, wellness tips, and natural remedies focused on improving your everyday physical and mental well-being."
+    },
+    "food": {
+      "name": "Food & Kitchen",
+      "desc": "Smarter kitchen hacks, healthy recipes, and food preservation tips to save you time, money, and effort in the heart of your home."
+    },
+    "home-and-garden": {
+      "name": "Home & Garden",
+      "desc": "Transform your living space with practical gardening guides, interior decor ideas, and home maintenance tips for every season."
+    },
+    "life-hacks": {
+      "name": "Life Hacks",
+      "desc": "Clever solutions to common problems. Our best productivity tips and everyday shortcuts to make your life simpler and more efficient."
+    },
+    "diy": {
+      "name": "DIY",
+      "desc": "Step-by-step DIY projects, upcycling ideas, and home improvement tutorials for the creative hands-on enthusiast."
+    },
+    "beauty": {
+      "name": "Beauty & Style",
+      "desc": "Natural beauty remedies, skincare routines, and timeless style tips to help you look and feel your best every single day."
+    },
+    "viral-stories": {
+      "name": "Viral Stories",
+      "desc": "Interesting stories, trending news, and inspiring human experiences from across the web that are worth sharing."
+    }
+  },
   "Newsletter": {
     "title": "Get LifeWise Tips in Your Inbox",
     "subtitle": "Join thousands of readers who start their week smarter. Free, forever.",
