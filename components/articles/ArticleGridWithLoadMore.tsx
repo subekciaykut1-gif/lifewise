@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Article } from "@/lib/types";
 import ArticleGrid from "./ArticleGrid";
 import { ChevronDown, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface ArticleGridWithLoadMoreProps {
   articles: Article[];
@@ -18,10 +19,11 @@ export default function ArticleGridWithLoadMore({
 }: ArticleGridWithLoadMoreProps) {
   const [visible, setVisible] = useState(initialCount);
   const [loading, setLoading] = useState(false);
+  const t = useTranslations("Category");
 
   const visibleArticles = articles.slice(0, visible);
   const hasMore = visible < articles.length;
-  const remaining = articles.length - visible;
+  // const remaining = articles.length - visible;
 
   const loadMore = () => {
     setLoading(true);
@@ -48,13 +50,14 @@ export default function ArticleGridWithLoadMore({
             ) : (
               <ChevronDown size={18} className="transition-transform group-hover:translate-y-0.5" />
             )}
-            {loading ? "Loading..." : `Load ${Math.min(perPage, remaining)} More Articles`}
+            {loading ? "..." : t("loadMore")}
           </button>
           <span className="font-ui text-[0.72rem] text-muted uppercase tracking-widest">
-            Showing {visibleArticles.length} of {articles.length}
+            {visibleArticles.length} / {articles.length}
           </span>
         </div>
       )}
     </div>
   );
 }
+

@@ -3,6 +3,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import QuizCard from "@/components/ui/QuizCard";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import AdSlot from "@/components/monetization/AdSlot";
+import { getTranslations } from "next-intl/server";
 
 export const metadata = {
   title: "Interactive Quizzes - LifeWise",
@@ -17,15 +18,18 @@ export default async function QuizHub() {
     ORDER BY publish_at DESC
   `;
 
+  const t = await getTranslations("Nav");
+  const breadcrumbs = [
+    { label: t("home"), href: "/" },
+    { label: t("quizzes"), href: "/quizzes" },
+  ];
+
   return (
     <div className="max-w-[1440px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-20">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10">
         <main>
           <Breadcrumbs 
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Quizzes", href: "/quizzes" }
-            ]} 
+            items={breadcrumbs} 
           />
 
           <div className="mb-12 mt-4 text-center sm:text-left">

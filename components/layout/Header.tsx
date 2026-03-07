@@ -1,16 +1,18 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { Search } from "lucide-react";
 import { categories } from "@/lib/categories";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import AuthModal from "@/components/auth/AuthModal";
+import { useTranslations } from "next-intl";
 
 export default function Header({ children }: { children?: React.ReactNode }) {
   const { data: session, status } = useSession();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const t = useTranslations("Nav");
 
   return (
     <header className="no-print sticky top-0 z-50 backdrop-blur-md bg-surface/90 border-b border-border">
@@ -20,7 +22,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
         </Link>
         <div className="flex gap-2 sm:gap-3 items-center shrink-0">
           <ThemeToggle />
-          <Link href="/search" className="bg-transparent border-[1.5px] border-border rounded-full w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer text-muted text-sm hover:border-accent hover:text-accent transition-colors" aria-label="Search">
+          <Link href="/search" className="bg-transparent border-[1.5px] border-border rounded-full w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer text-muted text-sm hover:border-accent hover:text-accent transition-colors" aria-label={t("search")}>
             <Search size={20} />
           </Link>
           
@@ -40,13 +42,13 @@ export default function Header({ children }: { children?: React.ReactNode }) {
                   <p className="text-sm font-bold text-primary truncate">{session.user?.name}</p>
                   <p className="text-xs text-muted truncate">{session.user?.email}</p>
                 </div>
-                <Link href="/profile" className="block px-4 py-2 text-sm text-primary hover:bg-muted/50 transition-colors">My Profile</Link>
-                <Link href="/saved-hacks" className="block px-4 py-2 text-sm text-primary hover:bg-muted/50 transition-colors">Saved Hacks</Link>
+                <Link href="/profile" className="block px-4 py-2 text-sm text-primary hover:bg-muted/50 transition-colors">{t("myProfile")}</Link>
+                <Link href="/saved-hacks" className="block px-4 py-2 text-sm text-primary hover:bg-muted/50 transition-colors">{t("savedHacks")}</Link>
                 <button 
                   onClick={() => signOut()}
                   className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-muted/50 transition-colors"
                 >
-                  Sign Out
+                  {t("signOut")}
                 </button>
               </div>
             </div>
@@ -55,7 +57,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
               onClick={() => setIsAuthModalOpen(true)}
               className="inline-flex bg-accent text-white border-none px-4 sm:px-[18px] py-2 sm:py-2.5 min-h-[40px] sm:min-h-[44px] items-center rounded-[20px] font-ui text-[0.75rem] sm:text-[0.8rem] font-semibold cursor-pointer tracking-normal hover:shadow-cta-hover transition-all transform hover:-translate-y-px no-underline"
             >
-              Sign In
+              {t("signIn")}
             </button>
           )}
         </div>
@@ -66,7 +68,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
         <nav className="max-w-[1280px] mx-auto overflow-x-auto scrollbar-hide overscroll-x-contain" aria-label="Main categories">
           <div className="px-4 md:px-6 flex whitespace-nowrap min-w-max py-1">
             <Link href="/" className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center min-w-[48px]">
-              🏠 Home
+              🏠 {t("home")}
             </Link>
             {categories.map((cat) => (
               <Link
@@ -81,7 +83,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
               href="/quizzes" 
               className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
             >
-              <span>🧠</span> <span>Quizzes</span>
+              <span>🧠</span> <span>{t("quizzes")}</span>
             </Link>
           </div>
         </nav>
@@ -90,3 +92,4 @@ export default function Header({ children }: { children?: React.ReactNode }) {
     </header>
   );
 }
+

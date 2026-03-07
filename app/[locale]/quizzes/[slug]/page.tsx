@@ -4,6 +4,7 @@ import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import AdSlot from "@/components/monetization/AdSlot";
 import { sql } from "@/lib/db";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -21,19 +22,22 @@ export default async function QuizPage({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   
   // Verify quiz exists and is published
-  const quizCheck = await sql`SELECT id FROM quizzes WHERE slug = ${slug} AND is_active = true AND publish_at <= NOW()`;
+  const quizCheck = await sql`SELECT id, title FROM quizzes WHERE slug = ${slug} AND is_active = true AND publish_at <= NOW()`;
   if (!quizCheck.length) notFound();
+
+  const t = await getTranslations("Nav");
+  const breadcrumbs = [
+    { label: t("home"), href: "/" },
+    { label: t("quizzes"), href: "/quizzes" },
+    { label: quizCheck[0].title, href: `/quizzes/${slug}` },
+  ];
 
   return (
     <div className="max-w-[1440px] mx-auto px-4 md:px-6 mt-6 md:mt-10 mb-20">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10">
         <main>
           <Breadcrumbs 
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Quizzes", href: "/quizzes" },
-              { label: "Play", href: "#" }
-            ]} 
+            items={breadcrumbs} 
           />
 
           <div className="mt-8">

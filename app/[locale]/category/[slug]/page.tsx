@@ -6,6 +6,7 @@ import AdSlot from "@/components/monetization/AdSlot";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
+import { getTranslations } from "next-intl/server";
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
@@ -37,6 +38,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = await params;
   const category = getCategoryBySlug(slug);
+  const t = await getTranslations("Category");
   
   if (!category) notFound();
 
@@ -51,7 +53,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           {category.name}
         </h1>
         <p className="font-body text-muted max-w-[600px] w-full mx-auto text-base md:text-lg leading-relaxed text-center px-1">
-          {category.description || `Explore our latest articles, guides, and tips about ${category.name.toLowerCase()}.`}
+          {category.description || `${t("latestIn")} ${category.name.toLowerCase()}.`}
         </p>
       </div>
 
@@ -61,7 +63,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <ArticleGridWithLoadMore articles={allArticles} initialCount={12} perPage={12} />
           ) : (
             <div className="text-center py-20 bg-surface border border-border rounded-xl">
-              <p className="text-muted font-ui text-sm">No articles found on this page.</p>
+              <p className="text-muted font-ui text-sm">{t("noArticles")}</p>
             </div>
           )}
           
@@ -73,3 +75,4 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     </div>
   );
 }
+

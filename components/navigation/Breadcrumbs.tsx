@@ -1,5 +1,8 @@
-import Link from "next/link";
+"use client";
+
+import { Link } from "@/i18n/routing";
 import { ChevronRight, Home } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface BreadcrumbItem {
   label: string;
@@ -11,11 +14,13 @@ interface BreadcrumbsProps {
 }
 
 export default function Breadcrumbs({ items }: BreadcrumbsProps) {
+  const t = useTranslations("Nav");
+  
   return (
     <nav className="flex items-center space-x-2 text-[0.75rem] font-ui text-muted mb-6 overflow-x-auto whitespace-nowrap scrollbar-hide py-1">
       <Link href="/" className="flex items-center hover:text-accent transition-colors">
         <Home size={14} className="mr-1" />
-        <span>Home</span>
+        <span>{t("home")}</span>
       </Link>
       
       {items.map((item, index) => (
@@ -35,3 +40,4 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
     </nav>
   );
 }
+

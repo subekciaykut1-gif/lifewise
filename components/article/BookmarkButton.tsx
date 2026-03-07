@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Bookmark } from "lucide-react";
 import { clsx } from "clsx";
 import { useSession, signIn } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 interface BookmarkButtonProps {
   slug: string;
@@ -14,6 +15,7 @@ export default function BookmarkButton({ slug }: BookmarkButtonProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [animate, setAnimate] = useState(false);
+  const t = useTranslations("Article");
 
   useEffect(() => {
     if (status === "authenticated" && session?.user) {
@@ -91,8 +93,8 @@ export default function BookmarkButton({ slug }: BookmarkButtonProps) {
           : "bg-surface border-border text-muted hover:text-primary hover:border-accent/30 hover:shadow-md active:scale-95",
         animate && "animate-in zoom-in-75 duration-200"
       )}
-      title={isBookmarked ? "Remove from Saved Hacks" : "Save this hack"}
-      aria-label={isBookmarked ? "Remove Bookmark" : "Save Bookmark"}
+      title={isBookmarked ? t("removeBookmark") : t("saveThisHack")}
+      aria-label={isBookmarked ? t("removeBookmark") : t("saveThisHack")}
     >
       <Bookmark 
         size={16} 

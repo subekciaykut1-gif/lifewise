@@ -1,16 +1,19 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import { Article } from "@/lib/types";
 import { Clock, Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { getAuthorPersona, getAuthorSlug } from "@/lib/authors";
 import BookmarkButton from "@/components/article/BookmarkButton";
+import { getTranslations } from "next-intl/server";
 
 interface ArticleCardProps {
   article: Article;
 }
 
-export default function ArticleCard({ article }: ArticleCardProps) {
+export default async function ArticleCard({ article }: ArticleCardProps) {
+  const t = await getTranslations("Article");
+  
   // Image fallback is now handled in lib/articles.ts
   const rawExcerpt = (article.content ?? "").substring(0, 120).replace(/[#*]/g, "").trim();
   const excerpt = article.excerpt || (rawExcerpt ? `${rawExcerpt}...` : "");
@@ -59,7 +62,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           </div>
           <div className="flex gap-3 items-center">
             <span className="font-ui text-[0.7rem] text-muted flex items-center gap-1">
-              <Clock size={12} /> {article.readTime} min
+              <Clock size={12} /> {article.readTime} {t("minRead").split(" ")[0]}
             </span>
             <span className="font-ui text-[0.7rem] text-muted flex items-center gap-1">
               <Calendar size={12} /> {format(new Date(article.date), "MMM d")}

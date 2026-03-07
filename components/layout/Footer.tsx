@@ -1,7 +1,7 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { Facebook, Twitter, Instagram, Youtube, PinIcon } from "lucide-react";
 import { getPublishedArticles } from "@/lib/articles";
-import { Article } from "@/lib/types";
+import { getTranslations } from "next-intl/server";
 
 const twitterUrl = process.env.NEXT_PUBLIC_TWITTER_URL || "#";
 const youtubeUrl = process.env.NEXT_PUBLIC_YOUTUBE_URL || "#";
@@ -9,6 +9,8 @@ const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL || "#";
 
 export default async function Footer() {
   const latestArticles = (await getPublishedArticles()).slice(0, 5);
+  const t = await getTranslations("Footer");
+  
   return (
     <footer className="no-print bg-primary dark:bg-surface text-bg/70 dark:text-primary/70 mt-12 md:mt-16">
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 py-10 md:py-12 pb-6 md:pb-8">
@@ -18,7 +20,7 @@ export default async function Footer() {
               Life<span className="text-accent">Wise</span>
             </div>
             <p className="font-body text-[0.85rem] text-bg/50 dark:text-primary/70 italic mb-5 leading-relaxed">
-              Smarter living, every day. Tips, life hacks, health advice and viral stories for curious minds.
+              {t("tagline")}. Tips, life hacks, health advice and viral stories for curious minds.
             </p>
             <div className="flex gap-3">
               <a href="https://www.facebook.com/wisetipsco/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-bg/10 dark:bg-primary/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on Facebook">
@@ -51,33 +53,33 @@ export default async function Footer() {
               ))}
             </ul>
           </div>
-
+  
           <div className="footer-col">
             <h4 className="font-ui text-[0.7rem] font-bold uppercase tracking-widest text-bg/40 dark:text-primary/50 mb-4">Company</h4>
             <ul className="list-none space-y-2">
-              <li><Link href="/about" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">About Us</Link></li>
-              <li><Link href="/contact" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">Contact</Link></li>
-              <li><Link href="/advertise" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">Advertise</Link></li>
-              <li><Link href="/write-for-us" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">Write for Us</Link></li>
+              <li><Link href="/about" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("about")}</Link></li>
+              <li><Link href="/contact" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("contact")}</Link></li>
+              <li><Link href="/advertise" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("advertise")}</Link></li>
+              <li><Link href="/write-for-us" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("writeForUs")}</Link></li>
             </ul>
           </div>
-
+  
           <div className="footer-col">
             <h4 className="font-ui text-[0.7rem] font-bold uppercase tracking-widest text-bg/40 dark:text-primary/50 mb-4">Legal</h4>
             <ul className="list-none space-y-2">
-              <li><Link href="/privacy-policy" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">Privacy Policy</Link></li>
-              <li><Link href="/cookie-policy" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">Cookie Policy</Link></li>
-              <li><Link href="/terms-of-use" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">Terms of Use</Link></li>
+              <li><Link href="/privacy-policy" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("privacy")}</Link></li>
+              <li><Link href="/cookie-policy" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("terms")}</Link></li>
+              <li><Link href="/terms-of-use" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("terms")}</Link></li>
               <li><Link href="/affiliate-disclosure" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">Affiliate Disclosure</Link></li>
             </ul>
           </div>
         </div>
-
+  
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-          <span className="font-ui text-[0.75rem] text-bg/35 dark:text-primary/50">© 2026 LifeWise. All rights reserved.</span>
+          <span className="font-ui text-[0.75rem] text-bg/35 dark:text-primary/50">© 2026 LifeWise. {t("allRightsReserved")}</span>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/privacy-policy" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">Privacy Policy</Link>
-            <Link href="/cookie-policy" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">Cookie Policy</Link>
+            <Link href="/privacy-policy" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">{t("privacy")}</Link>
+            <Link href="/cookie-policy" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">{t("terms")}</Link>
             <Link href="/sitemap.xml" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">Sitemap</Link>
             <Link href="/feed" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">RSS</Link>
           </div>

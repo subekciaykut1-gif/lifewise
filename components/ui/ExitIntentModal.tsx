@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { X, Mail } from "lucide-react";
 import { trackNewsletterSignup } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 export default function ExitIntentModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const t = useTranslations("Newsletter");
 
   useEffect(() => {
     // Check if the user has already seen the modal recently
@@ -51,9 +53,9 @@ export default function ExitIntentModal() {
       
       if (res.ok) {
         setStatus("success");
-        setMessage(data.message);
+        setMessage(t("success"));
         setEmail("");
-        trackNewsletterSignup("exit_intent_modal", "Join Now");
+        trackNewsletterSignup("exit_intent_modal", t("subscribe"));
         // Close modal after success after a delay
         setTimeout(() => setIsOpen(false), 3000);
       } else {
@@ -92,17 +94,17 @@ export default function ExitIntentModal() {
           </div>
 
           <h3 className="font-display text-2xl md:text-3xl font-bold text-primary mb-3">
-            Wait! Don&apos;t Leave Yet
+            {t("title")}
           </h3>
           <p className="font-ui text-muted text-[0.95rem] leading-relaxed mb-8">
-            Join 50,000+ others getting the best life hacks and health tips delivered weekly. No spam, just pure value.
+            {t("subtitle")}
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="relative">
               <input 
                 type="email" 
-                placeholder="your@email.com" 
+                placeholder={t("emailPlaceholder")} 
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -127,10 +129,10 @@ export default function ExitIntentModal() {
               disabled={status === "loading" || status === "success"}
               className="w-full bg-accent text-white border-none px-6 py-4 rounded-xl font-ui text-[1rem] font-bold hover:bg-accent/90 hover:-translate-y-0.5 hover:shadow-lg transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {status === "loading" ? "Subscribing..." : status === "success" ? "See you in court! (Just kidding)" : "Join Now — It's Free"}
+              {status === "loading" ? "..." : status === "success" ? "✓" : t("subscribe")}
             </button>
             <p className="text-[0.7rem] text-muted-500 uppercase tracking-widest font-bold">
-              Unsubscribe anytime with one click
+              {t("privacy")}
             </p>
           </form>
         </div>
@@ -138,3 +140,4 @@ export default function ExitIntentModal() {
     </div>
   );
 }
+

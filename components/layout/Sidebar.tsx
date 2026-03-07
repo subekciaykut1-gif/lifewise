@@ -1,17 +1,20 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import { Trophy, FolderOpen, Clock } from "lucide-react";
 import { categories } from "@/lib/categories";
 import AdSlot from "@/components/monetization/AdSlot";
 import CustomSurvey from "@/components/ui/CustomSurvey";
 import { getPublishedArticles, getMostReadArticles } from "@/lib/articles";
-import { Article } from "@/lib/types";
+import { getTranslations } from "next-intl/server";
 
 export default async function Sidebar() {
   const articles = await getPublishedArticles();
   // Get real most read articles or fallback to first 5
   const mostReadArticles = (await getMostReadArticles()).slice(0, 5);
   const displayArticles = mostReadArticles.length > 0 ? mostReadArticles : articles.slice(0, 5);
+  
+  const tHome = await getTranslations("Home");
+  const tArticle = await getTranslations("Article");
 
   // Calculate category counts
   const categoryCounts = articles.reduce((acc, article) => {
@@ -27,7 +30,7 @@ export default async function Sidebar() {
 
       <div className="bg-surface border border-border rounded-xl p-5 mb-6">
         <div className="font-display text-base font-bold text-primary mb-4 pb-2.5 border-b-2 border-border flex items-center gap-2">
-          <Trophy size={18} className="text-gold" /> Most Read
+          <Trophy size={18} className="text-gold" /> {tHome("mostRead")}
         </div>
         
         {displayArticles.map((article, i) => (
@@ -80,7 +83,7 @@ export default async function Sidebar() {
 
       <div className="bg-surface border border-border rounded-xl p-5 mb-6">
         <div className="font-display text-base font-bold text-primary mb-4 pb-2.5 border-b-2 border-border flex items-center gap-2">
-          <FolderOpen size={18} className="text-gold" /> Categories
+          <FolderOpen size={18} className="text-gold" /> {tArticle("tags")}
         </div>
         <ul className="list-none m-0 p-0">
           {categories.map((cat) => (

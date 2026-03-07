@@ -1,16 +1,20 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import { Article } from "@/lib/types";
 import { Clock, Calendar, Eye } from "lucide-react";
 import { format } from "date-fns";
 import { formatViewCount } from "@/lib/article-views";
 import { getAuthorPersona, getAuthorSlug } from "@/lib/authors";
+import { getTranslations } from "next-intl/server";
 
 interface HeroArticleProps {
   article: Article;
 }
 
-export default function HeroArticle({ article }: HeroArticleProps) {
+export default async function HeroArticle({ article }: HeroArticleProps) {
+  const tArticle = await getTranslations("Article");
+  const tNav = await getTranslations("Nav");
+  
   // Image fallback is now handled in lib/articles.ts
 
   return (
@@ -72,11 +76,11 @@ export default function HeroArticle({ article }: HeroArticleProps) {
               <Calendar size={14} /> {format(new Date(article.date), "MMMM d, yyyy")}
             </span>
             <span className="font-ui text-xs flex items-center gap-1.5">
-              <Clock size={14} /> {article.readTime} min read
+              <Clock size={14} /> {article.readTime} {tArticle("minRead")}
             </span>
             {typeof article.views === "number" && (
               <span className="font-ui text-xs flex items-center gap-1.5">
-                <Eye size={14} /> {formatViewCount(article.views)} views
+                <Eye size={14} /> {formatViewCount(article.views)} {tArticle("views")}
               </span>
             )}
           </div>
@@ -85,7 +89,7 @@ export default function HeroArticle({ article }: HeroArticleProps) {
             href={`/${article.category}/${article.slug}`} 
             className="inline-flex items-center gap-2 bg-accent text-white border-none px-7 py-3 rounded-md font-ui text-[0.85rem] font-semibold hover:-translate-y-0.5 hover:shadow-cta-hover transition-all"
           >
-            Read Article →
+            {tNav("viewAll").replace(" →", "")} →
           </Link>
         </div>
       </div>

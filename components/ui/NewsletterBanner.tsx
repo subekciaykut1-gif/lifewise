@@ -4,6 +4,7 @@ import { Mail } from "lucide-react";
 import { useState } from "react";
 import { trackNewsletterSignup } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface NewsletterBannerProps {
   sidebar?: boolean;
@@ -13,6 +14,7 @@ export default function NewsletterBanner({ sidebar }: NewsletterBannerProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const t = useTranslations("Newsletter");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,9 +33,9 @@ export default function NewsletterBanner({ sidebar }: NewsletterBannerProps) {
       
       if (res.ok) {
         setStatus("success");
-        setMessage(data.message);
+        setMessage(t("success"));
         setEmail("");
-        trackNewsletterSignup(sidebar ? "sidebar_newsletter" : "newsletter_banner", "Subscribe Free");
+        trackNewsletterSignup(sidebar ? "sidebar_newsletter" : "newsletter_banner", t("subscribe"));
       } else {
         setStatus("error");
         setMessage(data.error || "Subscription failed.");
@@ -59,17 +61,19 @@ export default function NewsletterBanner({ sidebar }: NewsletterBannerProps) {
            <Mail className="text-accent" size={sidebar ? 24 : 32} />
         </div>
 
-        <h3 className={cn(
-          "font-display font-bold text-white mb-2 leading-tight",
-          sidebar ? "text-[1.2rem]" : "text-[1.4rem] md:text-[1.5rem]"
-        )}>
-          Join 50,000+ Smart Readers
-        </h3>
-        {!sidebar && (
-          <p className="font-ui text-[0.9rem] text-white/70 leading-relaxed max-w-[400px] mx-auto md:mx-0">
-            Get the best life hacks, health tips & viral stories delivered weekly — free!
-          </p>
-        )}
+        <div>
+          <h3 className={cn(
+            "font-display font-bold text-white mb-2 leading-tight",
+            sidebar ? "text-[1.2rem]" : "text-[1.4rem] md:text-[1.5rem]"
+          )}>
+            {t("title")}
+          </h3>
+          {!sidebar && (
+            <p className="font-ui text-[0.9rem] text-white/70 leading-relaxed max-w-[400px] mx-auto md:mx-0">
+              {t("subtitle")}
+            </p>
+          )}
+        </div>
  
       <form 
         className={cn(
@@ -81,7 +85,7 @@ export default function NewsletterBanner({ sidebar }: NewsletterBannerProps) {
         <input 
           type="email" 
           name="EMAIL"
-          placeholder="your@email.com" 
+          placeholder={t("emailPlaceholder")} 
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -105,7 +109,7 @@ export default function NewsletterBanner({ sidebar }: NewsletterBannerProps) {
           disabled={status === "loading" || status === "success"}
           className="bg-accent text-white border-none px-6 py-3 rounded-lg font-ui text-[0.9rem] font-bold hover:bg-accent/90 hover:translate-y-px hover:shadow-lg transition-all whitespace-nowrap cursor-pointer w-full disabled:opacity-75 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         >
-          {status === "loading" ? "Subscribing..." : status === "success" ? "Subscribed!" : "Subscribe Free"}
+          {status === "loading" ? "..." : status === "success" ? "✓" : t("subscribe")}
         </button>
       </form>
     </div>

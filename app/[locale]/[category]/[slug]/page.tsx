@@ -1,11 +1,12 @@
 import { getArticleBySlug, getAllArticles, getPublishedArticles, getRelatedArticles } from "@/lib/articles";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/routing";
 
 export const revalidate = 3600; // Revalidate every hour
 
 import { getCategoryBySlug } from "@/lib/categories";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import Link from "next/link";
 import { format } from "date-fns";
 import { Clock, Eye } from "lucide-react";
 import { formatViewCount } from "@/lib/article-views";
@@ -39,15 +40,18 @@ import ArticleUpvoteButton from "@/components/article/ArticleUpvoteButton";
 import BookmarkButton from "@/components/article/BookmarkButton";
 
 interface ArticlePageProps {
-  params: Promise<{ category: string; slug: string }>;
+  params: Promise<{ category: string; slug: string; locale: string }>;
 }
 
 export async function generateStaticParams() {
   const articles = await getAllArticles();
-  return articles.map((article) => ({
-    category: article.category,
-    slug: article.slug,
-  }));
+  return articles.flatMap((article) => [
+    { category: article.category, slug: article.slug, locale: "en" },
+    { category: article.category, slug: article.slug, locale: "es" },
+    { category: article.category, slug: article.slug, locale: "fr" },
+    { category: article.category, slug: article.slug, locale: "de" },
+    { category: article.category, slug: article.slug, locale: "pt" },
+  ]);
 }
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
@@ -97,6 +101,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   if (new Date(publishedAt) > new Date()) notFound();
 
   const relatedArticles = await getRelatedArticles(article, 6);
+  const tNav = await getTranslations("Nav");
+  const tArticle = await getTranslations("Article");
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -127,7 +133,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 1, name: tNav("home"), item: SITE_URL },
       { "@type": "ListItem", position: 2, name: category?.name || categorySlug, item: `${SITE_URL}/category/${categorySlug}` },
       { "@type": "ListItem", position: 3, name: article.title, item: `${SITE_URL}/${categorySlug}/${slug}` },
     ],
@@ -195,7 +201,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               <div className="h-8 w-px bg-border hidden sm:block"></div>
 
               <div className="flex flex-wrap items-center gap-4 text-muted font-ui text-xs">
-                <span className="flex items-center gap-1.5"><Clock size={14} /> {article.readTime} min read</span>
+                <span className="flex items-center gap-1.5"><Clock size={14} /> {article.readTime} {tArticle("minRead")}</span>
                 {typeof article.views === "number" && (
                   <LiveViewCounter 
                     slug={slug} 
@@ -250,15 +256,15 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <ArticleReactions category={categorySlug} slug={slug} />
 
             <p className="my-8 py-4 px-4 rounded-lg bg-surface border border-border text-center font-body text-muted text-sm">
-              Get more tips in your inbox —{" "}
+              {tArticle("subscribePrompt")}{" "}
               <Link href="/subscribe" className="text-accent font-semibold hover:underline">
-                Subscribe free
+                {tArticle("subscribeFree")}
               </Link>
               .
             </p>
 
             <div className="my-10 pt-8 border-t border-border">
-              <h3 className="font-display text-xl font-bold mb-4">Tags</h3>
+              <h3 className="font-display text-xl font-bold mb-4">{tArticle("tags")}</h3>
               <div className="flex flex-wrap gap-2">
                 {article.tags?.map(tag => (
                   <span key={tag} className="bg-bg border border-border px-3 py-1 rounded-full text-xs font-ui text-muted uppercase tracking-wide">#{tag}</span>

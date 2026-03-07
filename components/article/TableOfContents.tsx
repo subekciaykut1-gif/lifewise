@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface TocItem {
   id: string;
@@ -12,6 +13,7 @@ interface TocItem {
 export default function TableOfContents() {
   const [headings, setHeadings] = useState<TocItem[]>([]);
   const [activeId, setActiveId] = useState<string>("");
+  const t = useTranslations("Article");
 
   useEffect(() => {
     // Find all h2 and h3 elements within the article content
@@ -55,7 +57,7 @@ export default function TableOfContents() {
   return (
     <nav className="h-fit max-h-64 lg:max-h-[calc(100vh-10rem)] overflow-y-auto w-full py-2 lg:pr-6 scrollbar-hide">
       <h4 className="font-display text-[0.9rem] font-bold text-primary mb-6 uppercase tracking-[0.2em] opacity-50">
-        In This Article
+        {t("tableOfContents")}
       </h4>
       <ul className="space-y-3">
         {headings.map((heading) => (
@@ -87,3 +89,4 @@ export default function TableOfContents() {
     </nav>
   );
 }
+
