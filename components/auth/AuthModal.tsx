@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { signIn } from "next-auth/react";
 import { X, Mail, Lock, User, Loader2, AlertCircle } from "lucide-react";
 import { clsx } from "clsx";
@@ -63,8 +64,16 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }: Au
     }
   };
 
-  return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!isOpen || !mounted) return null;
+
+  return createPortal(
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div className="absolute inset-0 bg-primary/40 backdrop-blur-sm" onClick={onClose} />
       
@@ -166,6 +175,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }: Au
           </p>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
