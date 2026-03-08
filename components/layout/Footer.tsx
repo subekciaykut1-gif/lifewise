@@ -4,7 +4,7 @@ import { getPublishedArticles } from "@/lib/articles";
 import { getTranslations, getLocale } from "next-intl/server";
 
 const twitterUrl = process.env.NEXT_PUBLIC_TWITTER_URL || "#";
-const youtubeUrl = process.env.NEXT_PUBLIC_YOUTUBE_URL || "https://www.youtube.com/channel/UCybx63b0Ajwe9k2srzOM-Ug";
+const youtubeUrl = process.env.NEXT_PUBLIC_YOUTUBE_URL || "#";
 const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL || "#";
 
 export default async function Footer() {
@@ -69,7 +69,7 @@ export default async function Footer() {
             <h4 className="font-ui text-[0.7rem] font-bold uppercase tracking-widest text-bg/40 dark:text-primary/50 mb-4">{t("legal")}</h4>
             <ul className="list-none space-y-2">
               <li><Link href="/privacy-policy" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("privacy")}</Link></li>
-              <li><Link href="/cookie-policy" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("terms")}</Link></li>
+              <li><Link href="/cookie-policy" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("cookiePolicy")}</Link></li>
               <li><Link href="/terms-of-use" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("terms")}</Link></li>
               <li><Link href="/affiliate-disclosure" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("advertise")}</Link></li>
             </ul>
