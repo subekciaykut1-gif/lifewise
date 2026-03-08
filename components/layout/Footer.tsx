@@ -4,7 +4,7 @@ import { getPublishedArticles } from "@/lib/articles";
 import { getTranslations, getLocale } from "next-intl/server";
 
 const twitterUrl = process.env.NEXT_PUBLIC_TWITTER_URL || "#";
-const youtubeUrl = process.env.NEXT_PUBLIC_YOUTUBE_URL || "#";
+const youtubeUrl = process.env.NEXT_PUBLIC_YOUTUBE_URL || "https://www.youtube.com/channel/UCybx63b0Ajwe9k2srzOM-Ug";
 const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL || "#";
 
 export default async function Footer() {
