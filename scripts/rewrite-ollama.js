@@ -108,13 +108,16 @@ LLAMA 3.2 OUTPUT RULES:
   const firstRealSentence = paragraphs.find(p => p.length > 50 && !p.startsWith('#') && !p.startsWith('-')) || "Read our comprehensive guide and expert tips.";
   const cleanExcerpt = firstRealSentence.substring(0, 150).replace(/["\n\r]/g, "'").trim() + "...";
 
-  // Refresh the publishedAt date for max SEO value
+  // IMPORTANT: Preserve the original publishedAt schedule.
+  // Only inject a date if the article has NO publishedAt at all (orphan stubs).
+  // Never overwrite an existing scheduled date — the drip-publish schedule is critical for SEO trust.
   let updatedFrontmatter = frontmatter;
-  const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-  if (updatedFrontmatter.includes('publishedAt:')) {
-    updatedFrontmatter = updatedFrontmatter.replace(/publishedAt:\s*["'].*?["']/, `publishedAt: "${today}T12:00:00Z"`);
-  } else {
+  if (!updatedFrontmatter.includes('publishedAt:')) {
+    const today = new Date().toISOString().split('T')[0];
     updatedFrontmatter += `\npublishedAt: "${today}T12:00:00Z"`;
+    console.log(`  → No publishedAt found. Injected today's date as fallback.`);
+  } else {
+    console.log(`  → Original publishedAt preserved.`);
   }
   
   // Inject the new excerpt
