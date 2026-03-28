@@ -150,51 +150,57 @@ async function run() {
   const isOnline = await checkOllamaEngine();
   if (!isOnline) process.exit(1);
 
-  console.log("Starting Global Site Rewrite (600+ Articles)...");
-  let processedCount = 0;
-  
+
+
   const files = fs.readdirSync(articlesDir).filter(f => f.endsWith('.mdx'));
-  
+  const toProcess = [];
+
+  // First pass: find all articles that need rewriting
   for (const file of files) {
     const slug = file.replace('.mdx', '');
     const filePath = path.join(articlesDir, file);
     const content = fs.readFileSync(filePath, 'utf8');
-    
-    // Safety check: Don't rewrite if it's already an massive 600+ word SEO article
     const parts = content.split(/^---$/m);
     if (parts.length >= 3) {
       const body = parts.slice(2).join('---').trim();
       const wordCount = body.split(/\s+/).length;
-      
-      // If the article is already long and high quality, skip it to save your time unless forced
-      // Let's rewrite anything under 550 words (which includes all the old templates).
       if (wordCount < 550) {
         const titleMatch = content.match(/title:\s*['"]?([^'"\n\r]+)['"]?/);
         const title = titleMatch ? titleMatch[1] : slug;
-        
-        try {
-          const success = await processArticle(slug, title);
-          if (success) {
-            processedCount++;
-            console.log(`Giving local CPU/GPU a 3s cooldown...`);
-            await delay(3000);
-            
-            // Limit completely processing all memory manually at a time 
-            if (processedCount >= 10) {
-              console.log("Reached batch limit of 10. Run script again to process the next 10!");
-              return;
-            }
-          }
-        } catch (e) {
-          console.error(`Failed to rewrite ${slug}: ${e.message}`);
-        }
+        toProcess.push({ slug, title });
       }
     }
   }
+
+  console.log(`\n📋 Found ${toProcess.length} articles that need rewriting out of ${files.length} total.\n`);
+  let processedCount = 0;
+  let failedCount = 0;
   
-  if (processedCount === 0) {
-    console.log("Batch complete! ALL 600+ articles on your site are fully rewritten and SEO optimized!");
+  // Process all articles in one full run — no batch limit
+  for (const { slug, title } of toProcess) {
+    const remaining = toProcess.length - processedCount - failedCount;
+    console.log(`\n[${processedCount + failedCount + 1}/${toProcess.length}] | ${remaining} remaining`);
+    try {
+      const success = await processArticle(slug, title);
+      if (success) {
+        processedCount++;
+        console.log(`Cooling down 5s to protect RAM...`);
+        await delay(5000);
+      } else {
+        failedCount++;
+      }
+    } catch (e) {
+      console.error(`Failed to rewrite ${slug}: ${e.message}`);
+      failedCount++;
+    }
   }
+
+  console.log(`\n${'='.repeat(50)}`);
+  console.log(`🎉 FULL RUN COMPLETE!`);
+  console.log(`  ✅ Successfully rewritten: ${processedCount} articles`);
+  console.log(`  ❌ Failed / Skipped:       ${failedCount} articles`);
+  console.log(`  📦 Total processed:        ${processedCount + failedCount} / ${toProcess.length}`);
+  console.log(`${'='.repeat(50)}\n`);
 }
 
 run();
