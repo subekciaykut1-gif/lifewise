@@ -14,11 +14,13 @@ import OrganizationSchema from "@/components/seo/OrganizationSchema";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import ExitIntentModal from "@/components/ui/ExitIntentModal";
 import SessionWrapper from "@/components/auth/SessionWrapper";
-import TrendingTicker from "@/components/layout/TrendingTicker";
+import dynamic from "next/dynamic";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
+
+const TrendingTicker = dynamic(() => import("@/components/layout/TrendingTicker"));
 
 const playfair = Playfair_Display({
   subsets: ["latin"],

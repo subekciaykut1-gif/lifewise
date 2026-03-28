@@ -123,6 +123,38 @@
     "viral-stories": {
       "name": "Virale Geschichten",
       "desc": "Interessante Geschichten, aktuelle Nachrichten und inspirierende menschliche Erfahrungen aus dem Internet, die es wert sind, geteilt zu werden."
+    },
+    "technology": {
+      "name": "Technologie",
+      "desc": "Tech-Hacks, Software-Guides und Tipps für einen vernetzten und sicheren digitalen Lebensstil."
+    },
+    "gaming": {
+      "name": "Gaming",
+      "desc": "Steigen Sie auf mit unseren besten Spielstrategien, Hardware-Bewertungen und versteckten Funktionen."
+    },
+    "finance": {
+      "name": "Persönliche Finanzen",
+      "desc": "Intelligente Sparstrategien, Ideen für Nebenverdienste und praktische Budgetierungstipps."
+    },
+    "travel": {
+      "name": "Reisen & Abenteuer",
+      "desc": "Günstige Reise-Hacks, Reiseziele und Tipps für den modernen Entdecker."
+    },
+    "auto": {
+      "name": "Auto & Fahrzeuge",
+      "desc": "Auto-Wartung, Fahrsicherheitstipps und Ratgeber für den cleveren Fahrzeugbesitzer."
+    },
+    "pets": {
+      "name": "Haustiere",
+      "desc": "Tipps zur Haustiererziehung, natürliche Heilmittel und Hacks für jeden Tierbesitzer."
+    },
+    "estate": {
+      "name": "Immobilien",
+      "desc": "Hacks zum Hauskauf, Ratgeber für Mietinvestitionen und Geheimnisse des Immobilienwerts."
+    },
+    "careers": {
+      "name": "Karriere & Geld",
+      "desc": "Ideen für Nebenbeschäftigungen, Taktiken für Gehaltsverhandlungen und Produktivitäts-Hacks."
     }
   },
   "Newsletter": {

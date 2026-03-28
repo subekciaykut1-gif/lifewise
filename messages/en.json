@@ -117,6 +117,38 @@
     "viral-stories": {
       "name": "Viral Stories",
       "desc": "Interesting stories, trending news, and inspiring human experiences from across the web that are worth sharing."
+    },
+    "technology": {
+      "name": "Technology",
+      "desc": "Tech & gadget hacks, software guides, and digital lifestyle tips to keep you connected and secure."
+    },
+    "gaming": {
+      "name": "Gaming",
+      "desc": "Level up with our best gaming strategies, hardware reviews, and hidden features for casual and hardcore players alike."
+    },
+    "finance": {
+      "name": "Personal Finance",
+      "desc": "Smart money-saving strategies, side-hustle ideas, and practical budgeting tips to achieve ultimate financial freedom."
+    },
+    "travel": {
+      "name": "Travel & Nomadic",
+      "desc": "Budget travel hacks, destination guides, and adventurous lifestyle tips for the modern explorer."
+    },
+    "auto": {
+      "name": "Auto & Vehicles",
+      "desc": "Car maintenance hacks, driving safety tips, and smart vehicle ownership guides to save you thousands."
+    },
+    "pets": {
+      "name": "Pet Care",
+      "desc": "Expert pet training tips, natural animal health remedies, and clever life hacks for every pet parent."
+    },
+    "estate": {
+      "name": "Real Estate",
+      "desc": "Smarter home buying hacks, rental investment guides, and property value secrets every owner should know."
+    },
+    "careers": {
+      "name": "Career & Money",
+      "desc": "Expert side-hustle ideas, salary negotiation tactics, and productivity hacks for professional growth."
     }
   },
   "Newsletter": {

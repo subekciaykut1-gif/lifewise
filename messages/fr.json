@@ -123,6 +123,38 @@
     "viral-stories": {
       "name": "Histoires virales",
       "desc": "Des histoires intéressantes, des nouvelles tendances et des expériences humaines inspirantes provenant du monde entier et qui valent la peine d'être partagées."
+    },
+    "technology": {
+      "name": "Technologie",
+      "desc": "Astuces technologiques, guides de logiciels et conseils pour un mode de vie numérique connecté et sécurisé."
+    },
+    "gaming": {
+      "name": "Jeux Vidéo",
+      "desc": "Passez au niveau supérieur avec nos meilleures stratégies, critiques de matériel et fonctionnalités cachées."
+    },
+    "finance": {
+      "name": "Finances Personnelles",
+      "desc": "Des stratégies d'économie intelligentes et des conseils pratiques de budgétisation pour la liberté financière."
+    },
+    "travel": {
+      "name": "Voyages & Aventure",
+      "desc": "Astuces pour voyager moins cher, guides de destinations et conseils pour l'explorateur moderne."
+    },
+    "auto": {
+      "name": "Auto & Véhicules",
+      "desc": "Entretien automobile, conseils de sécurité routière et guides pour les propriétaires de véhicules."
+    },
+    "pets": {
+      "name": "Animaux",
+      "desc": "Conseils de dressage, remèdes naturels pour les animaux et astuces pour tous les propriétaires."
+    },
+    "estate": {
+      "name": "Immobilier",
+      "desc": "Astuces pour l'achat d'une maison, guides d'investissement et secrets de la valeur immobilière."
+    },
+    "careers": {
+      "name": "Carrière & Argent",
+      "desc": "Idées de revenus complémentaires, tactiques de négociation de salaire et astuces de productivité."
     }
   },
   "Newsletter": {

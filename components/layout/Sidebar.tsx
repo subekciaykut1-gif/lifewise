@@ -86,20 +86,25 @@ export default async function Sidebar() {
         <div className="font-display text-base font-bold text-primary mb-4 pb-2.5 border-b-2 border-border flex items-center gap-2">
           <FolderOpen size={18} className="text-gold" /> {tArticle("tags")}
         </div>
-        <ul className="list-none m-0 p-0">
+        <div className="grid grid-cols-2 gap-2">
           {categories.map((cat) => (
-            <li key={cat.slug} className="group">
-              <Link href={`/category/${cat.slug}`} className="flex items-center justify-between py-2 border-b border-border group-last:border-0 cursor-pointer no-underline">
-                <span className="font-ui text-[0.82rem] font-medium text-primary flex items-center gap-2 group-hover:text-accent transition-colors">
-                  {cat.icon} {tCat(`${cat.slug}.name`)}
-                </span>
-                <span className="font-ui text-[0.7rem] text-muted bg-bg px-2 py-0.5 rounded-full group-hover:bg-accent-soft group-hover:text-accent transition-colors">
-                  {categoryCounts[cat.slug] || 0}
-                </span>
-              </Link>
-            </li>
+            <Link 
+              key={cat.slug} 
+              href={`/category/${cat.slug}`} 
+              className="flex flex-col items-center justify-center p-3 border border-border rounded-lg bg-bg/30 hover:bg-accent-soft hover:border-accent group transition-all no-underline text-center"
+            >
+              <span className="text-xl mb-1 group-hover:scale-110 transition-transform">
+                {cat.icon}
+              </span>
+              <span className="font-ui text-[0.68rem] font-bold text-primary group-hover:text-accent transition-colors truncate w-full">
+                {tCat(`${cat.slug}.name`)}
+              </span>
+              <span className="text-[0.6rem] text-muted font-medium mt-0.5">
+                {categoryCounts[cat.slug] || 0}
+              </span>
+            </Link>
           ))}
-        </ul>
+        </div>
       </div>
 
       <AdSlot slot="sidebar-sticky" format="vertical" height={600} className="sticky top-[80px]" />

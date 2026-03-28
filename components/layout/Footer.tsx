@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/routing";
 import { Facebook, Twitter, Instagram, Youtube, PinIcon } from "lucide-react";
 import { getPublishedArticles } from "@/lib/articles";
+import { categories } from "@/lib/categories";
 import { getTranslations, getLocale } from "next-intl/server";
 
 const twitterUrl = process.env.NEXT_PUBLIC_TWITTER_URL || "#";
@@ -11,10 +12,32 @@ export default async function Footer() {
   const locale = await getLocale();
   const latestArticles = (await getPublishedArticles(locale)).slice(0, 5);
   const t = await getTranslations("Footer");
+  const tCat = await getTranslations("Categories");
   
   return (
     <footer className="no-print bg-primary dark:bg-surface text-bg/70 dark:text-primary/70 mt-12 md:mt-16">
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 py-10 md:py-12 pb-6 md:pb-8">
+        {/* Category Sitemap Section */}
+        <div className="mb-12 pb-10 border-b border-bg/10 dark:border-primary/10">
+          <h4 className="font-ui text-[0.7rem] font-bold uppercase tracking-[0.2em] text-bg/40 dark:text-primary/50 mb-6 text-center md:text-left">Explore Niches</h4>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 md:gap-6">
+            {categories.map(cat => (
+              <Link 
+                key={cat.slug} 
+                href={`/category/${cat.slug}`}
+                className="group no-underline flex flex-col items-center md:items-start"
+              >
+                <span className="text-xl mb-1 group-hover:scale-110 transition-transform">
+                  {cat.icon}
+                </span>
+                <span className="font-ui text-[0.75rem] font-bold text-bg/60 dark:text-primary/70 group-hover:text-accent transition-colors">
+                  {tCat(`${cat.slug}.name`)}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 md:gap-10 pb-8 md:pb-10 border-b border-bg/10 dark:border-primary/10 mb-6 md:mb-8">
           <div>
             <div className="font-display text-[1.8rem] font-extrabold text-bg dark:text-primary tracking-tighter mb-3">
