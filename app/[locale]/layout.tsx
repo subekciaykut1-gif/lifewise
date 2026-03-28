@@ -134,7 +134,6 @@ export default async function LocaleLayout({
         />
         <link rel="apple-touch-icon" href="/favicon.ico" />
         <meta name="msvalidate.01" content="88CBBC0B67A708362E1731A6060ED5B1" />
-        <meta name="monetag" content="2898a8637fbe978ca600fc4967ba04e7" />
         <meta name="p:domain_verify" content="f953a2206b94ac2b1c8eda09eb16381c" />
         <GoogleAnalytics gaId={gaId} />
         {adsenseId && (
@@ -145,12 +144,6 @@ export default async function LocaleLayout({
             crossOrigin="anonymous"
           />
         )}
-        <Script
-          id="monetag-tag"
-          src="https://quge5.com/88/tag.min.js"
-          data-zone="224282"
-          strategy="afterInteractive"
-        />
         <Script id="microsoft-clarity" strategy="afterInteractive">
           {`(function(c,l,a,r,i,t,y){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
