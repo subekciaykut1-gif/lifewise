@@ -106,7 +106,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
       <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
-      <div className="bg-primary dark:bg-surface w-full overflow-hidden">
+      <div className="bg-primary dark:bg-surface w-full relative">
         <nav className="max-w-[1280px] mx-auto flex items-center" aria-label="Main categories">
           {/* Main Scroller */}
           <div className="flex-1 overflow-x-auto scrollbar-hide flex whitespace-nowrap px-4 md:px-6 py-1">
