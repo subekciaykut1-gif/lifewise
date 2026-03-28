@@ -145,6 +145,12 @@ export default async function LocaleLayout({
             crossOrigin="anonymous"
           />
         )}
+        <Script
+          id="monetag-tag"
+          src="https://quge5.com/88/tag.min.js"
+          data-zone="224282"
+          strategy="afterInteractive"
+        />
         <Script id="microsoft-clarity" strategy="afterInteractive">
           {`(function(c,l,a,r,i,t,y){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
