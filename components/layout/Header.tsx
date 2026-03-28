@@ -12,12 +12,17 @@ import { useTranslations } from "next-intl";
 
 export default function Header({ children }: { children?: React.ReactNode }) {
   const { data: session, status } = useSession();
+  const [mounted, setMounted] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
   const t = useTranslations("Nav");
   const tCat = useTranslations("Categories");
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -50,7 +55,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
           >
             <Menu size={24} />
           </button>
-          <Link href="/" className="font-display text-[1.5rem] sm:text-[1.6rem] md:text-[1.85rem] font-extrabold tracking-tighter text-primary no-underline shrink-0">
+          <Link href="/" className="font-display text-[1.5rem] sm:text-[1.6rem] md:text-[1.85rem] font-extrabold tracking-tighter text-primary no-underline shrink-0 hover:text-accent transition-colors">
             Life<span className="text-accent">Wise</span>
           </Link>
         </div>
@@ -103,22 +108,40 @@ export default function Header({ children }: { children?: React.ReactNode }) {
 
       <div className="bg-primary dark:bg-surface w-full overflow-hidden">
         <nav className="max-w-[1280px] mx-auto flex items-center" aria-label="Main categories">
-          {/* Main Scroller (Always visible on mobile, limited on desktop) */}
+          {/* Main Scroller */}
           <div className="flex-1 overflow-x-auto scrollbar-hide flex whitespace-nowrap px-4 md:px-6 py-1">
             <Link href="/" className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center min-w-[48px]">
               🏠 {t("home")}
             </Link>
             
-            {/* Desktop: Show visible cats | Mobile: Show all in scroll */}
-            {(typeof window !== 'undefined' && window.innerWidth < 768 ? categories : visibleCategories).map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/category/${cat.slug}`}
-                className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
-              >
-                <span>{cat.icon}</span> <span>{tCat(`${cat.slug}.name`)}</span>
-              </Link>
-            ))}
+            {/* Server-side / Hydration Safe List */}
+            {mounted && (
+              <>
+                {/* Visible on all screens (first 8) */}
+                {visibleCategories.map((cat) => (
+                  <Link
+                    key={cat.slug}
+                    href={`/category/${cat.slug}`}
+                    className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
+                  >
+                    <span>{cat.icon}</span> <span>{tCat(`${cat.slug}.name`)}</span>
+                  </Link>
+                ))}
+
+                {/* Visible ONLY on mobile in the scroll (remaining 8) */}
+                <div className="flex md:hidden">
+                  {hiddenCategories.map((cat) => (
+                    <Link
+                      key={cat.slug}
+                      href={`/category/${cat.slug}`}
+                      className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
+                    >
+                      <span>{cat.icon}</span> <span>{tCat(`${cat.slug}.name`)}</span>
+                    </Link>
+                  ))}
+                </div>
+              </>
+            )}
 
             <Link 
               href="/quizzes" 
@@ -129,7 +152,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
           </div>
 
           {/* Desktop "More" Dropdown */}
-          {hiddenCategories.length > 0 && (
+          {mounted && hiddenCategories.length > 0 && (
             <div className="hidden md:block relative px-4 border-l border-bg/10 dark:border-primary/10" ref={moreRef}>
               <button 
                 onClick={() => setIsMoreOpen(!isMoreOpen)}
@@ -139,7 +162,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
               </button>
 
               {isMoreOpen && (
-                <div className="absolute right-0 top-full mt-0 w-[400px] bg-surface border border-border shadow-2xl p-6 rounded-b-2xl animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="absolute right-0 top-full mt-0 w-[420px] bg-surface border border-border shadow-2xl p-6 rounded-b-2xl animate-in fade-in slide-in-from-top-2 duration-200 z-[100]">
                   <p className="text-[0.65rem] font-bold uppercase tracking-widest text-muted/60 mb-4 px-2">More Categories</p>
                   <div className="grid grid-cols-2 gap-2">
                     {hiddenCategories.map((cat) => (
