@@ -14,7 +14,8 @@
     "latestArticles": "Neueste Artikel",
     "trendingThisWeek": "Diese Woche im Trend",
     "mostRead": "🔥 Am meisten gelesen",
-    "trendingTicker": "Trends"
+    "trendingTicker": "Trends",
+    "latestTips": "Neueste Tipps"
   },
   "Article": {
     "minRead": "Min. gelesen",
@@ -90,7 +91,6 @@
     "legal": "Rechtliches",
     "sitemap": "Sitemap"
   },
-
   "Categories": {
     "cleaning": {
       "name": "Reinigung",

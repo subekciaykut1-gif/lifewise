@@ -26,7 +26,7 @@ interface AdSlotProps {
 
 export default function AdSlot({ slot, format = "auto", className, height, layout, layoutKey }: AdSlotProps) {
   const ref = useRef<HTMLModElement>(null);
-  const publisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID;
+  const publisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "ca-pub-2207377176181836";
   const slotId = process.env[SLOT_TO_ENV[slot] as keyof typeof process.env] as string | undefined;
 
   useEffect(() => {

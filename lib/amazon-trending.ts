@@ -11,6 +11,8 @@ export interface AffiliateProduct {
   label: string;
   url: string;
   active: boolean;
+  description?: string;
+  imageUrl?: string;
 }
 
 const CACHE_FILENAME = "amazon-trending-cache.json";

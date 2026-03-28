@@ -55,30 +55,48 @@ export async function generateStaticParams() {
   ]);
 }
 
+const LOCALES = ["en", "es", "fr", "de", "pt"] as const;
+
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
   const { slug, category, locale } = await params;
   const article = await getArticleBySlug(slug, category, locale);
   if (!article) return {};
   const canonical = `${SITE_URL}/${locale}/${category}/${slug}`;
   const pinterestImage = getPinterestImageUrl(article, SITE_URL);
+
+  const languages: Record<string, string> = {};
+  LOCALES.forEach(loc => {
+    languages[loc] = `${SITE_URL}/${loc}/${category}/${slug}`;
+  });
+  languages["x-default"] = `${SITE_URL}/en/${category}/${slug}`;
+
+  // Make sure image is absolute
+  let absoluteImage = article.image || "/images/placeholder.jpg";
+  if (!absoluteImage.startsWith("http")) {
+    absoluteImage = `${SITE_URL}${absoluteImage.startsWith("/") ? "" : "/"}${absoluteImage}`;
+  }
+
   return {
-    title: article.title,
+    title: `${article.title} | LifeWise`,
     description: article.excerpt,
     keywords: article.keywords || article.tags?.join(", "),
     openGraph: {
       type: "article",
-      title: article.title,
+      title: `${article.title} | LifeWise`,
       description: article.excerpt,
-      images: [pinterestImage, article.image || "/images/placeholder.jpg"].filter(Boolean).map(url => ({ url })),
+      images: [pinterestImage, absoluteImage].filter(Boolean).map(url => ({ url })),
       url: canonical,
     },
     twitter: {
       card: "summary_large_image",
-      title: article.title,
+      title: `${article.title} | LifeWise`,
       description: article.excerpt,
-      images: [article.image || "/images/placeholder.jpg"].filter(Boolean),
+      images: [absoluteImage].filter(Boolean),
     },
-    alternates: { canonical },
+    alternates: { 
+      canonical,
+      languages,
+    },
     robots: "index, follow, max-snippet:-1, max-image-preview:large",
   };
 }
@@ -106,22 +124,40 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const tNav = await getTranslations("Nav");
   const tArticle = await getTranslations("Article");
 
+  // Fix ISO dates
+  let datePubIso = "";
+  try { datePubIso = new Date(publishedAt).toISOString(); } catch { datePubIso = new Date().toISOString(); }
+  let dateModIso = "";
+  try { dateModIso = new Date(article.dateModified || publishedAt).toISOString(); } catch { dateModIso = datePubIso; }
+
+  // Absolute image
+  let absoluteImage = article.image || "/images/placeholder.jpg";
+  if (!absoluteImage.startsWith("http")) {
+    absoluteImage = `${SITE_URL}${absoluteImage.startsWith("/") ? "" : "/"}${absoluteImage}`;
+  }
+
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: article.title,
+    headline: `${article.title} | LifeWise`,
     description: article.excerpt,
-    image: [article.image || "/images/placeholder.jpg"].filter(Boolean),
-    datePublished: publishedAt,
-    dateModified: article.dateModified || publishedAt,
-    author: { "@type": "Person", name: getAuthorPersona(article.author || article.category).name },
+    image: [absoluteImage],
+    datePublished: datePubIso,
+    dateModified: dateModIso,
+    author: { 
+      "@type": "Person", 
+      name: getAuthorPersona(article.author || article.category).name,
+      url: `${SITE_URL}/${locale}/author/${getAuthorSlug(article.author || categorySlug)}` 
+    },
     publisher: { 
       "@type": "Organization", 
       name: "LifeWise", 
       url: SITE_URL,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_URL}/logo.png` 
+        url: `${SITE_URL}/logo.png`,
+        width: 600,
+        height: 60
       }
     },
     mainEntityOfPage: {

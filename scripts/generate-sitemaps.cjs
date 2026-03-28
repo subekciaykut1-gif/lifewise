@@ -66,69 +66,85 @@ function escapeXml(s) {
 }
 
 function main() {
-  const allArticles = [];
+  const allLocaleSlugs = ['en', 'es', 'fr', 'de', 'pt'];
+  const ARTICLES_DIR_EN = ARTICLES_DIR;
   
-  // Add English articles
-  allArticles.push(...getAllArticles());
+  // Get all unique article slugs across all locales
+  const articleMap = new Map(); // slug -> { category, publishedAt }
   
-  // Add localized articles
-  for (const locale of Object.keys(LOCALE_DIRS)) {
-    allArticles.push(...getAllArticles(locale));
+  const localesToScan = [{ code: 'en', dir: ARTICLES_DIR_EN }, ...Object.keys(LOCALE_DIRS).map(l => ({ code: l, dir: LOCALE_DIRS[l] }))];
+  
+  for (const { dir } of localesToScan) {
+    if (!fs.existsSync(dir)) continue;
+    const files = getFiles(dir);
+    for (const filePath of files) {
+      const content = fs.readFileSync(filePath, "utf8");
+      const { data } = matter(content);
+      const slug = path.basename(filePath, ".mdx");
+      const category = data.category || "life-hacks";
+      const publishedAt = parseDate(data.publishedAt || data.date) || parseDate(data.date) || new Date();
+      
+      const key = `${category}/${slug}`;
+      if (!articleMap.has(key) || articleMap.get(key).publishedAt < publishedAt) {
+        articleMap.set(key, { category, slug, publishedAt });
+      }
+    }
   }
 
   const staticLastmod = new Date().toISOString().slice(0, 10);
   
-  // Static URLs
-  const staticUrls = [
-    { path: "", priority: "1.0" },
-    { path: "about", priority: "0.8" },
-    { path: "contact", priority: "0.7" },
-    { path: "subscribe", priority: "0.8" },
-    { path: "latest", priority: "0.9" },
-    { path: "trending", priority: "0.8" },
-    { path: "search", priority: "0.6" },
+  // Base paths for static pages (without locale)
+  const baseStaticPaths = [
+    { path: "", priority: "1.0", freq: "weekly" },
+    { path: "about", priority: "0.8", freq: "monthly" },
+    { path: "contact", priority: "0.7", freq: "monthly" },
+    { path: "subscribe", priority: "0.8", freq: "monthly" },
+    { path: "latest", priority: "0.9", freq: "weekly" },
+    { path: "trending", priority: "0.8", freq: "weekly" },
+    { path: "search", priority: "0.6", freq: "monthly" },
   ];
-  
-  // Add localized static URLs
-  for (const locale of Object.keys(LOCALE_DIRS)) {
-    staticUrls.push({ path: locale, priority: "0.9" });
-    staticUrls.push({ path: `${locale}/about`, priority: "0.8" });
-    staticUrls.push({ path: `${locale}/contact`, priority: "0.7" });
-    staticUrls.push({ path: `${locale}/subscribe`, priority: "0.8" });
-    staticUrls.push({ path: `${locale}/latest`, priority: "0.9" });
-    staticUrls.push({ path: `${locale}/trending`, priority: "0.8" });
-    staticUrls.push({ path: `${locale}/search`, priority: "0.6" });
-  }
   
   const categorySlugs = ["cleaning", "health", "food", "home-and-garden", "life-hacks", "diy", "beauty", "viral-stories"];
   for (const c of categorySlugs) {
-    staticUrls.push({ path: "category/" + c, priority: "0.8" });
-    // Add localized category URLs
-    for (const locale of Object.keys(LOCALE_DIRS)) {
-      staticUrls.push({ path: `${locale}/category/${c}`, priority: "0.8" });
+    baseStaticPaths.push({ path: "category/" + c, priority: "0.8", freq: "weekly" });
+  }
+
+  const xmlEntries = [];
+
+  // Generate static URLs for all locales
+  for (const item of baseStaticPaths) {
+    for (const locale of allLocaleSlugs) {
+      const urlPath = item.path === "" ? locale : `${locale}/${item.path}`;
+      xmlEntries.push(`  <url>
+    <loc>${escapeXml(SITE_URL + "/" + urlPath)}</loc>
+    <lastmod>${staticLastmod}</lastmod>
+    <changefreq>${item.freq}</changefreq>
+    <priority>${item.priority}</priority>
+  </url>`);
     }
   }
 
-  // Generate article URLs
-  const articleUrls = allArticles.map((a) => {
-    const urlPrefix = a.locale === 'en' ? '' : `/${a.locale}`;
-    return `  <url>\n    <loc>${escapeXml(SITE_URL + urlPrefix + "/" + a.category + "/" + a.slug)}</loc>\n    <lastmod>${a.publishedAt.toISOString().slice(0, 19).replace("T", "T")}Z</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`;
-  });
-
-  // Generate static URLs
-  const staticXmlEntries = staticUrls.map((u) => 
-    `  <url>\n    <loc>${escapeXml(SITE_URL + "/" + u.path)}</loc>\n    <lastmod>${staticLastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`
-  );
+  // Generate article URLs for all locales
+  for (const [key, a] of articleMap.entries()) {
+    for (const locale of allLocaleSlugs) {
+      const locUrl = `${SITE_URL}/${locale}/${key}`;
+      xmlEntries.push(`  <url>
+    <loc>${escapeXml(locUrl)}</loc>
+    <lastmod>${a.publishedAt.toISOString().slice(0, 19)}Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`);
+    }
+  }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${staticXmlEntries.join("\n")}
-${articleUrls.join("\n")}
+${xmlEntries.join("\n")}
 </urlset>`;
   
   fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap.xml"), xml);
 
-  console.log("Generated single sitemap.xml with", allArticles.length, "articles and", staticUrls.length, "static pages");
+  console.log("Generated single sitemap.xml with", articleMap.size * 5, "article entries and", baseStaticPaths.length * 5, "static entries");
 }
 
 main();

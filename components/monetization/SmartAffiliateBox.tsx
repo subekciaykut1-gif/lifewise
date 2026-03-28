@@ -12,6 +12,8 @@ export interface AffiliateProductBox {
   label: string;
   url: string;
   active: boolean;
+  description?: string;
+  imageUrl?: string;
 }
 
 interface SmartAffiliateBoxProps {
@@ -62,8 +64,21 @@ export default function SmartAffiliateBox({ category, keywords, products: produc
 
       
       <div className="flex flex-col md:flex-row items-center gap-6 p-6 md:p-10 relative z-10">
-        <div className="bg-accent/10 dark:bg-accent/20 p-6 rounded-2xl shrink-0 text-accent transition-transform duration-500 group-hover/box:scale-110">
-          <ShoppingCart size={42} strokeWidth={1.5} />
+        {/* TODO: replace with real affiliate links */}
+        <div className="shrink-0 transition-transform duration-500 group-hover/box:scale-105">
+          {bestMatch.imageUrl ? (
+            <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden shadow-md">
+              <img 
+                src={bestMatch.imageUrl} 
+                alt={bestMatch.label}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover/box:scale-110"
+              />
+            </div>
+          ) : (
+            <div className="bg-accent/10 dark:bg-accent/20 p-6 rounded-2xl text-accent">
+              <ShoppingCart size={42} strokeWidth={1.5} />
+            </div>
+          )}
         </div>
         
         <div className="flex-1 text-center md:text-left">
@@ -76,7 +91,7 @@ export default function SmartAffiliateBox({ category, keywords, products: produc
             {bestMatch.label}
           </h3>
           <p className="font-ui text-[0.9rem] text-muted dark:text-muted-more max-w-[450px] leading-relaxed mx-auto md:mx-0">
-            Our editors selected this tool as the best value for your <span className="text-secondary font-semibold uppercase text-[0.7rem] tracking-wider">{category}</span> needs based on quality and performance.
+            {bestMatch.description || `Our editors selected this tool as the best value for your ${category} needs based on quality and performance.`}
           </p>
         </div>
 

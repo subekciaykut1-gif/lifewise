@@ -4,14 +4,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export default function middleware(request: NextRequest) {
-  // Handle sitemap redirects for locale-specific paths
-  if (request.nextUrl.pathname.endsWith('/sitemap.xml')) {
-    const locale = request.nextUrl.pathname.split('/')[1];
-    if (locale && routing.locales.includes(locale as typeof routing.locales[number])) {
-      // Redirect /de/sitemap.xml to /sitemap.xml
-      return NextResponse.redirect(new URL('/sitemap.xml', request.url));
-    }
-  }
+  // Allow next-intl to handle localized routing
   
   // Apply next-intl middleware for other routes
   return createMiddleware(routing)(request);

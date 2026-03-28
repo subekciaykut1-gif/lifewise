@@ -29,7 +29,7 @@ export default async function Sidebar() {
 
       <CustomSurvey type="sidebar" />
 
-      <div className="bg-surface border border-border rounded-xl p-5 mb-6">
+      <div className="hidden md:block bg-surface border border-border rounded-xl p-5 mb-6">
         <div className="font-display text-base font-bold text-primary mb-4 pb-2.5 border-b-2 border-border flex items-center gap-2">
           <Trophy size={18} className="text-gold" /> {tHome("mostRead")}
         </div>

@@ -4,6 +4,8 @@
     "categories": ["cleaning"],
     "keywords": ["cleaning paste", "grime", "stains", "kitchen", "oven"],
     "label": "The Pink Stuff Miracle Cleaning Paste",
+    "description": "A versatile, multi-purpose cleaning paste for tough stains on various surfaces.",
+    "imageUrl": "/images/products/pink-stuff.jpg",
     "url": "https://amazon.com/dp/B00DU5SRIY",
     "active": true
   },
@@ -12,6 +14,8 @@
     "categories": ["cleaning"],
     "keywords": ["scrubber", "bathroom", "tiles", "grout", "electric"],
     "label": "Electric Spin Scrubber for Tubs & Tiles",
+    "description": "Powerful electric scrubber to make bathroom cleaning effortless and efficient.",
+    "imageUrl": "/images/products/spin-scrubber.jpg",
     "url": "https://amazon.com/dp/B0C27H4TS6",
     "active": true
   },
@@ -20,6 +24,8 @@
     "categories": ["cleaning", "home-and-garden"],
     "keywords": ["carpet", "upholstery", "pet stains", "cleaner"],
     "label": "Bissell Little Green Portable Carpet Cleaner",
+    "description": "Highly effective portable cleaner for carpets, stairs, and upholstery.",
+    "imageUrl": "/images/products/bissell-green.jpg",
     "url": "https://amazon.com/dp/B008DBRFBK",
     "active": true
   },
@@ -28,6 +34,8 @@
     "categories": ["home-and-garden", "food"],
     "keywords": ["organization", "drawer", "kitchen", "utensils"],
     "label": "Adjustable Kitchen Drawer Organizers",
+    "description": "Customizable organizers to maximize your kitchen drawer space.",
+    "imageUrl": "/images/products/drawer-organizers.jpg",
     "url": "https://amazon.com/dp/B07TVDFVV9",
     "active": true
   },
@@ -36,6 +44,8 @@
     "categories": ["food", "home-and-garden"],
     "keywords": ["pantry", "storage", "airtight", "containers", "organization"],
     "label": "Airtight Food Storage Container Set",
+    "description": "Keep your food fresh and your pantry organized with these airtight containers.",
+    "imageUrl": "/images/products/pantry-containers.jpg",
     "url": "https://amazon.com/dp/B07VPMLWBT",
     "active": true
   },
@@ -44,6 +54,8 @@
     "categories": ["food"],
     "keywords": ["salad", "spinner", "vegetables", "prep"],
     "label": "OXO Good Grips Large Salad Spinner",
+    "description": "Fast and easy salad preparation with a patented pump mechanism.",
+    "imageUrl": "/images/products/salad-spinner.jpg",
     "url": "https://amazon.com/dp/B00004OCKR",
     "active": true
   },
@@ -52,6 +64,8 @@
     "categories": ["food", "life-hacks"],
     "keywords": ["air fryer", "cooking", "healthy", "ninja"],
     "label": "Ninja AF101 Air Fryer (4-Quart Capacity)",
+    "description": "A compact and powerful air fryer for healthier frying and roasting.",
+    "imageUrl": "/images/products/ninja-fryer.jpg",
     "url": "https://amazon.com/dp/B07FDJMC9Q",
     "active": true
   },
@@ -60,6 +74,8 @@
     "categories": ["health", "beauty"],
     "keywords": ["red light therapy", "skincare", "anti-aging", "face mask"],
     "label": "Advanced Red Light LED Face Mask",
+    "description": "Rejuvenate your skin with salon-quality light therapy at home.",
+    "imageUrl": "/images/products/red-light-mask.jpg",
     "url": "https://amazon.com/dp/B085C66QZ5",
     "active": true
   },
@@ -68,6 +84,8 @@
     "categories": ["health", "life-hacks"],
     "keywords": ["blue light", "eye strain", "computer", "glasses"],
     "label": "Blue Light Blocking Glasses (2-Pack)",
+    "description": "Reduce eye strain and improve sleep quality while using digital devices.",
+    "imageUrl": "/images/products/blue-light-glasses.jpg",
     "url": "https://amazon.com/dp/B07G9X7R2X",
     "active": true
   },
@@ -76,6 +94,8 @@
     "categories": ["health"],
     "keywords": ["back pain", "relaxation", "acupressure", "mat", "pillow"],
     "label": "Acupressure Mat and Pillow Set",
+    "description": "Natural pain relief and relaxation through targeted acupressure.",
+    "imageUrl": "/images/products/acupressure-mat.jpg",
     "url": "https://amazon.com/dp/B00I1QCPXW",
     "active": true
   },
@@ -84,6 +104,8 @@
     "categories": ["health"],
     "keywords": ["sleep", "magnesium", "relaxation", "gummies"],
     "label": "Natural Magnesium Support Gummies",
+    "description": "Delicious gummies to support better sleep and relaxation.",
+    "imageUrl": "/images/products/magnesium-gummies.jpg",
     "url": "https://amazon.com/dp/B09T5F9F1Y",
     "active": true
   },
@@ -92,6 +114,8 @@
     "categories": ["beauty"],
     "keywords": ["skincare", "moisturizer", "cerave", "dry skin"],
     "label": "CeraVe Daily Moisturizing Lotion",
+    "description": "A gentle, hydrating moisturizer for face and body, fortified with ceramides.",
+    "imageUrl": "/images/products/cerave-lotion.jpg",
     "url": "https://amazon.com/dp/B000YJ2SLG",
     "active": true
   },
@@ -100,6 +124,8 @@
     "categories": ["beauty"],
     "keywords": ["serum", "hyaluronic acid", "skincare", "Ordinary"],
     "label": "The Ordinary Hyaluronic Acid 2% + B5",
+    "description": "A high-performance serum for intense skin hydration.",
+    "imageUrl": "/images/products/ordinary-ha.jpg",
     "url": "https://amazon.com/dp/B01MDUIUI9",
     "active": true
   },
@@ -108,6 +134,8 @@
     "categories": ["life-hacks", "health"],
     "keywords": ["walking pad", "treadmill", "desk", "fitness", "home office"],
     "label": "Foldable Under-Desk Walking Pad",
+    "description": "Stay active while you work with this compact under-desk treadmill.",
+    "imageUrl": "/images/products/walking-pad.jpg",
     "url": "https://amazon.com/dp/B0DS8TBSJG",
     "active": true
   },
@@ -116,15 +144,29 @@
     "categories": ["health", "food"],
     "keywords": ["apple cider vinegar", "acv", "digestion", "organic"],
     "label": "Bragg Organic Raw Apple Cider Vinegar",
+    "description": "High-quality, organic apple cider vinegar with the 'mother' for health benefits.",
+    "imageUrl": "/images/products/bragg-acv.jpg",
     "url": "https://amazon.com/dp/B001I7MVG0",
     "active": true
   },
   {
     "id": "baking-soda-arm-hammer",
-    "categories": ["cleaning", "food"],
+    "categories": ["cleaning", "food", "diy"],
     "keywords": ["baking soda", "diy", "deodorize"],
     "label": "Arm & Hammer Baking Soda (Pool/Cleaning Bulk)",
+    "description": "A household staple for cleaning, baking, and countless DIY hacks.",
+    "imageUrl": "/images/products/baking-soda.jpg",
     "url": "https://amazon.com/dp/B008MU7S86",
+    "active": true
+  },
+  {
+    "id": "multi-tool-set",
+    "categories": ["diy"],
+    "keywords": ["tools", "drill", "maintenance", "repair"],
+    "label": "Home Home Toolkit & Drill Set",
+    "description": "Essential tools for any home repair or DIY project.",
+    "imageUrl": "/images/products/tool-set.jpg",
+    "url": "https://amazon.com/dp/B00PH7S9KC",
     "active": true
   }
 ]

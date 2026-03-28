@@ -14,7 +14,8 @@
     "latestArticles": "Derniers articles",
     "trendingThisWeek": "Tendance cette semaine",
     "mostRead": "🔥 Les plus lus",
-    "trendingTicker": "Tendances"
+    "trendingTicker": "Tendances",
+    "latestTips": "Derniers conseils"
   },
   "Article": {
     "minRead": "lecture min.",
@@ -90,7 +91,6 @@
     "legal": "Mentions légales",
     "sitemap": "Plan du site"
   },
-
   "Categories": {
     "cleaning": {
       "name": "Nettoyage",

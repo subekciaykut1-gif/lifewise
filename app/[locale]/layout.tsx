@@ -16,10 +16,9 @@ import ExitIntentModal from "@/components/ui/ExitIntentModal";
 import SessionWrapper from "@/components/auth/SessionWrapper";
 import TrendingTicker from "@/components/layout/TrendingTicker";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, getLocale } from "next-intl/server";
+import { getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
-import HreflangTags from "@/components/seo/HreflangTags";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -49,25 +48,38 @@ export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  title: {
-    template: "%s | LifeWise",
-    default: "LifeWise — Smarter Living, Every Day",
-  },
-  description:
-    "Smarter Living, Every Day. Discover life hacks, health tips, cleaning tricks, and viral stories.",
-  metadataBase: new URL(SITE_URL),
-  openGraph: {
-    siteName: "LifeWise",
-    type: "website",
-  },
-  other: {
-    "pinterest-rich-pin": "true",
-  },
-  twitter: {
-    card: "summary_large_image",
-  },
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title: {
+      template: "%s | LifeWise",
+      default: "LifeWise — Smarter Living, Every Day",
+    },
+    description: "Smarter Living, Every Day. Discover life hacks, health tips, cleaning tricks, and viral stories.",
+    metadataBase: new URL(SITE_URL),
+    alternates: {
+      canonical: `${SITE_URL}/${locale}`,
+      languages: {
+        en: `${SITE_URL}/en`,
+        es: `${SITE_URL}/es`,
+        fr: `${SITE_URL}/fr`,
+        de: `${SITE_URL}/de`,
+        pt: `${SITE_URL}/pt`,
+        "x-default": `${SITE_URL}/en`,
+      },
+    },
+    openGraph: {
+      siteName: "LifeWise",
+      type: "website",
+    },
+    other: {
+      "pinterest-rich-pin": "true",
+    },
+    twitter: {
+      card: "summary_large_image",
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,
@@ -86,8 +98,8 @@ export default async function LocaleLayout({
   // Providing all messages to the client
   const messages = await getMessages();
 
-  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "";
-  const adsenseId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID;
+  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "GT-NGK4TVRS";
+  const adsenseId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "ca-pub-2207377176181836";
 
   return (
     <html
@@ -116,11 +128,10 @@ export default async function LocaleLayout({
           rel="alternate"
           type="application/rss+xml"
           title="LifeWise RSS"
-          href={`${SITE_URL}/feed`}
+          href={`${SITE_URL}/${locale}/feed`}
         />
         <link rel="apple-touch-icon" href="/favicon.ico" />
         <meta name="p:domain_verify" content="f953a2206b94ac2b1c8eda09eb16381c" />
-        <HreflangTags locale={locale} />
         <GoogleAnalytics gaId={gaId} />
         {adsenseId && (
           <Script

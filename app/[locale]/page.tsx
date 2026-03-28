@@ -1,6 +1,8 @@
 import { getPublishedArticles, getFeaturedArticles, getMostReadArticles } from "@/lib/articles";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
+import { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
 export const revalidate = 3600; // Revalidate every hour
 
@@ -13,6 +15,26 @@ import Image from "next/image";
 
 interface HomeProps {
   params: Promise<{ locale: string }>;
+}
+
+const LOCALES = ["en", "es", "fr", "de", "pt"] as const;
+
+export async function generateMetadata({ params }: HomeProps): Promise<Metadata> {
+  const { locale } = await params;
+  const canonical = `${SITE_URL}/${locale}`;
+  
+  const languages: Record<string, string> = {};
+  LOCALES.forEach(loc => {
+    languages[loc] = `${SITE_URL}/${loc}`;
+  });
+  languages["x-default"] = `${SITE_URL}/en`;
+
+  return {
+    alternates: {
+      canonical,
+      languages,
+    },
+  };
 }
 
 export default async function Home({ params }: HomeProps) {

@@ -22,6 +22,15 @@ function escapeXml(s: string): string {
     .replace(/'/g, "&apos;");
 }
 
+function toRFC822(date: Date): string {
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
+  const pad = (n: number) => n < 10 ? '0' + n : n;
+  
+  return `${days[date.getUTCDay()]}, ${pad(date.getUTCDate())} ${months[date.getUTCMonth()]} ${date.getUTCFullYear()} ${pad(date.getUTCHours())}:${pad(date.getUTCMinutes())}:${pad(date.getUTCSeconds())} +0000`;
+}
+
 /** Locale-specific feeds: /es/feed, /fr/feed, /de/feed, /pt/feed. English redirects to /feed. */
 export async function GET(
   _request: Request,
@@ -29,14 +38,10 @@ export async function GET(
 ) {
   const { locale } = await context.params;
 
-  if (locale === "en") {
-    return NextResponse.redirect(`${SITE_URL}/feed`, 302);
-  }
-
   const articles = (await getPublishedArticles(locale)).slice(0, 50);
   const lastBuild = articles[0]
-    ? new Date(articles[0].publishedAt || articles[0].date).toUTCString()
-    : new Date().toUTCString();
+    ? toRFC822(new Date(articles[0].publishedAt || articles[0].date))
+    : toRFC822(new Date());
 
   const selfLink = `${SITE_URL}/${locale}/feed`;
   const lang = FEED_LANGUAGE[locale] ?? locale;
@@ -44,7 +49,7 @@ export async function GET(
   const items = articles
     .map((a) => {
       const link = `${SITE_URL}/${locale}/${a.category}/${a.slug}`;
-      const pubDate = new Date(a.publishedAt || a.date).toUTCString();
+      const pubDate = toRFC822(new Date(a.publishedAt || a.date));
       const title = escapeXml(a.title);
       const description = escapeXml(a.excerpt || "");
       return `  <item>

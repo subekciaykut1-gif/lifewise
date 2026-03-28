@@ -14,12 +14,6 @@ interface CategoryPageProps {
 
 const LOCALES = ["en", "es", "fr", "de", "pt"] as const;
 
-export async function generateStaticParams() {
-  return categories.flatMap((cat) =>
-    LOCALES.map((locale) => ({ slug: cat.slug, locale }))
-  );
-}
-
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { slug, locale } = await params;
   const category = getCategoryBySlug(slug);
@@ -27,16 +21,32 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   const tCat = await getTranslations("Categories");
   const catName = tCat(`${slug}.name`);
   const canonical = `${SITE_URL}/${locale}/category/${slug}`;
+
+  const languages: Record<string, string> = {};
+  LOCALES.forEach(loc => {
+    languages[loc] = `${SITE_URL}/${loc}/category/${slug}`;
+  });
+  languages["x-default"] = `${SITE_URL}/en/category/${slug}`;
+
   return {
     title: `${catName} Tips & Articles`,
     description: `Explore the best ${catName.toLowerCase()} tips, tricks, and guides on LifeWise. Practical advice and ideas for smarter living.`,
-    alternates: { canonical },
+    alternates: { 
+      canonical,
+      languages,
+    },
     openGraph: {
       title: `${catName} Tips & Articles | LifeWise`,
       description: `Explore the best ${catName.toLowerCase()} tips, tricks, and guides.`,
       url: canonical,
     },
   };
+}
+
+export async function generateStaticParams() {
+  return categories.flatMap((cat) =>
+    LOCALES.map((locale) => ({ slug: cat.slug, locale }))
+  );
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
