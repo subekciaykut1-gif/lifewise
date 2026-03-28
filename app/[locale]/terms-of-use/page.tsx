@@ -24,7 +24,7 @@ export default function TermsOfUsePage() {
 
       <div className="prose prose-lg max-w-none font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
         <p>
-          Welcome to LifeWise! These terms and conditions outline the rules and regulations for the use of LifeWise's Website, located at https://lifewise.com.
+          Welcome to WiseTips (operating as LifeWise)! These terms and conditions outline the rules and regulations for the use of our Website, located at <a href="https://wisetips.co">https://wisetips.co</a>.
         </p>
 
         <h2>1. Acceptance of Terms</h2>

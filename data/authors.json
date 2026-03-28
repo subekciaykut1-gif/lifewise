@@ -23,16 +23,60 @@
       "bio": "David Chen is a lifestyle journalist covering the intersection of technology and everyday efficiency. He is specialized in uncovering hidden life hacks and testing the latest home gadgets.",
       "image": "/images/authors/david-chen.png",
       "role": "Lifestyle Journalist"
+    },
+    "marcus-thorne": {
+      "name": "Marcus Thorne",
+      "bio": "Marcus Thorne is a technology analyst and hardware specialist with 15 years of experience in consumer electronics and software engineering. He focuses on making complex tech accessible for everyday users.",
+      "image": "/images/authors/marcus-thorne.png",
+      "role": "Technology & Gaming Analyst"
+    },
+    "elena-rossi": {
+      "name": "Elena Rossi",
+      "bio": "Elena Rossi is a certified financial planner and real estate consultant. She helps individuals build sustainable wealth through smart budgeting, strategic investing, and savvy property management.",
+      "image": "/images/authors/elena-rossi.png",
+      "role": "Finance & Real Estate Specialist"
+    },
+    "clara-bennett": {
+      "name": "Clara Bennett",
+      "bio": "Clara Bennett is a veterinarian technician and travel enthusiast. She combines her love for animals and global exploration to provide expert advice on pet care and solo travel safety.",
+      "image": "/images/authors/clara-bennett.png",
+      "role": "Pet Care & Travel Consultant"
+    },
+    "julio-mendez": {
+      "name": "Julio Mendez",
+      "bio": "Julio Mendez is an automotive journalist and former technician with a deep understanding of vehicle longevity and performance. He specializes in budget-friendly maintenance and fuel efficiency hacks.",
+      "image": "/images/authors/julio-mendez.png",
+      "role": "Automotive Engineering Expert"
+    },
+    "jordan-smith": {
+      "name": "Jordan Smith",
+      "bio": "Jordan Smith is a career coach and former recruitment director. He provides actionable insights on salary negotiation, remote work efficiency, and building a multi-stream income portfolio.",
+      "image": "/images/authors/jordan-smith.png",
+      "role": "Career & Workplace Strategist"
     }
   },
   "categoryMapping": {
     "cleaning": "sarah-jenkins",
     "home-and-garden": "sarah-jenkins",
+    "home-diy": "sarah-jenkins",
     "health": "dr-mike-ross",
     "food": "dr-mike-ross",
     "diy": "elena-vance",
     "life-hacks": "elena-vance",
     "beauty": "david-chen",
-    "viral-stories": "david-chen"
+    "viral-stories": "david-chen",
+    "tech": "marcus-thorne",
+    "technology": "marcus-thorne",
+    "gaming": "marcus-thorne",
+    "personal-finance": "elena-rossi",
+    "finance": "elena-rossi",
+    "real-estate": "elena-rossi",
+    "pet-care": "clara-bennett",
+    "pets": "clara-bennett",
+    "travel": "clara-bennett",
+    "auto": "julio-mendez",
+    "cars": "julio-mendez",
+    "careers": "jordan-smith",
+    "productivity": "jordan-smith"
   }
 }

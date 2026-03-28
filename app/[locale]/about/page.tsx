@@ -40,20 +40,26 @@ export default function AboutPage() {
 
         <h2>What We Cover</h2>
         <p>
-          Our team of editors and writers researches and curates content across a wide range of topics essential to modern living:
+          Our team of editors researches and curates content across 16 high-value categories essential to modern living:
         </p>
-        <ul>
-          <li><strong>Health & Wellness:</strong> Evidence-based tips for physical and mental well-being.</li>
-          <li><strong>Home & Garden:</strong> DIY projects, cleaning secrets, and organization hacks.</li>
-          <li><strong>Food & Kitchen:</strong> Recipes, cooking tricks, and nutritional guides.</li>
-          <li><strong>Life Hacks:</strong> Clever shortcuts to solve everyday problems.</li>
-          <li><strong>Viral Stories:</strong> Inspiring and entertaining stories from around the globe.</li>
-        </ul>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6">
+          <ul>
+            <li><strong>Personal Finance:</strong> Budgeting, investing, and wealth-building tips.</li>
+            <li><strong>Technology:</strong> Smart home, gadgets, and digital productivity.</li>
+            <li><strong>Home & DIY:</strong> Cleaning hacks, organization, and repairs.</li>
+            <li><strong>Health & Wellness:</strong> Physical and mental well-being guides.</li>
+          </ul>
+          <ul>
+            <li><strong>Real Estate:</strong> Property investment and home buying secrets.</li>
+            <li><strong>Careers:</strong> Side hustles, salary negotiation, and productivity.</li>
+            <li><strong>Auto & Travel:</strong> Vehicle maintenance and global travel hacks.</li>
+            <li><strong>Gaming & Lifestyle:</strong> Entertainment, hardware, and viral stories.</li>
+          </ul>
+        </div>
 
         <h2>Our Editorial Standards</h2>
         <p>
-          Integrity is at the core of what we do. Our editorial team rigorously researches every tip and fact-checks every story. 
-          While we provide helpful information, we always recommend consulting with professionals for specific medical, legal, or financial advice.
+          Integrity is at the core of what we do. Our editorial team rigorously researches every tip and fact-checks every story. We prioritize <strong>E-E-A-T</strong> (Experience, Expertise, Authoritativeness, and Trustworthiness) in every piece of content we publish. 
         </p>
 
         <h2>Contact Us</h2>
@@ -61,7 +67,7 @@ export default function AboutPage() {
           We love hearing from our readers! Whether you have a question, a suggestion, or just want to say hello, feel free to reach out.
         </p>
         <p>
-          <strong>Email:</strong> <a href="mailto:hello@lifewise.com">hello@lifewise.com</a>
+          <strong>Email:</strong> <a href="mailto:hello@wisetips.co">hello@wisetips.co</a>
         </p>
       </div>
     </div>

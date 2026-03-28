@@ -24,7 +24,7 @@ export default function PrivacyPolicyPage() {
 
       <div className="prose prose-lg max-w-none font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
         <p>
-          At LifeWise ("we," "us," or "our"), accessible from https://lifewise.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by LifeWise and how we use it.
+          At WiseTips (operating as LifeWise), accessible from <a href="https://wisetips.co">https://wisetips.co</a>, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by us and how we use it.
         </p>
 
         <h2>Information We Collect</h2>
@@ -59,7 +59,7 @@ export default function PrivacyPolicyPage() {
 
         <h2>Google DoubleClick DART Cookie</h2>
         <p>
-          Google is one of a third-party vendor on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to www.website.com and other sites on the internet. However, visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy at the following URL – <a href="https://policies.google.com/technologies/ads">https://policies.google.com/technologies/ads</a>
+          Google is one of a third-party vendor on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to <a href="https://wisetips.co">www.wisetips.co</a> and other sites on the internet. However, visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy at the following URL – <a href="https://policies.google.com/technologies/ads">https://policies.google.com/technologies/ads</a>
         </p>
 
         <h2>Our Advertising Partners</h2>
