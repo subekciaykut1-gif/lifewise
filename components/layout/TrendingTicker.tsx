@@ -15,7 +15,7 @@ export default async function TrendingTicker() {
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 flex items-center gap-4">
         <div className="flex items-center gap-1.5 text-accent font-ui text-[0.65rem] font-bold uppercase tracking-[0.2em] shrink-0 bg-accent-soft px-2 py-1 rounded">
           <Zap size={12} fill="currentColor" />
-          <span>{t("trendingTicket")}</span>
+          <span>{t("trendingTicker")}</span>
         </div>
         
         <div className="relative flex-1 overflow-hidden h-5">
