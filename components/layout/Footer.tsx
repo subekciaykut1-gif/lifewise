@@ -103,7 +103,7 @@ export default async function Footer() {
           <span className="font-ui text-[0.75rem] text-bg/35 dark:text-primary/50">© 2026 LifeWise. {t("allRightsReserved")}</span>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/privacy-policy" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">{t("privacy")}</Link>
-            <Link href="/cookie-policy" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">{t("terms")}</Link>
+            <Link href="/cookie-policy" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">{t("cookiePolicy")}</Link>
             <Link href="/sitemap.xml" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">{t("sitemap")}</Link>
             <Link href="/feed" className="font-ui text-[0.72rem] text-bg/35 dark:text-primary/50 hover:text-bg/60 dark:hover:text-primary/80 transition-colors min-h-[44px] flex items-center">RSS</Link>
           </div>

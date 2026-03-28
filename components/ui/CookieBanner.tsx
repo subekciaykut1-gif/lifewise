@@ -27,7 +27,7 @@ export default function CookieBanner() {
   if (!show) return null;
 
   return (
-    <div data-cookie-banner className="fixed bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 max-w-[900px] mx-auto bg-surface dark:bg-primary border border-border rounded-xl shadow-2xl z-[9999] flex flex-col md:flex-row items-center gap-4 md:gap-6" style={{ animation: "fadeSlideUp 0.4s ease-out" }}>
+    <div data-cookie-banner className="fixed bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 max-w-[900px] mx-auto bg-surface dark:bg-[#1A1A2E] border border-border p-4 sm:p-6 rounded-xl shadow-2xl z-[9999] flex flex-col md:flex-row items-center gap-4 md:gap-6" style={{ animation: "fadeSlideUp 0.4s ease-out" }}>
       <div className="flex-1 font-ui text-[0.8rem] text-primary dark:text-bg leading-relaxed">
         {t("message")}
       </div>
@@ -50,7 +50,7 @@ export default function CookieBanner() {
       <button
         type="button"
         onClick={() => setShow(false)}
-        className="absolute top-2 right-2 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-white/40 hover:text-white transition-colors md:hidden -m-2"
+        className="absolute top-2 right-2 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-muted hover:text-primary dark:hover:text-bg transition-colors md:hidden -m-2"
         aria-label="Dismiss"
       >
         <X size={20} />
