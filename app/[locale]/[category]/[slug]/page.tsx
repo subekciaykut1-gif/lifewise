@@ -228,7 +228,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                     {persona.name}
                   </Link>
                   <div className="font-ui text-xs text-muted">
-                    {format(new Date(article.date), "MMMM d, yyyy")}
+                    {format(new Date(article.publishedAt || article.date || new Date()), "MMMM d, yyyy")}
                     {article.dateModified && (
                       <span className="ml-1"> · Updated {format(new Date(article.dateModified), "MMM d, yyyy")}</span>
                     )}
