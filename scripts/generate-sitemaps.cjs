@@ -104,7 +104,10 @@ function main() {
     { path: "search", priority: "0.6", freq: "monthly" },
   ];
   
-  const categorySlugs = ["cleaning", "health", "food", "home-and-garden", "life-hacks", "diy", "beauty", "viral-stories"];
+  const categorySlugs = [
+    "cleaning", "health", "food", "home-and-garden", "life-hacks", "diy", "beauty", "viral-stories",
+    "technology", "finance", "real-estate", "careers", "auto", "travel", "gaming", "lifestyle"
+  ];
   for (const c of categorySlugs) {
     baseStaticPaths.push({ path: "category/" + c, priority: "0.8", freq: "weekly" });
   }

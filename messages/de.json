@@ -170,5 +170,12 @@
     "accept": "Akzeptieren",
     "decline": "Abfall",
     "learnMore": "Erfahren Sie mehr"
+  },
+  "Disclaimers": {
+    "health": "Haftungsausschluss für Gesundheit: Dieser Inhalt dient nur zu Informationszwecken und ist kein Ersatz für professionelle medizinische Beratung, Diagnose oder Behandlung. Holen Sie bei Fragen zu einem medizinischen Zustand immer den Rat Ihres Arztes oder eines anderen qualifizierten Gesundheitsdienstleisters ein.",
+    "finance": "Finanzieller Haftungsausschluss: Dieser Inhalt dient nur zu Informationszwecken. Wir sind keine Finanzberater, und diese Informationen sollten nicht als Finanz- oder Anlageberatung betrachtet werden. Konsultieren Sie einen professionellen Finanzberater, bevor Sie finanzielle Entscheidungen treffen.",
+    "careers": "Beruflicher Haftungsausschluss: Dieser Inhalt dient nur zu Informations- und Berufsberatungszwecken. Die Ergebnisse variieren je nach Person und Umständen.",
+    "estate": "Immobilien-Haftungsausschluss: Die bereitgestellten Informationen dienen zu Bildungszwecken. Immobiliengesetze und Marktbedingungen variieren je nach Standort; konsultieren Sie einen lokalen Experten, bevor Sie investieren.",
+    "general": "Allgemeiner Haftungsausschluss: Die auf dieser Website bereitgestellten Ratschläge und Informationen dienen nur zu Informationszwecken. Die Nutzung dieser Informationen erfolgt auf eigene Gefahr."
   }
 }

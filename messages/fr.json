@@ -170,5 +170,12 @@
     "accept": "Accepter",
     "decline": "Déclin",
     "learnMore": "Apprendre encore plus"
+  },
+  "Disclaimers": {
+    "health": "Avertissement médical : ce contenu est à titre informatif uniquement et ne remplace pas un avis médical professionnel, un diagnostic ou un traitement. Demandez toujours l'avis de votre médecin ou d'un autre professionnel de la santé qualifié pour toute question que vous pourriez avoir concernant un état pathologique.",
+    "finance": "Avertissement financier : ce contenu est à titre informatif uniquement. Nous ne sommes pas des conseillers financiers et ces informations ne doivent pas être considérées comme des conseils financiers ou d'investissement. Consultez un conseiller financier professionnel avant de prendre toute décision financière.",
+    "careers": "Avertissement professionnel : ce contenu est à des fins d'information et d'orientation professionnelle uniquement. Les résultats varient selon les individus et les circonstances.",
+    "estate": "Avertissement immobilier : les informations fournies sont à des fins éducatives. Les lois immobilières et les conditions du marché varient selon l'emplacement ; consultez un expert local avant d'investir.",
+    "general": "Avertissement général : les conseils et les informations fournis sur ce site sont à titre informatif uniquement. L'utilisation de ces informations est à vos propres risques."
   }
 }

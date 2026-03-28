@@ -164,5 +164,12 @@
     "accept": "Accept",
     "decline": "Decline",
     "learnMore": "Learn more"
+  },
+  "Disclaimers": {
+    "health": "Medical Disclaimer: This content is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.",
+    "finance": "Financial Disclaimer: This content is for informational purposes only. We are not financial advisors, and this information should not be considered financial or investment advice. Consult a professional financial advisor before making any financial decisions.",
+    "careers": "Professional Disclaimer: This content is for informational purposes and career guidance only. Results vary by individual and circumstances.",
+    "estate": "Real Estate Disclaimer: Information provided is for educational purposes. Real estate laws and market conditions vary by location; consult a local expert before investing.",
+    "general": "General Disclaimer: The advice and information provided on this site are for informational purposes only. Use of this information is at your own risk."
   }
 }

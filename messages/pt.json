@@ -170,5 +170,12 @@
     "accept": "Aceitar",
     "decline": "Declínio",
     "learnMore": "Saber mais"
+  },
+  "Disclaimers": {
+    "health": "Aviso Médico: Este conteúdo é meramente informativo e não substitui o aconselhamento, diagnóstico ou tratamento médico profissional. Procure sempre o conselho do seu médico ou outro profissional de saúde qualificado para qualquer dúvida que possa ter em relação a uma condição médica.",
+    "finance": "Aviso Financeiro: Este conteúdo é apenas para fins informativos. Não somos consultores financeiros e esta informação não deve ser considerada como aconselhamento financeiro ou de investimento. Consulte um consultor financeiro profissional antes de tomar qualquer decisão financeira.",
+    "careers": "Aviso Profissional: Este conteúdo é apenas para fins informativos e de orientação de carreira. Os resultados variam de acordo com o indivíduo e as circunstâncias.",
+    "estate": "Aviso de Imobiliário: As informações fornecidas são para fins educacionais. As leis imobiliárias e as condições de mercado variam de acordo com o local; consulte um especialista local antes de investir.",
+    "general": "Aviso Geral: Os conselhos e informações fornecidos neste site são apenas para fins informativos. O uso desta informação é por sua conta e risco."
   }
 }

@@ -28,6 +28,7 @@ import { SITE_URL } from "@/lib/site";
 import ViewTracker from "@/components/analytics/ViewTracker";
 import TableOfContents from "@/components/article/TableOfContents";
 import ReadNext from "@/components/article/ReadNext";
+import KeyTakeaways from "@/components/article/KeyTakeaways";
 import AutoInjectedAds from "@/components/article/AutoInjectedAds";
 import LiveViewCounter from "@/components/analytics/LiveViewCounter";
 import SmartAffiliateBox from "@/components/monetization/SmartAffiliateBox";
@@ -37,6 +38,7 @@ import AuthorBio from "@/components/article/AuthorBio";
 import { getAuthorPersona, getAuthorSlug } from "@/lib/authors";
 import ArticleReactions from "@/components/article/ArticleReactions";
 import CustomSurvey from "@/components/ui/CustomSurvey";
+import CategoryDisclaimer from "@/components/article/CategoryDisclaimer";
 import ArticleUpvoteButton from "@/components/article/ArticleUpvoteButton";
 import BookmarkButton from "@/components/article/BookmarkButton";
 
@@ -271,6 +273,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 priority
               />
             </div>
+
+            <CategoryDisclaimer category={categorySlug} />
+            <KeyTakeaways content={article.content} />
 
             {/* Mobile TOC */}
             <div className="lg:hidden mb-8 p-5 sm:p-6 bg-surface border border-border rounded-xl shadow-sm">

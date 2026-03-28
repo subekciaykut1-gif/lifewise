@@ -5,10 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "next-sitemap && node scripts/generate-sitemaps.cjs && node scripts/check-amazon-links.cjs",
+    "postbuild": "next-sitemap && node scripts/generate-sitemaps.cjs && node scripts/ping-indexnow.js && node scripts/check-amazon-links.cjs",
     "start": "next start",
     "lint": "eslint .",
-    "generate:sitemaps": "node scripts/generate-sitemaps.cjs",
+    "generate:sitemaps": "node scripts/generate-sitemaps.cjs && node scripts/ping-indexnow.js",
     "generate:articles": "node scripts/generate-598-articles.cjs",
     "generate:article-views": "node scripts/generate-article-views.cjs",
     "translate:articles": "node scripts/translate-articles-libretranslate.cjs",

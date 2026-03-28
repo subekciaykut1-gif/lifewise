@@ -171,5 +171,12 @@
     "accept": "Aceptar",
     "decline": "Rechazar",
     "learnMore": "Más información"
+  },
+  "Disclaimers": {
+    "health": "Descargo de responsabilidad médica: este contenido es solo para fines informativos y no sustituye el asesoramiento, diagnóstico o tratamiento médico profesional. Busque siempre el consejo de su médico u otro proveedor de salud calificado con cualquier pregunta que pueda tener con respecto a una afección médica.",
+    "finance": "Descargo de responsabilidad financiera: este contenido es solo para fines informativos. No somos asesores financieros y esta información no debe considerarse asesoramiento financiero o de inversión. Consulte a un asesor financiero profesional antes de tomar cualquier decisión financiera.",
+    "careers": "Descargo de responsabilidad profesional: este contenido es solo para fines informativos y de orientación profesional. Los resultados varían según el individuo y las circunstancias.",
+    "estate": "Descargo de responsabilidad inmobiliario: la información proporcionada es para fines educativos. Las leyes inmobiliarias y las condiciones del mercado varían según la ubicación; consulte a un experto local antes de invertir.",
+    "general": "Descargo de responsabilidad general: los consejos y la información proporcionados en este sitio son solo para fines informativos. El uso de esta información es bajo su propio riesgo."
   }
 }
