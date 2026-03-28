@@ -36,13 +36,13 @@ export default function SmartAffiliateBox({ category, keywords, products: produc
       let score = 0;
       
       // Category match is strong
-      if (product.categories.includes(category)) score += 10;
+      if (product.categories?.includes(category)) score += 10;
       
       // Keyword matches
-      const matches = product.keywords.filter(kw => 
-        keywords.some(articleKw => articleKw.toLowerCase().includes(kw.toLowerCase()))
+      const matches = (product.keywords || []).filter(kw => 
+        (keywords || []).some(articleKw => articleKw?.toLowerCase().includes(kw.toLowerCase()))
       );
-      score += matches.length * 5;
+      score += (matches?.length || 0) * 5;
 
       if (score > topScore) {
         topScore = score;

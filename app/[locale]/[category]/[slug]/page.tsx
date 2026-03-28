@@ -287,7 +287,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               <MDXRemote source={article.content} components={components} />
             </div>
 
-            <SmartAffiliateBox category={article.category} keywords={article.keywords || article.tags} products={affiliateProducts} />
+            <SmartAffiliateBox category={article.category} keywords={article.keywords || article.tags || []} products={affiliateProducts} />
 
             {(() => {
               const persona = getAuthorPersona(article.author || article.category);

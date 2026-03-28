@@ -8,7 +8,7 @@ interface KeyTakeawaysProps {
 export default function KeyTakeaways({ content }: KeyTakeawaysProps) {
   // Simple heuristic: Take the first 3 bullet points if they exist, 
   // or the first 2-3 sentences of the first paragraph.
-  const lines = content.split('\n');
+  const lines = (content || "").split('\n');
   const bullets = lines
     .filter(l => l.trim().startsWith('- ') || l.trim().startsWith('* '))
     .map(l => l.trim().substring(2))
