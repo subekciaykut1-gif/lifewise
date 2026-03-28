@@ -133,6 +133,7 @@ export default async function LocaleLayout({
           href={`${SITE_URL}/${locale}/feed`}
         />
         <link rel="apple-touch-icon" href="/favicon.ico" />
+        <meta name="msvalidate.01" content="88CBBC0B67A708362E1731A6060ED5B1" />
         <meta name="p:domain_verify" content="f953a2206b94ac2b1c8eda09eb16381c" />
         <GoogleAnalytics gaId={gaId} />
         {adsenseId && (
