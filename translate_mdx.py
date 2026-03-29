@@ -229,8 +229,8 @@ def process_file(mdx_path: Path, target_lang: str, total: int, index: int) -> bo
     out_dir = OUTPUT_BASE / target_lang
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / mdx_path.name
-    if out_path.exists():
-        print(f"  [{index}/{total}] {mdx_path.name} -> {target_lang} (skip, exists)", flush=True)
+    if out_path.exists() and out_path.stat().st_mtime >= mdx_path.stat().st_mtime:
+        print(f"  [{index}/{total}] {mdx_path.name} -> {target_lang} (skip, up-to-date)", flush=True)
         return True
 
     raw = mdx_path.read_text(encoding="utf-8", errors="replace")

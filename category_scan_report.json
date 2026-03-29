@@ -1,0 +1,61 @@
+{
+  "scanResults": [
+    {
+      "category": "life-hacks",
+      "count": 104
+    },
+    {
+      "category": "home-and-garden",
+      "count": 87
+    },
+    {
+      "category": "health",
+      "count": 84
+    },
+    {
+      "category": "cleaning",
+      "count": 82
+    },
+    {
+      "category": "food",
+      "count": 80
+    },
+    {
+      "category": "diy",
+      "count": 76
+    },
+    {
+      "category": "viral-stories",
+      "count": 75
+    },
+    {
+      "category": "beauty",
+      "count": 75
+    }
+  ],
+  "appLocaleRoutes": [
+    "about",
+    "advertise",
+    "affiliate-disclosure",
+    "author",
+    "category",
+    "contact",
+    "cookie-policy",
+    "feed",
+    "latest",
+    "privacy-policy",
+    "quizzes",
+    "saved-hacks",
+    "search",
+    "sitemap.xml",
+    "subscribe",
+    "terms-of-use",
+    "trending",
+    "write-for-us",
+    "[category]"
+  ],
+  "categoryFolderRoutes": [
+    "[slug]"
+  ],
+  "explicitCategoryFolders": []
+}
