@@ -27,7 +27,10 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/:path*',
-        has: [{ type: 'host', value: 'wisetips.co' },
+        has: [{ type: 'host', value: 'wisetips.co' }],
+        destination: 'https://www.wisetips.co/:path*',
+        permanent: true,
+      },
       {
         source: '/:locale(en|es|fr|de|pt)/viral-stories/amazing-animal-story',
         destination: '/:locale/viral-stories/dog-walks-home',

@@ -11,6 +11,7 @@ import { BookOpen, Tag } from "lucide-react";
 
 interface AuthorPageProps {
   params: Promise<{ slug: string; locale: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 const LOCALES = ["en", "es", "fr", "de", "pt"] as const;
@@ -39,8 +40,11 @@ export async function generateMetadata({ params }: AuthorPageProps): Promise<Met
   };
 }
 
-export default async function AuthorPage({ params }: AuthorPageProps) {
+export default async function AuthorPage({ params, searchParams }: AuthorPageProps) {
   const { slug, locale } = await params;
+  const sParams = await searchParams;
+  const showAll = sParams.all === "true";
+  
   const author = getAuthorBySlug(slug);
   if (!author) notFound();
 
@@ -55,7 +59,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
   );
 
   const totalViews = authorArticles.reduce((sum, a) => sum + (a.views || 0), 0);
-  const recentArticles = authorArticles.slice(0, 6);
+  const displayedArticles = showAll ? authorArticles : authorArticles.slice(0, 6);
 
   // JSON-LD Person schema — this is what Google uses for E-E-A-T
   const personJsonLd = {
@@ -146,12 +150,12 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
         {/* ── Latest Articles ── */}
         <div>
           <h2 className="font-display text-[1.6rem] font-extrabold text-primary mb-8 tracking-tight">
-            Latest by {author.name.split(" ")[0]}
+            {showAll ? `All Articles by ${author.name}` : `Latest by ${author.name.split(" ")[0]}`}
           </h2>
 
-          {recentArticles.length > 0 ? (
+          {displayedArticles.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {recentArticles.map((article) => (
+              {displayedArticles.map((article) => (
                 <ArticleCard key={article.slug} article={article} />
               ))}
             </div>
@@ -161,10 +165,10 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
             </div>
           )}
 
-          {authorArticles.length > 6 && (
+          {authorArticles.length > 6 && !showAll && (
             <div className="text-center mt-10">
               <Link
-                href={`/${locale}/author/${slug}`}
+                href={`/${locale}/author/${slug}?all=true`}
                 className="inline-flex items-center gap-2 bg-accent text-white font-ui font-bold px-8 py-3.5 rounded-xl hover:bg-accent/90 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20"
               >
                 See All {authorArticles.length} Articles
