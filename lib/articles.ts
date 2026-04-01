@@ -56,17 +56,6 @@ async function loadArticlesFromDir(dir: string): Promise<Article[]> {
       const category = data.category || "life-hacks";
       const views = viewsMap.get(`${category}/${slug}`) || 0;
 
-      // Unique Excerpt Check
-      const genericExcerpt = "Learn how to get better results with";
-      if (!data.excerpt || data.excerpt.includes(genericExcerpt) || data.excerpt.includes("[topic]")) {
-        console.warn(`\x1b[33m⚠️ EXCERPT WARNING: "${data.title || slug}" has a generic or missing excerpt.\x1b[0m`);
-      }
-
-      // Word Count Check
-      const wordCount = content.trim().split(/\s+/).length;
-      if (wordCount < 600) {
-        console.warn(`\x1b[33m⚠️ SEO WARNING: "${data.title || slug}" is only ${wordCount} words. Recommended minimum is 800 words.\x1b[0m`);
-      }
 
       return {
         slug,
