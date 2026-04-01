@@ -36,7 +36,7 @@ function getArticlesDirForLocale(locale: string): string {
   return articlesDirectory;
 }
 
-async function loadArticlesFromDir(dir: string): Promise<Article[]> {
+async function loadArticlesFromDir(dir: string, locale: string = "en"): Promise<Article[]> {
   if (!fs.existsSync(dir)) return [];
   const filePaths = getFiles(dir);
   const viewsMap = await getAllArticleViews();
@@ -45,8 +45,32 @@ async function loadArticlesFromDir(dir: string): Promise<Article[]> {
     .filter((filePath) => filePath.endsWith(".mdx"))
     .map((filePath) => {
       const fileContents = fs.readFileSync(filePath, "utf8");
-      const { data, content } = matter(fileContents);
+      let { data, content } = matter(fileContents);
       const slug = path.basename(filePath, ".mdx");
+      
+      // --- SMART IMAGE FALLBACK FOR LOCALIZED PAGES ---
+      const isBrokenUnsplash = data.image && (
+        data.image.includes("photo-1?") || 
+        data.image === "" || 
+        data.image === "https://images.unsplash.com/photo-1"
+      );
+
+      if (locale !== "en" && (!data.image || isBrokenUnsplash)) {
+        // Look for the English original to "borrow" its image
+        const englishFilePath = path.join(articlesDirectory, `${slug}.mdx`);
+        if (fs.existsSync(englishFilePath)) {
+          try {
+            const englishContents = fs.readFileSync(englishFilePath, "utf8");
+            const { data: englishData } = matter(englishContents);
+            if (englishData.image && !englishData.image.includes("photo-1?")) {
+              data.image = englishData.image;
+            }
+          } catch (e) {
+            // Silently fail if English file can't be parsed
+          }
+        }
+      }
+
       const imagePath = getArticleImage(
         slug,
         data.category || "life-hacks",
@@ -56,13 +80,13 @@ async function loadArticlesFromDir(dir: string): Promise<Article[]> {
       const category = data.category || "life-hacks";
       const views = viewsMap.get(`${category}/${slug}`) || 0;
 
-
       return {
         slug,
         content,
         ...data,
         image: imagePath,
         views,
+        locale, // Pass locale into article object for easier routing logic
       } as Article;
     });
 
@@ -70,13 +94,13 @@ async function loadArticlesFromDir(dir: string): Promise<Article[]> {
 }
 
 async function loadAllArticles(): Promise<Article[]> {
-  return loadArticlesFromDir(articlesDirectory);
+  return loadArticlesFromDir(articlesDirectory, "en");
 }
 
 /** Cached list of all articles. Uses React's Built-in Cache function. */
 export const getAllArticles = cache(async (locale: string = "en"): Promise<Article[]> => {
   const dir = getArticlesDirForLocale(locale);
-  let all = await loadArticlesFromDir(dir);
+  let all = await loadArticlesFromDir(dir, locale);
 
   const now = new Date();
   return all
@@ -94,13 +118,13 @@ export const getAllArticles = cache(async (locale: string = "en"): Promise<Artic
 /** Returns only articles whose publishedAt (or date) is on or before now. Use for public listing. */
 export const getPublishedArticles = cache(async (locale?: string): Promise<Article[]> => {
   const dir = getArticlesDirForLocale(locale || "en");
-  let all = await loadArticlesFromDir(dir);
+  let all = await loadArticlesFromDir(dir, locale || "en");
   
   // Only fall back to English if localized directory truly has no articles
   // (not due to parsing errors from malformed publishedAt fields)
   if (locale && locale !== "en" && all.length === 0) {
     console.log(`No articles found for locale ${locale}, falling back to English`);
-    all = await loadArticlesFromDir(articlesDirectory);
+    all = await loadArticlesFromDir(articlesDirectory, "en");
   }
   
   const now = new Date();
@@ -122,10 +146,10 @@ export async function getArticleBySlug(
   locale: string = "en"
 ): Promise<Article | undefined> {
   const dir = getArticlesDirForLocale(locale);
-  let articles = await loadArticlesFromDir(dir);
+  let articles = await loadArticlesFromDir(dir, locale);
   let match = articles.find((a) => a.slug === slug);
   if (!match && locale !== "en") {
-    articles = await loadArticlesFromDir(articlesDirectory);
+    articles = await loadArticlesFromDir(articlesDirectory, "en");
     match = articles.find((a) => a.slug === slug);
   }
   if (!match) return undefined;

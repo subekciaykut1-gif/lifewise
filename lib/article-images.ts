@@ -42,10 +42,13 @@ export function getArticleImage(
   if (override) return override;
 
   if (frontmatterImage) {
+    const isBrokenUnsplash = frontmatterImage.includes("photo-1?") || frontmatterImage === "https://images.unsplash.com/photo-1";
     const isExternal = frontmatterImage.startsWith("http");
-    if (isExternal) return frontmatterImage;
-    const fullPath = path.join(publicDirectory, frontmatterImage);
-    if (fs.existsSync(fullPath)) return `/${frontmatterImage}`;
+    if (isExternal && !isBrokenUnsplash) return frontmatterImage;
+    if (!isBrokenUnsplash) {
+      const fullPath = path.join(publicDirectory, frontmatterImage);
+      if (fs.existsSync(fullPath)) return `/${frontmatterImage}`;
+    }
   }
 
   const categoryFallback = CATEGORY_FALLBACK_IMAGES[category];

@@ -20,4 +20,6 @@ export interface Article {
   views?: number;
   /** Manually curated key takeaways from the frontmatter (optional). */
   takeaways?: string[];
+  /** Locale of the article (optional). */
+  locale?: string;
 }
