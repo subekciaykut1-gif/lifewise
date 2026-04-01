@@ -114,34 +114,29 @@ export default function Header({ children }: { children?: React.ReactNode }) {
               🏠 {t("home")}
             </Link>
             
-            {/* Server-side / Hydration Safe List */}
-            {mounted && (
-              <>
-                {/* Visible on all screens (first 8) */}
-                {visibleCategories.map((cat) => (
-                  <Link
-                    key={cat.slug}
-                    href={`/category/${cat.slug}`}
-                    className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
-                  >
-                    <span>{cat.icon}</span> <span>{tCat(`${cat.slug}.name`)}</span>
-                  </Link>
-                ))}
+            {/* Visible on all screens (first 8) */}
+            {visibleCategories.map((cat) => (
+              <Link
+                key={cat.slug}
+                href={`/category/${cat.slug}`}
+                className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
+              >
+                <span>{cat.icon}</span> <span>{tCat(`${cat.slug}.name`)}</span>
+              </Link>
+            ))}
 
-                {/* Visible ONLY on mobile in the scroll (remaining 8) */}
-                <div className="flex md:hidden">
-                  {hiddenCategories.map((cat) => (
-                    <Link
-                      key={cat.slug}
-                      href={`/category/${cat.slug}`}
-                      className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
-                    >
-                      <span>{cat.icon}</span> <span>{tCat(`${cat.slug}.name`)}</span>
-                    </Link>
-                  ))}
-                </div>
-              </>
-            )}
+            {/* Visible ONLY on mobile in the scroll (remaining 8) */}
+            <div className="flex md:hidden">
+              {hiddenCategories.map((cat) => (
+                <Link
+                  key={cat.slug}
+                  href={`/category/${cat.slug}`}
+                  className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
+                >
+                  <span>{cat.icon}</span> <span>{tCat(`${cat.slug}.name`)}</span>
+                </Link>
+              ))}
+            </div>
 
             <Link 
               href="/quizzes" 

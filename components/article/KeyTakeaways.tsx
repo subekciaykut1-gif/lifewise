@@ -81,8 +81,8 @@ function TakeawayUI({ points }: { points: string[] }) {
         <ul className="space-y-3 m-0 p-0 list-none">
           {points.map((point, i) => (
             <li key={i} className="flex gap-3 text-primary/80 font-body text-sm leading-relaxed m-0">
-              <span className="flex-shrink-0 w-5 h-5 rounded-full bg-accent/20 text-accent flex items-center justify-center font-bold text-[10px] mt-0.5">
-                {i + 1}
+              <span className="flex-shrink-0 min-w-[20px] h-5 rounded-full bg-accent/20 text-accent flex items-center justify-center font-bold text-[10px] mt-0.5 px-1">
+                {i + 1}.
               </span>
               {point}
             </li>

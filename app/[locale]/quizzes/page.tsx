@@ -20,7 +20,6 @@ export default async function QuizHub() {
 
   const t = await getTranslations("Nav");
   const breadcrumbs = [
-    { label: t("home"), href: "/" },
     { label: t("quizzes"), href: "/quizzes" },
   ];
 

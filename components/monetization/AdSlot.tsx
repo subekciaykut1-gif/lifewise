@@ -68,9 +68,9 @@ export default function AdSlot({ slot, format = "auto", className, height, layou
       )}
       style={{ height: height ? `${height}px` : "auto", minHeight: height ? undefined : "100px" }}
     >
-      <span className="font-ui text-[0.65rem] uppercase tracking-widest text-ad-text-muted font-semibold">Advertisement</span>
-      <span className="font-display text-[0.9rem] text-ad-text-light italic">Google AdSense</span>
-      <span className="font-ui text-[0.7rem] text-ad-text-light">{slot} • {format}</span>
+      <span className="invisible font-ui text-[0.65rem] uppercase tracking-widest text-ad-text-muted font-semibold">Advertisement</span>
+      <span className="invisible font-display text-[0.9rem] text-ad-text-light italic">Google AdSense</span>
+      <span className="invisible font-ui text-[0.7rem] text-ad-text-light">{slot} • {format}</span>
     </div>
   );
 }
