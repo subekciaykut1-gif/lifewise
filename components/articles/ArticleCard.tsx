@@ -57,6 +57,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
                 fill
                 className="object-cover"
                 sizes="24px"
+                unoptimized
               />
             </Link>
             <Link href={`/author/${getAuthorSlug(article.author || article.category)}`} className="font-ui text-[0.7rem] font-bold text-primary hover:text-accent transition-colors">

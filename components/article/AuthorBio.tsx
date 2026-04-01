@@ -18,6 +18,7 @@ export default function AuthorBio({ persona }: AuthorBioProps) {
           alt={name}
           fill
           className="object-cover"
+          unoptimized
         />
       </div>
       
