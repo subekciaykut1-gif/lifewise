@@ -2,10 +2,13 @@ import { getAllArticles } from "@/lib/articles";
 import { SITE_URL } from "@/lib/site";
 
 const localesList = ["en", "es", "fr", "de", "pt"];
+const defaultLocale = "en";
 const staticPages = [
   "", "about", "contact", "subscribe", "latest", "trending", "search",
   "category/cleaning", "category/health", "category/food", "category/home-and-garden", 
-  "category/life-hacks", "category/diy", "category/beauty", "category/viral-stories"
+  "category/life-hacks", "category/diy", "category/beauty", "category/viral-stories",
+  "category/technology", "category/finance", "category/real-estate", "category/careers",
+  "category/auto", "category/travel", "category/gaming", "category/lifestyle"
 ];
 
 function escapeXml(s: string): string {
@@ -25,25 +28,26 @@ export async function GET(request: Request, context: { params: Promise<{ locale:
   }
 
   const now = new Date();
-  const allArticles = await getAllArticles(locale === "en" ? undefined : locale);
-  // Create set for duplicate checking
-  const allSlugs = new Set(allArticles.map(a => a.slug));
-
-  // Filter out future dates and numbered duplicates
-  const publishedArticles = allArticles.filter(a => {
+  
+  // Step 1: Discover articles from English source (Master List)
+  const masterArticles = await getAllArticles(undefined);
+  
+  // Filter out future dates and duplicates
+  const publishedArticles = masterArticles.filter(a => {
     if (new Date(a.publishedAt || a.date) > now) return false;
-    const match = a.slug.match(/^(.+)-\d+$/);
-    if (match && allSlugs.has(match[1])) return false;
     return true;
   });
 
   const staticLastmod = now.toISOString().slice(0, 10);
 
-  // Generate xhtml:link alternates
-  const generateAlternates = (basePath: string) => {
-    return localesList.map(l => 
+  // Helper to generate xhtml:link alternates
+  const getAlternates = (basePath: string) => {
+    const links = localesList.map(l => 
       `    <xhtml:link rel="alternate" hreflang="${l}" href="${SITE_URL}/${l}${basePath ? '/' + basePath : ''}" />`
-    ).join('\n') + `\n    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}/en${basePath ? '/' + basePath : ''}" />`;
+    );
+    // Add x-default (usually English)
+    links.push(`    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}/${defaultLocale}${basePath ? '/' + basePath : ''}" />`);
+    return links.join('\n');
   };
 
   const xmlEntries = staticPages.map((path) => {
@@ -53,7 +57,7 @@ export async function GET(request: Request, context: { params: Promise<{ locale:
     <lastmod>${staticLastmod}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-${generateAlternates(path)}
+${getAlternates(path)}
   </url>`;
   });
 
@@ -63,15 +67,16 @@ ${generateAlternates(path)}
     const publishedDate = new Date(a.publishedAt || a.date);
     xmlEntries.push(`  <url>
     <loc>${escapeXml(loc)}</loc>
-    <lastmod>${publishedDate.toISOString().slice(0, 19).replace("T", "T")}Z</lastmod>
+    <lastmod>${publishedDate.toISOString().slice(0, 19)}Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-${generateAlternates(path)}
+${getAlternates(path)}
   </url>`);
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${xmlEntries.join("\n")}
 </urlset>`;
 
