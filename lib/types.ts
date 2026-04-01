@@ -18,4 +18,6 @@ export interface Article {
   keywords?: string[];
   /** View count from Neon Database (optional). */
   views?: number;
+  /** Manually curated key takeaways from the frontmatter (optional). */
+  takeaways?: string[];
 }
