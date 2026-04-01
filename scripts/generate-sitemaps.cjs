@@ -66,29 +66,24 @@ function escapeXml(s) {
 }
 
 function main() {
-  const allLocaleSlugs = ['en', 'es', 'fr', 'de', 'pt'];
-  const ARTICLES_DIR_EN = ARTICLES_DIR;
-  
-  // Get all unique article slugs across all locales
+  const allLocaleSlugs = ["en", "es", "fr", "de", "pt"];
+  const defaultLocale = "en";
   const articleMap = new Map(); // slug -> { category, publishedAt }
+
+  // Step 1: Discover articles from English source (Master List)
+  if (!fs.existsSync(ARTICLES_DIR)) {
+    console.error("English articles directory not found!");
+    return;
+  }
   
-  const localesToScan = [{ code: 'en', dir: ARTICLES_DIR_EN }, ...Object.keys(LOCALE_DIRS).map(l => ({ code: l, dir: LOCALE_DIRS[l] }))];
-  
-  for (const { dir } of localesToScan) {
-    if (!fs.existsSync(dir)) continue;
-    const files = getFiles(dir);
-    for (const filePath of files) {
-      const content = fs.readFileSync(filePath, "utf8");
-      const { data } = matter(content);
-      const slug = path.basename(filePath, ".mdx");
-      const category = data.category || "life-hacks";
-      const publishedAt = parseDate(data.publishedAt || data.date) || parseDate(data.date) || new Date();
-      
-      const key = `${category}/${slug}`;
-      if (!articleMap.has(key) || articleMap.get(key).publishedAt < publishedAt) {
-        articleMap.set(key, { category, slug, publishedAt });
-      }
-    }
+  const enFiles = getFiles(ARTICLES_DIR);
+  for (const filePath of enFiles) {
+    const content = fs.readFileSync(filePath, "utf8");
+    const { data } = matter(content);
+    const slug = path.basename(filePath, ".mdx");
+    const category = data.category || "life-hacks";
+    const publishedAt = parseDate(data.publishedAt || data.date) || parseDate(data.date) || new Date();
+    articleMap.set(`${category}/${slug}`, { category, slug, publishedAt });
   }
 
   const staticLastmod = new Date().toISOString().slice(0, 10);
@@ -114,12 +109,27 @@ function main() {
 
   const xmlEntries = [];
 
+  // Helper to generate hreflang blocks
+  function getHreflangBlock(baseUrl) {
+    const links = [];
+    allLocaleSlugs.forEach(lang => {
+      const langUrl = baseUrl.replace(`/${defaultLocale}/`, `/${lang}/`).replace(`/${defaultLocale}`, `/${lang}`);
+      links.push(`    <xhtml:link rel="alternate" hreflang="${lang}" href="${escapeXml(langUrl)}" />`);
+    });
+    // Add x-default (usually same as English)
+    const xDefaultUrl = baseUrl.replace(`/${defaultLocale}/`, `/${defaultLocale}/`).replace(`/${defaultLocale}`, `/${defaultLocale}`);
+    links.push(`    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(xDefaultUrl)}" />`);
+    return links.join("\n");
+  }
+
   // Generate static URLs for all locales
   for (const item of baseStaticPaths) {
     for (const locale of allLocaleSlugs) {
       const urlPath = item.path === "" ? locale : `${locale}/${item.path}`;
+      const fullUrl = `${SITE_URL}/${urlPath}`;
       xmlEntries.push(`  <url>
-    <loc>${escapeXml(SITE_URL + "/" + urlPath)}</loc>
+    <loc>${escapeXml(fullUrl)}</loc>
+${getHreflangBlock(`${SITE_URL}/${item.path === "" ? defaultLocale : defaultLocale + "/" + item.path}`)}
     <lastmod>${staticLastmod}</lastmod>
     <changefreq>${item.freq}</changefreq>
     <priority>${item.priority}</priority>
@@ -133,6 +143,7 @@ function main() {
       const locUrl = `${SITE_URL}/${locale}/${key}`;
       xmlEntries.push(`  <url>
     <loc>${escapeXml(locUrl)}</loc>
+${getHreflangBlock(`${SITE_URL}/${defaultLocale}/${key}`)}
     <lastmod>${a.publishedAt.toISOString().slice(0, 19)}Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -141,13 +152,16 @@ function main() {
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${xmlEntries.join("\n")}
 </urlset>`;
   
   fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap.xml"), xml);
 
-  console.log("Generated single sitemap.xml with", articleMap.size * 5, "article entries and", baseStaticPaths.length * 5, "static entries");
+  console.log(`Successfully generated SEO-optimized sitemap.xml with xhtml:link (hreflang) support.
+Processed ${articleMap.size} unique articles for ${allLocaleSlugs.length} locales.
+Total URL entries: ${xmlEntries.length}`);
 }
 
 main();
