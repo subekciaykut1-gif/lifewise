@@ -17,8 +17,9 @@ export default function ArticleCard({ article }: ArticleCardProps) {
   const t = useTranslations("Article");
   
   // Image fallback is now handled in lib/articles.ts
-  const rawExcerpt = (article.content ?? "").substring(0, 120).replace(/[#*]/g, "").trim();
-  const excerpt = article.excerpt || (rawExcerpt ? `${rawExcerpt}...` : "");
+  const stripMarkdown = (text: string) => (text || "").replace(/[#*_~`]/g, "").trim();
+  const rawExcerpt = stripMarkdown((article.content ?? "").substring(0, 120));
+  const excerpt = stripMarkdown(article.excerpt || (rawExcerpt ? `${rawExcerpt}...` : ""));
   
   return (
     <article className="group bg-surface border border-border rounded-xl overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-card-hover cursor-pointer h-full flex flex-col">
