@@ -41,6 +41,7 @@ import CustomSurvey from "@/components/ui/CustomSurvey";
 import CategoryDisclaimer from "@/components/article/CategoryDisclaimer";
 import ArticleUpvoteButton from "@/components/article/ArticleUpvoteButton";
 import BookmarkButton from "@/components/article/BookmarkButton";
+import MedicalDisclaimer from "@/components/article/MedicalDisclaimer";
 
 interface ArticlePageProps {
   params: Promise<{ category: string; slug: string; locale: string }>;
@@ -275,6 +276,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
 
             <CategoryDisclaimer category={categorySlug} />
+            {['health', 'food', 'beauty'].includes(categorySlug) && <MedicalDisclaimer />}
             <KeyTakeaways content={article.content} excerpt={article.excerpt} />
 
             {/* Mobile TOC */}

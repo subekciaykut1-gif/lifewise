@@ -94,7 +94,7 @@ export default async function Footer() {
               <li><Link href="/privacy-policy" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("privacy")}</Link></li>
               <li><Link href="/cookie-policy" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("cookiePolicy")}</Link></li>
               <li><Link href="/terms-of-use" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("terms")}</Link></li>
-              <li><Link href="/affiliate-disclosure" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("advertise")}</Link></li>
+              <li><Link href="/affiliate-disclosure" className="font-ui text-[0.82rem] text-bg/60 dark:text-primary/70 hover:text-bg dark:hover:text-primary transition-colors">{t("affiliateDisclosure")}</Link></li>
             </ul>
           </div>
         </div>

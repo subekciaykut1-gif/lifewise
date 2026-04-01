@@ -6,10 +6,10 @@
       "image": "/images/authors/sarah-jenkins.png",
       "role": "Home & Organization Expert"
     },
-    "dr-mike-ross": {
-      "name": "Dr. Mike Ross",
-      "bio": "Dr. Mike Ross is a licensed nutritionist and wellness advocate focused on practical, science-based advice for better everyday health. He specializes in gut health and anti-inflammatory cooking.",
-      "image": "/images/authors/dr-mike-ross.png",
+    "mike-ross": {
+      "name": "Mike Ross",
+      "bio": "Mike Ross is a certified wellness coach and health researcher with over 10 years of experience writing about nutrition, mental health, and preventive care.",
+      "image": "/images/authors/mike-ross.png",
       "role": "Wellness & Nutrition Specialist"
     },
     "elena-vance": {
@@ -59,8 +59,8 @@
     "cleaning": "sarah-jenkins",
     "home-and-garden": "sarah-jenkins",
     "home-diy": "sarah-jenkins",
-    "health": "dr-mike-ross",
-    "food": "dr-mike-ross",
+    "health": "mike-ross",
+    "food": "mike-ross",
     "diy": "elena-vance",
     "life-hacks": "elena-vance",
     "beauty": "david-chen",
