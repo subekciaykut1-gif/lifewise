@@ -5,7 +5,6 @@ import { SITE_URL } from "@/lib/site";
 import "../globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import CookieBanner from "@/components/ui/CookieBanner";
 import BackToTop from "@/components/ui/BackToTop";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/next";
@@ -174,7 +173,6 @@ export default async function LocaleLayout({
                 {children}
               </main>
               <Footer />
-              <CookieBanner />
               <BackToTop />
               <ExitIntentModal />
               <Analytics />
