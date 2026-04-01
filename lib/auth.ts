@@ -54,6 +54,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   session: { strategy: "jwt" },
+  secret: process.env.AUTH_SECRET,
+  trustHost: true,
+  debug: process.env.NODE_ENV === "development",
   callbacks: {
     async session({ session, token }) {
       if (token.sub && session.user) {
