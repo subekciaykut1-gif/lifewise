@@ -8,7 +8,7 @@ import bcrypt from "bcryptjs";
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+export const authConfig = {
   adapter: NeonAdapter(pool),
   providers: [
     ...(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET
@@ -53,25 +53,28 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  session: { strategy: "jwt" },
-  secret: process.env.AUTH_SECRET,
-  trustHost: true,
-  debug: process.env.NODE_ENV === "development",
+  session: { strategy: "jwt" as const },
+  pages: {
+    signIn: "/auth/login",
+  },
   callbacks: {
-    async session({ session, token }) {
+    async session({ session, token }: { session: any; token: any }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any; user?: any }) {
       if (user) {
         token.id = user.id;
       }
       return token;
     },
   },
-  pages: {
-    signIn: "/auth/login",
-  },
-});
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
+  trustHost: true,
+  basePath: "/api/auth",
+  debug: process.env.NODE_ENV === "development",
+};
+
+export const { handlers, auth, signIn, signOut } = NextAuth(authConfig);
