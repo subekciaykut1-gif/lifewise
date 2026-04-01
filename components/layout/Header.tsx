@@ -2,18 +2,14 @@
 
 import { Link } from "@/i18n/routing";
 import { useState, useEffect, useRef } from "react";
-import { useSession, signOut } from "next-auth/react";
 import { Search, Menu, ChevronDown } from "lucide-react";
 import { categories } from "@/lib/categories";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
-import AuthModal from "@/components/auth/AuthModal";
 import MobileMenu from "@/components/layout/MobileMenu";
 import { useTranslations } from "next-intl";
 
 export default function Header({ children }: { children?: React.ReactNode }) {
-  const { data: session, status } = useSession();
   const [mounted, setMounted] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
@@ -33,12 +29,6 @@ export default function Header({ children }: { children?: React.ReactNode }) {
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  useEffect(() => {
-    const handleOpenAuth = () => setIsAuthModalOpen(true);
-    window.addEventListener('custom:open-auth', handleOpenAuth);
-    return () => window.removeEventListener('custom:open-auth', handleOpenAuth);
   }, []);
 
   const visibleCategories = categories.slice(0, 8);
@@ -66,44 +56,10 @@ export default function Header({ children }: { children?: React.ReactNode }) {
             <Search size={20} />
           </Link>
           
-          {status === "authenticated" ? (
-            <div className="relative group">
-              <button className="w-11 h-11 rounded-full overflow-hidden border-2 border-accent/20 hover:border-accent transition-colors">
-                {session.user?.image ? (
-                  <img src={session.user.image} alt="Profile" className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full bg-accent text-white flex items-center justify-center font-bold">
-                    {session.user?.name?.[0] || "U"}
-                  </div>
-                )}
-              </button>
-              <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-surface border border-border rounded-xl shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all before:content-[''] before:absolute before:-top-4 before:inset-x-0 before:h-4 z-[100]">
-                <div className="px-4 py-2 border-b border-border mb-2">
-                  <p className="text-sm font-bold text-primary truncate">{session.user?.name}</p>
-                  <p className="text-xs text-muted truncate">{session.user?.email}</p>
-                </div>
-                <Link href="/profile" className="block px-4 py-2 text-sm text-primary hover:bg-muted/50 transition-colors">{t("myProfile")}</Link>
-                <Link href="/saved-hacks" className="block px-4 py-2 text-sm text-primary hover:bg-muted/50 transition-colors">{t("savedHacks")}</Link>
-                <button 
-                  onClick={() => signOut()}
-                  className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-muted/50 transition-colors"
-                >
-                  {t("signOut")}
-                </button>
-              </div>
-            </div>
-          ) : (
-            <button 
-              onClick={() => setIsAuthModalOpen(true)}
-              className="inline-flex bg-accent text-white border-none px-4 sm:px-[18px] py-2 sm:py-2.5 min-h-[40px] sm:min-h-[44px] items-center rounded-[20px] font-ui text-[0.75rem] sm:text-[0.8rem] font-semibold cursor-pointer tracking-normal hover:shadow-cta-hover transition-all transform hover:-translate-y-px no-underline"
-            >
-              {t("signIn")}
-            </button>
-          )}
+          {/* Auth removed per user request (Option A) */}
         </div>
       </div>
       
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
       <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
       <div className="bg-primary dark:bg-surface w-full relative">

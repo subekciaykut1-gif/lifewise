@@ -95,7 +95,7 @@ export default function TermsOfUsePage() {
 
         <h2>11. Governing Law & Jurisdiction</h2>
         <p>
-          These Terms will be governed by and interpreted in accordance with the laws of the State of California, and you submit to the non-exclusive jurisdiction of the state and federal courts located in California for the resolution of any disputes.
+          These Terms will be governed by and interpreted in accordance with applicable international laws. Any disputes will be resolved through good-faith negotiation or, if necessary, binding arbitration.
         </p>
 
         <h2>12. Contact Us</h2>

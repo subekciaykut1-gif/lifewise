@@ -1,9 +1,9 @@
-# *
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /static/
 
-# Host
-Host: https://wisetips.co
-
-# Sitemaps
+# Sitemap
 Sitemap: https://wisetips.co/sitemap.xml
