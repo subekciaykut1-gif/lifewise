@@ -275,8 +275,11 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
               />
             </div>
 
-            <CategoryDisclaimer category={categorySlug} />
-            {['health', 'food', 'beauty'].includes(categorySlug) && <MedicalDisclaimer />}
+            {['health', 'food', 'beauty'].includes(categorySlug) ? (
+              <MedicalDisclaimer />
+            ) : (
+              <CategoryDisclaimer category={categorySlug} />
+            )}
             <KeyTakeaways content={article.content} excerpt={article.excerpt} takeaways={article.takeaways} />
 
             {/* Mobile TOC */}
