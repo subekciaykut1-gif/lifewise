@@ -272,6 +272,57 @@
     }
   }
 
+  /* DARK MODE STYLING IMPROVEMENTS */
+  .dark .prose-article {
+    color: #D1D5DB; /* Lighter body text for contrast */
+  }
+
+  .dark .prose-article p:first-of-type {
+    color: #F9FAFB;
+  }
+
+  .dark .prose-article h2,
+  .dark .prose-article h3 {
+    color: #F9FAFB;
+  }
+
+  .dark .prose-article h2 {
+    border-left-color: #f79a7a; /* Lighter brand accent for dark mode */
+  }
+
+  .dark .prose-article strong,
+  .dark .prose-article b {
+    color: #f79a7a; /* Lighter brand highlight */
+  }
+
+  .dark .prose-article ul li::before {
+    color: #86EFAC; /* Light green checkmarks */
+  }
+
+  .dark .prose-article ol li::before {
+    color: #f79a7a;
+  }
+
+  .dark .prose-article p.faq-question {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left-color: #f79a7a;
+    color: #E5E7EB;
+  }
+
+  .dark .prose-article blockquote {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left-color: var(--color-gold);
+    color: #E5E7EB;
+  }
+
+  .dark .prose-article blockquote p {
+    color: #E5E7EB;
+  }
+
+  .dark .prose-article {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
   .skip-link {
     position: absolute;
     left: -9999px;

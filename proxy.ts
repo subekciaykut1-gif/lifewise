@@ -3,7 +3,7 @@ import { routing } from "./i18n/routing";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export default function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   // Allow next-intl to handle localized routing
   
   // Apply next-intl middleware for other routes
