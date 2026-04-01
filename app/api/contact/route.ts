@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
     // Send email via Resend
     const { data, error } = await resend.emails.send({
-      from: "LifeWise Contact <onboarding@resend.dev>",
+      from: "LifeWise Contact <hello@wisetips.co>",
       to: [CONTACT_EMAIL],
       subject: `[Contact Form] ${subject}`,
       replyTo: email,
