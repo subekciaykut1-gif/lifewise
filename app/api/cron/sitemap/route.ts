@@ -32,26 +32,44 @@ export async function GET(request: Request) {
       }),
     });
 
-    if (response.ok) {
-      return NextResponse.json({
-        success: true,
-        message: 'Successfully notified IndexNow about sitemap update.',
-        status: response.status,
-      });
-    } else {
-      const errorText = await response.text();
-      return NextResponse.json({
-        success: false,
-        message: 'IndexNow returned a non-200 status.',
-        status: response.status,
-        error: errorText,
-      }, { status: 500 });
-    }
+    const indexNowResult = {
+      success: response.ok,
+      status: response.status,
+      message: response.ok ? 'Successfully notified IndexNow' : 'IndexNow returned a non-200 status',
+    };
+
+    // 2. Trigger Google Pings (Parallel)
+    const googleSitemaps = [
+      `${SITE_URL}/en/sitemap.xml`,
+      `${SITE_URL}/es/sitemap.xml`,
+      `${SITE_URL}/fr/sitemap.xml`,
+      `${SITE_URL}/de/sitemap.xml`,
+      `${SITE_URL}/pt/sitemap.xml`,
+    ];
+
+    console.log(`🚀 Triggering Google pings for ${googleSitemaps.length} locales...`);
+
+    const googleResults = await Promise.all(
+      googleSitemaps.map(async (url) => {
+        try {
+          const res = await fetch(`https://www.google.com/ping?sitemap=${url}`);
+          return { url, status: res.status, success: res.ok };
+        } catch (err: any) {
+          return { url, error: err.message, success: false };
+        }
+      })
+    );
+
+    return NextResponse.json({
+      success: indexNowResult.success,
+      indexNow: indexNowResult,
+      google: googleResults,
+    });
   } catch (error: any) {
-    console.error('❌ IndexNow ping failed:', error.message);
+    console.error('❌ Sitemap cron failed:', error.message);
     return NextResponse.json({
       success: false,
-      message: 'Failed to notify IndexNow.',
+      message: 'Failed to complete sitemap notifications.',
       error: error.message,
     }, { status: 500 });
   }
