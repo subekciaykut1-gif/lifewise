@@ -164,7 +164,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
           {authorArticles.length > 6 && (
             <div className="text-center mt-10">
               <Link
-                href={`/category/${authorCategories[0]}`}
+                href={`/${locale}/author/${slug}`}
                 className="inline-flex items-center gap-2 bg-accent text-white font-ui font-bold px-8 py-3.5 rounded-xl hover:bg-accent/90 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20"
               >
                 See All {authorArticles.length} Articles

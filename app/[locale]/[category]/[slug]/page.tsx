@@ -288,8 +288,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
 
             {/* Article Content */}
-            <div className="prose prose-lg max-w-none font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl overflow-hidden">
-              <MDXRemote source={article.content} components={components} />
+            <div className="max-w-[720px] mx-auto">
+              <div className="prose-article">
+                <MDXRemote source={article.content} components={components} />
+              </div>
             </div>
 
             <SmartAffiliateBox category={article.category} keywords={article.keywords || article.tags || []} products={affiliateProducts} />
