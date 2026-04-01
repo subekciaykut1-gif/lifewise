@@ -110,6 +110,27 @@ const components = {
   a: ({ href, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a {...props} href={href ? addAmazonTag(href) : href} />
   ),
+  p: (props: any) => {
+    const children = props.children;
+    let isFaq = false;
+    
+    // Check if it starts with Q:
+    if (typeof children === 'string' && children.startsWith('Q:')) {
+      isFaq = true;
+    } else if (Array.isArray(children)) {
+      const first = children[0];
+      if (typeof first === 'string' && first.startsWith('Q:')) {
+        isFaq = true;
+      } else if (first && typeof first === 'object' && 'props' in first) {
+        const nested = first.props.children;
+        if (typeof nested === 'string' && nested.startsWith('Q:')) {
+          isFaq = true;
+        }
+      }
+    }
+    
+    return <p {...props} className={isFaq ? "faq-question" : ""} />;
+  },
 };
 
 export default async function ArticlePage({ params }: ArticlePageProps) {

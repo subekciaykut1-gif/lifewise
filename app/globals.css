@@ -233,8 +233,7 @@
   }
 
   /* FAQ BLOCK */
-  .prose-article p:has(> b:first-child:contains("Q:")),
-  .prose-article p:has(> strong:first-child:contains("Q:")) {
+  .prose-article p.faq-question {
     background-color: var(--color-accent-soft);
     padding: 1.25rem;
     border-left: 4px solid var(--color-accent);
