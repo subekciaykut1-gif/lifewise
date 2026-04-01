@@ -13,6 +13,9 @@ const SLOT_TO_ENV: Record<string, string> = {
   "trending-bottom": "NEXT_PUBLIC_AD_SLOT_TRENDING_BOTTOM",
   "latest-bottom": "NEXT_PUBLIC_AD_SLOT_LATEST_BOTTOM",
   "in-content-1": "NEXT_PUBLIC_AD_SLOT_IN_CONTENT_1",
+  "quiz-mid": "NEXT_PUBLIC_AD_SLOT_QUIZ_MID",
+  "quiz-below": "NEXT_PUBLIC_AD_SLOT_QUIZ_BELOW",
+  "quiz-result": "NEXT_PUBLIC_AD_SLOT_QUIZ_RESULT",
 };
 
 interface AdSlotProps {
@@ -26,7 +29,7 @@ interface AdSlotProps {
 
 export default function AdSlot({ slot, format = "auto", className, height, layout, layoutKey }: AdSlotProps) {
   const ref = useRef<HTMLModElement>(null);
-  const publisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "ca-pub-2207377176181836";
+  const publisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "ca-pub-1534110707644920";
   const slotId = process.env[SLOT_TO_ENV[slot] as keyof typeof process.env] as string | undefined;
 
   useEffect(() => {
