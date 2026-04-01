@@ -3,27 +3,61 @@ import { Lightbulb } from 'lucide-react';
 
 interface KeyTakeawaysProps {
   content: string;
+  excerpt?: string;
 }
 
-export default function KeyTakeaways({ content }: KeyTakeawaysProps) {
-  // Simple heuristic: Take the first 3 bullet points if they exist, 
-  // or the first 2-3 sentences of the first paragraph.
+export default function KeyTakeaways({ content, excerpt }: KeyTakeawaysProps) {
   const lines = (content || "").split('\n');
+  
+  // 1. Broaden detection to include •, *, -, and numbered lists (e.g. "1. ")
   const bullets = lines
-    .filter(l => l.trim().startsWith('- ') || l.trim().startsWith('* '))
-    .map(l => l.trim().substring(2))
+    .filter(l => {
+      const trimmed = l.trim();
+      return (
+        trimmed.startsWith('- ') || 
+        trimmed.startsWith('* ') || 
+        trimmed.startsWith('• ') || 
+        /^\d+\.\s+/.test(trimmed)
+      );
+    })
+    .map(l => {
+      const trimmed = l.trim();
+      // Remove markers
+      if (trimmed.startsWith('- ') || trimmed.startsWith('* ') || trimmed.startsWith('• ')) {
+        return trimmed.substring(2);
+      }
+      return trimmed.replace(/^\d+\.\s+/, '');
+    })
     .slice(0, 4);
 
   let takeaways = bullets;
   
   if (bullets.length < 2) {
-    // Fallback to first paragraph sentences
-    const firstPara = content.split('\n\n').find(p => p.length > 100 && !p.startsWith('#')) || "";
-    takeaways = firstPara
-      .split(/[.!?]/)
-      .map(s => s.trim())
-      .filter(s => s.length > 20)
-      .slice(0, 3);
+    // 2. High-quality fallback: Use the excerpt if available (stripping markdown bold/italic)
+    if (excerpt && !excerpt.includes('EXCERPT WARNING')) {
+      const cleanExcerpt = excerpt.replace(/[*#]/g, '').trim();
+      if (cleanExcerpt.length > 50) {
+        takeaways = [cleanExcerpt];
+      }
+    }
+    
+    // 3. Last resort: Find first non-question paragraph that looks informative
+    if (takeaways.length === 0) {
+      const paragraphs = content.split('\n\n');
+      const informativePara = paragraphs.find(p => 
+        p.length > 100 && 
+        !p.startsWith('#') && 
+        !p.trim().endsWith('?') // Skip intros that are just hook questions
+      );
+      
+      if (informativePara) {
+        takeaways = informativePara
+          .split(/[.!?]/)
+          .map(s => s.trim())
+          .filter(s => s.length > 30 && !s.endsWith('?'))
+          .slice(0, 3);
+      }
+    }
   }
 
   if (takeaways.length === 0) return null;

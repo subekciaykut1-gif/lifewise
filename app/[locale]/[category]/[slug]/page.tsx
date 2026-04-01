@@ -275,7 +275,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             </div>
 
             <CategoryDisclaimer category={categorySlug} />
-            <KeyTakeaways content={article.content} />
+            <KeyTakeaways content={article.content} excerpt={article.excerpt} />
 
             {/* Mobile TOC */}
             <div className="lg:hidden mb-8 p-5 sm:p-6 bg-surface border border-border rounded-xl shadow-sm">
