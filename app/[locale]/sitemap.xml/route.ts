@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { getAllArticles } from "@/lib/articles";
 import { SITE_URL } from "@/lib/site";
 
@@ -81,7 +80,7 @@ ${getAlternates(path)}
 ${xmlEntries.join("\n")}
 </urlset>`;
 
-  return new NextResponse(xml, {
+  return new Response(xml, {
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
       "Cache-Control": "public, max-age=3600, s-maxage=3600",
