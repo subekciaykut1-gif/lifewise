@@ -77,7 +77,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
                   </div>
                 )}
               </button>
-              <div className="absolute right-0 top-full mt-2 w-48 bg-surface border border-border rounded-xl shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+              <div className="absolute right-0 top-full mt-2 w-48 bg-surface border border-border rounded-xl shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all before:content-[''] before:absolute before:-top-4 before:inset-x-0 before:h-4">
                 <div className="px-4 py-2 border-b border-border mb-2">
                   <p className="text-sm font-bold text-primary truncate">{session.user?.name}</p>
                   <p className="text-xs text-muted truncate">{session.user?.email}</p>
