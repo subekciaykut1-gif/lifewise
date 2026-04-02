@@ -124,11 +124,18 @@ async function improveContent(filename) {
 CURRENT TITLE: ${title}
 TOPIC: ${newBody.substring(0, 200)}`;
       
-      const newTitle = await callOllama(prompt);
-      if (newTitle) {
-        stats.titles.push({ file: filename, old: title, new: newTitle });
-        newFrontmatter.title = newTitle;
-        if (newFrontmatter.metaTitle) newFrontmatter.metaTitle = newTitle;
+      const newTitleRaw = await callOllama(prompt);
+      if (newTitleRaw) {
+        // Sanitize: remove **, quotes, and #
+        const cleanTitle = newTitleRaw
+          .replace(/\*\*/g, '')
+          .replace(/^["']|["']$/g, '')
+          .replace(/^#+\s?/, '')
+          .trim();
+          
+        stats.titles.push({ file: filename, old: title, new: cleanTitle });
+        newFrontmatter.title = cleanTitle;
+        if (newFrontmatter.metaTitle) newFrontmatter.metaTitle = cleanTitle;
         modified = true;
       }
     }
