@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import { getAuthorPersona, getAuthorSlug } from "@/lib/authors";
 import BookmarkButton from "@/components/article/BookmarkButton";
 import { useTranslations } from "next-intl";
+import AuthorAvatar from "@/components/ui/AuthorAvatar";
 
 interface ArticleCardProps {
   article: Article & { locale?: string };
@@ -50,16 +51,12 @@ export default function ArticleCard({ article }: ArticleCardProps) {
         </p>
         <div className="flex items-center justify-between mt-auto pt-3 border-t border-border/50">
           <div className="flex items-center gap-2">
-            <Link href={`/author/${getAuthorSlug(article.author || article.category)}`} className="relative w-6 h-6 rounded-full overflow-hidden border border-accent/20">
-              <Image 
-                src={getAuthorPersona(article.author || article.category).image} 
-                alt={getAuthorPersona(article.author || article.category).name}
-                fill
-                className="object-cover"
-                sizes="24px"
-                unoptimized
-              />
-            </Link>
+            <AuthorAvatar 
+              name={getAuthorPersona(article.author || article.category).name} 
+              image={getAuthorPersona(article.author || article.category).image} 
+              size="xs" 
+              className="border border-accent/20"
+            />
             <Link href={`/author/${getAuthorSlug(article.author || article.category)}`} className="font-ui text-[0.7rem] font-bold text-primary hover:text-accent transition-colors">
               {getAuthorPersona(article.author || article.category).name}
             </Link>

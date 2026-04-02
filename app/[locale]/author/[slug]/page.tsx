@@ -8,6 +8,7 @@ import Link from "next/link";
 import ArticleCard from "@/components/articles/ArticleCard";
 import { SITE_URL } from "@/lib/site";
 import { BookOpen, Tag } from "lucide-react";
+import AuthorAvatar from "@/components/ui/AuthorAvatar";
 
 interface AuthorPageProps {
   params: Promise<{ slug: string; locale: string }>;
@@ -91,16 +92,12 @@ export default async function AuthorPage({ params, searchParams }: AuthorPagePro
 
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8 p-8 md:p-12">
             {/* Avatar */}
-            <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-accent/20 shadow-2xl shadow-accent/10 shrink-0">
-              <Image
-                src={author.image}
-                alt={author.name}
-                fill
-                className="object-cover"
-                sizes="160px"
-                priority
-              />
-            </div>
+            <AuthorAvatar 
+              name={author.name} 
+              image={author.image} 
+              size="xl" 
+              className="border-4 border-accent/20 shadow-2xl shadow-accent/10"
+            />
 
             {/* Info */}
             <div className="flex-1 text-center md:text-left">

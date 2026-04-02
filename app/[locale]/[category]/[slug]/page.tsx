@@ -42,6 +42,7 @@ import CategoryDisclaimer from "@/components/article/CategoryDisclaimer";
 import ArticleUpvoteButton from "@/components/article/ArticleUpvoteButton";
 import BookmarkButton from "@/components/article/BookmarkButton";
 import MedicalDisclaimer from "@/components/article/MedicalDisclaimer";
+import AuthorAvatar from "@/components/ui/AuthorAvatar";
 
 interface ArticlePageProps {
   params: Promise<{ category: string; slug: string; locale: string }>;
@@ -238,16 +239,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
             <div className="flex flex-wrap items-center gap-4 sm:gap-6 pb-6 border-b border-border mb-8">
               <div className="flex items-center gap-3">
-                <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-accent/20 shadow-sm bg-muted flex-shrink-0">
-                  <Image 
-                    src={persona.image} 
-                    alt={persona.name} 
-                    fill 
-                    className="object-cover"
-                    sizes="40px"
-                    unoptimized
-                  />
-                </div>
+                <AuthorAvatar 
+                  name={persona.name} 
+                  image={persona.image} 
+                  size="md" 
+                  className="border-2 border-accent/20"
+                />
                 <div>
                   <Link href={`/author/${getAuthorSlug(article.author || categorySlug)}`} className="font-ui text-sm font-bold text-primary group-hover:text-accent transition-colors">
                     {persona.name}
