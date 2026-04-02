@@ -3,6 +3,8 @@ import path from 'path';
 import matter from 'gray-matter';
 
 const ARTICLES_DIR = './content/articles';
+import { fetch, Agent } from 'undici';
+
 const OLLAMA_URL = 'http://localhost:11434/api/generate';
 const MODEL = 'mistral';
 
@@ -11,35 +13,44 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 let lastCallTime = 0;
 const MIN_INTERVAL = 2000;
 
-async function callOllama(prompt) {
-  const now = Date.now();
-  const timeSinceLastCall = now - lastCallTime;
-  if (timeSinceLastCall < MIN_INTERVAL) {
-    await sleep(MIN_INTERVAL - timeSinceLastCall);
-  }
-  
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 600000); // 10 minute timeout for slow local generation
+// Custom agent to prevent UND_ERR_HEADERS_TIMEOUT (default 30s)
+const dispatcher = new Agent({
+  headersTimeout: 600000, // 10 minutes
+  bodyTimeout: 600000,
+  connectTimeout: 60000,
+});
+
+async function callOllama(prompt, retries = 2) {
+  for (let i = 0; i < retries; i++) {
+    const now = Date.now();
+    const timeSinceLastCall = now - lastCallTime;
+    if (timeSinceLastCall < MIN_INTERVAL) {
+      await sleep(MIN_INTERVAL - timeSinceLastCall);
+    }
     
-    const response = await fetch(OLLAMA_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: MODEL,
-        prompt,
-        stream: false
-      }),
-      signal: controller.signal
-    });
-    
-    clearTimeout(timeout);
-    const data = await response.json();
-    lastCallTime = Date.now();
-    return data.response.trim().replace(/^"/, '').replace(/"$/, '').split('\n')[0].trim();
-  } catch (error) {
-    console.error('Ollama Error:', error);
-    return null;
+    try {
+      const response = await fetch(OLLAMA_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: MODEL,
+          prompt,
+          stream: false
+        }),
+        dispatcher
+      });
+      
+      const data = await response.json();
+      lastCallTime = Date.now();
+      return data.response.trim().replace(/^"/, '').replace(/"$/, '').split('\n')[0].trim();
+    } catch (error) {
+      if (i === retries - 1) {
+        console.error(`Ollama Error (Final Attempt):`, error.message || error);
+        return null;
+      }
+      console.log(`  ... Timeout/Error. Retrying (${i + 2}/${retries})...`);
+      await sleep(5000);
+    }
   }
 }
 
@@ -163,14 +174,24 @@ CURRENT ARTICLE TITLE: ${newFrontmatter.title || title}
 CONTENT:
 ${newBody}`;
 
-      // No split('\n')[0] for Task A as we want the full body
-      const response = await fetch(OLLAMA_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ model: MODEL, prompt, stream: false })
-      });
-      const data = await response.json();
-      const expandedBody = data.response.trim();
+      let expandedBody = null;
+      for (let i = 0; i < 2; i++) {
+        try {
+          const response = await fetch(OLLAMA_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ model: MODEL, prompt, stream: false }),
+            dispatcher
+          });
+          const data = await response.json();
+          expandedBody = data.response.trim();
+          if (expandedBody) break;
+        } catch (error) {
+          if (i === 1) console.error(`Expansion Error (Final Attempt):`, error.message || error);
+          else console.log(`  ... Expansion Timeout. Retrying...`);
+          await sleep(5000);
+        }
+      }
       
       if (expandedBody && expandedBody.length > newBody.length) {
         const newWordCount = expandedBody.trim().split(/\s+/).length;
