@@ -139,12 +139,10 @@ export default async function LocaleLayout({
           <GoogleConsent />
           <GoogleAnalytics gaId={gaId} />
           {adsenseId && (
-            <Script
-              id="adsense"
+            <script
               async
               src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`}
               crossOrigin="anonymous"
-              strategy="afterInteractive"
             />
           )}
         <Script id="microsoft-clarity" strategy="afterInteractive">
