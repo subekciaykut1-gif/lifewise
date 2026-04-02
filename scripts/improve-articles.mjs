@@ -1,10 +1,9 @@
 import fs from 'fs/promises';
 import path from 'path';
 import matter from 'gray-matter';
+import http from 'http';
 
 const ARTICLES_DIR = './content/articles';
-import { fetch, Agent } from 'undici';
-
 const OLLAMA_URL = 'http://localhost:11434/api/generate';
 const MODEL = 'mistral';
 
@@ -13,12 +12,53 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 let lastCallTime = 0;
 const MIN_INTERVAL = 2000;
 
-// Custom agent to prevent UND_ERR_HEADERS_TIMEOUT (default 30s)
-const dispatcher = new Agent({
-  headersTimeout: 600000, // 10 minutes
-  bodyTimeout: 600000,
-  connectTimeout: 60000,
-});
+/**
+ * Robust HTTP request for Ollama
+ * Using basic 'http' instead of 'fetch' to have absolute control over Header timeouts.
+ */
+function callOllamaRaw(prompt) {
+  return new Promise((resolve, reject) => {
+    const postData = JSON.stringify({
+      model: MODEL,
+      prompt,
+      stream: false
+    });
+
+    const options = {
+      hostname: 'localhost',
+      port: 11434,
+      path: '/api/generate',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(postData)
+      },
+      timeout: 600000 // 10 minutes socket timeout
+    };
+
+    const req = http.request(options, (res) => {
+      let data = '';
+      res.on('data', (chunk) => data += chunk);
+      res.on('end', () => {
+        try {
+          const json = JSON.parse(data);
+          resolve(json.response);
+        } catch (e) {
+          reject(new Error('Invalid JSON from Ollama'));
+        }
+      });
+    });
+
+    req.on('timeout', () => {
+      req.destroy();
+      reject(new Error('Ollama Timeout (10m)'));
+    });
+
+    req.on('error', (e) => reject(e));
+    req.write(postData);
+    req.end();
+  });
+}
 
 async function callOllama(prompt, retries = 2) {
   for (let i = 0; i < retries; i++) {
@@ -29,26 +69,16 @@ async function callOllama(prompt, retries = 2) {
     }
     
     try {
-      const response = await fetch(OLLAMA_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: MODEL,
-          prompt,
-          stream: false
-        }),
-        dispatcher
-      });
-      
-      const data = await response.json();
+      const responseText = await callOllamaRaw(prompt);
       lastCallTime = Date.now();
-      return data.response.trim().replace(/^"/, '').replace(/"$/, '').split('\n')[0].trim();
+      // Clean up "Ollama-isms" in single-line responses (Titles/Meta)
+      return responseText.trim().replace(/^["']|["']$/g, '').replace(/\*\*/g, '').split('\n')[0].trim();
     } catch (error) {
       if (i === retries - 1) {
         console.error(`Ollama Error (Final Attempt):`, error.message || error);
         return null;
       }
-      console.log(`  ... Timeout/Error. Retrying (${i + 2}/${retries})...`);
+      console.log(`  ... Connection Issue/Timeout. Retrying (${i + 2}/${retries})...`);
       await sleep(5000);
     }
   }
@@ -119,20 +149,15 @@ async function improveContent(filename) {
 - Is 50-60 characters long
 - Includes the main keyword naturally
 - Ends with no punctuation
-- Return ONLY the new title text, no quotes, no labels.
+- Return ONLY the new title text, no quotes, no labels, no markdown.
 
 CURRENT TITLE: ${title}
 TOPIC: ${newBody.substring(0, 200)}`;
       
-      const newTitleRaw = await callOllama(prompt);
-      if (newTitleRaw) {
-        // Sanitize: remove **, quotes, and #
-        const cleanTitle = newTitleRaw
-          .replace(/\*\*/g, '')
-          .replace(/^["']|["']$/g, '')
-          .replace(/^#+\s?/, '')
-          .trim();
-          
+      const newTitle = await callOllama(prompt);
+      if (newTitle) {
+        // Double-check sanitization here
+        const cleanTitle = newTitle.replace(/\*\*/g, '').replace(/^["']|["']$/g, '').trim();
         stats.titles.push({ file: filename, old: title, new: cleanTitle });
         newFrontmatter.title = cleanTitle;
         if (newFrontmatter.metaTitle) newFrontmatter.metaTitle = cleanTitle;
@@ -155,7 +180,7 @@ CONTENT: ${newBody.substring(0, 300)}`;
 
       const meta = await callOllama(prompt);
       if (meta) {
-        newFrontmatter.metaDescription = meta;
+        newFrontmatter.metaDescription = meta.replace(/^["']|["']$/g, '').trim();
         stats.metaAdded++;
         modified = true;
       }
@@ -181,27 +206,21 @@ CURRENT ARTICLE TITLE: ${newFrontmatter.title || title}
 CONTENT:
 ${newBody}`;
 
-      let expandedBody = null;
+      let expandedBodyRaw = null;
       for (let i = 0; i < 2; i++) {
         try {
-          const response = await fetch(OLLAMA_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ model: MODEL, prompt, stream: false }),
-            dispatcher
-          });
-          const data = await response.json();
-          expandedBody = data.response.trim();
-          if (expandedBody) break;
+          expandedBodyRaw = await callOllamaRaw(prompt);
+          if (expandedBodyRaw) break;
         } catch (error) {
           if (i === 1) console.error(`Expansion Error (Final Attempt):`, error.message || error);
-          else console.log(`  ... Expansion Timeout. Retrying...`);
+          else console.log(`  ... Expansion Timeout/Issue. Retrying...`);
           await sleep(5000);
         }
       }
       
-      if (expandedBody && expandedBody.length > newBody.length) {
-        const newWordCount = expandedBody.trim().split(/\s+/).length;
+      if (expandedBodyRaw && expandedBodyRaw.length > newBody.length) {
+        const expandedBody = expandedBodyRaw.trim();
+        const newWordCount = expandedBody.split(/\s+/).length;
         stats.expanded.push({ file: filename, before: wordCount, after: newWordCount });
         newBody = expandedBody;
         modified = true;
