@@ -19,19 +19,17 @@ function slugify(text: string): string {
     .replace(/-+/g, '-');      // remove consecutive hyphens
 }
 
-export function getAuthorSlug(nameOrCategory: string): string {
+export function getAuthorSlug(name: string, category?: string): string {
   // 1. If it's a known author key directly
-  if (AUTHORS[nameOrCategory.toLowerCase()]) return nameOrCategory.toLowerCase();
+  const normalizedKey = name.toLowerCase().replace(/\s+/g, '-');
+  if (AUTHORS[normalizedKey]) return normalizedKey;
   
-  // 2. If it's a name that needs slugifying
-  const slug = slugify(nameOrCategory);
-  if (AUTHORS[slug]) return slug;
+  // 2. Try to find by category mapping (if name was unrecognized or generic)
+  const categoryKey = (category || name).toLowerCase();
+  const authorKey = CATEGORY_MAP[categoryKey];
+  if (authorKey && AUTHORS[authorKey]) return authorKey;
 
-  // 3. If it's a category mapping
-  const authorKeyFromCategory = CATEGORY_MAP[nameOrCategory];
-  if (authorKeyFromCategory) return authorKeyFromCategory;
-
-  // 4. Default
+  // 3. Default to david-chen
   return "david-chen";
 }
 
@@ -52,19 +50,20 @@ export function getAuthorCategories(authorSlug: string): string[] {
     .map(([k]) => k);
 }
 
-export function getAuthorPersona(nameOrCategory: string): AuthorPersona {
+export function getAuthorPersona(name: string, category?: string): AuthorPersona {
   // 1. Try to find by name/key directly
-  const normalizedKey = nameOrCategory.toLowerCase().replace(/\s+/g, '-');
+  const normalizedKey = name.toLowerCase().replace(/\s+/g, '-');
   if (AUTHORS[normalizedKey]) {
     return AUTHORS[normalizedKey];
   }
 
-  // 2. Try to find by category mapping
-  const authorKey = CATEGORY_MAP[nameOrCategory];
+  // 2. Try to find by category mapping (if name was unrecognized or generic)
+  const categoryKey = (category || name).toLowerCase();
+  const authorKey = CATEGORY_MAP[categoryKey];
   if (authorKey && AUTHORS[authorKey]) {
     return AUTHORS[authorKey];
   }
 
-  // 3. Fallback to a default persona (e.g., David Chen for general hacks)
+  // 3. Last resort: default to David Chen
   return AUTHORS["david-chen"];
 }

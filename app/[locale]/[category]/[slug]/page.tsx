@@ -171,8 +171,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     dateModified: dateModIso,
     author: { 
       "@type": "Person", 
-      name: getAuthorPersona(article.author || article.category).name,
-      url: `${SITE_URL}/${locale}/author/${getAuthorSlug(article.author || categorySlug)}` 
+      name: getAuthorPersona(article.author || "", categorySlug).name,
+      url: `${SITE_URL}/${locale}/author/${getAuthorSlug(article.author || "", categorySlug)}` 
     },
     publisher: { 
       "@type": "Organization", 
@@ -202,7 +202,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     ],
   };
 
-  const persona = getAuthorPersona(article.author || article.category);
+  const persona = getAuthorPersona(article.author || "", categorySlug);
 
   return (
     <>
@@ -246,7 +246,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                   className="border-2 border-accent/20"
                 />
                 <div>
-                  <Link href={`/author/${getAuthorSlug(article.author || categorySlug)}`} className="font-ui text-sm font-bold text-primary group-hover:text-accent transition-colors">
+                  <Link href={`/author/${getAuthorSlug(article.author || "", categorySlug)}`} className="font-ui text-sm font-bold text-primary group-hover:text-accent transition-colors">
                     {persona.name}
                   </Link>
                   <div className="font-ui text-xs text-muted">
@@ -316,7 +316,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <SmartAffiliateBox category={article.category} keywords={article.keywords || article.tags || []} products={affiliateProducts} />
 
             {(() => {
-              const persona = getAuthorPersona(article.author || article.category);
+              const persona = getAuthorPersona(article.author || "", categorySlug);
               return <AuthorBio persona={persona} />;
             })()}
             
