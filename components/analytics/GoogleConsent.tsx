@@ -1,43 +1,50 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Script from "next/script";
 
 /**
- * Google Consent Mode v2 Initialization
- * This component sets the default consent state for Google tags (Ads and Analytics).
- * It must be loaded as early as possible, ideally before any other Google scripts.
+ * Google Consent Mode v2 Initialization (Hydration-Safe)
+ * This component sets the default consent state for Google tags.
+ * We use 'afterInteractive' and a 'mounted' check to prevent Next.js hydration errors.
  */
 export default function GoogleConsent() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
-    <Script id="google-consent" strategy="beforeInteractive">
+    <Script id="google-consent" strategy="afterInteractive">
       {`
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         
-        // Check for existing consent in localStorage (optional, but good for persistence)
+        // Consent mode is initialized as 'denied' by default (EEA/UK requirement)
+        gtag('consent', 'default', {
+          'ad_storage': 'denied',
+          'ad_user_data': 'denied',
+          'ad_personalization': 'denied',
+          'analytics_storage': 'denied',
+          'wait_for_update': 500
+        });
+
+        // Safely check for existing consent in localStorage (Client-only)
         const hasConsent = localStorage.getItem('google_consent_granted') === 'true';
         
         if (hasConsent) {
-          gtag('consent', 'default', {
+          gtag('consent', 'update', {
             'ad_storage': 'granted',
             'ad_user_data': 'granted',
             'ad_personalization': 'granted',
-            'analytics_storage': 'granted',
-            'wait_for_update': 500
-          });
-        } else {
-          // Default to 'denied' for privacy compliance (EEA/UK requirements)
-          // The Google CMP will trigger and update these once the user interacts.
-          gtag('consent', 'default', {
-            'ad_storage': 'denied',
-            'ad_user_data': 'denied',
-            'ad_personalization': 'denied',
-            'analytics_storage': 'denied',
-            'wait_for_update': 500
+            'analytics_storage': 'granted'
           });
         }
 
-        // Inform Google that the default consent has been set
+        // Inform Google about default settings
         gtag('set', 'ads_data_redaction', true);
         gtag('set', 'developer_id.dZTlZYM', true);
       `}
