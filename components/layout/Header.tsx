@@ -110,7 +110,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
         <nav className="max-w-[1280px] mx-auto flex items-center" aria-label="Main categories">
           {/* Main Scroller */}
           <div className="flex-1 overflow-x-auto scrollbar-hide flex whitespace-nowrap px-4 md:px-6 py-1">
-            <Link href="/" className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center min-w-[48px]">
+            <Link href="/" className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg dark:text-primary hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center min-w-[48px]">
               🏠 {t("home")}
             </Link>
             
@@ -119,7 +119,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
               <Link
                 key={cat.slug}
                 href={`/category/${cat.slug}`}
-                className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
+                className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg dark:text-primary hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
               >
                 <span>{cat.icon}</span> <span>{tCat(`${cat.slug}.name`)}</span>
               </Link>
@@ -131,7 +131,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
                 <Link
                   key={cat.slug}
                   href={`/category/${cat.slug}`}
-                  className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
+                  className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg dark:text-primary hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
                 >
                   <span>{cat.icon}</span> <span>{tCat(`${cat.slug}.name`)}</span>
                 </Link>
@@ -140,7 +140,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
 
             <Link 
               href="/quizzes" 
-              className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
+              className="px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg dark:text-primary hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors flex-shrink-0 min-h-[44px] flex items-center justify-center gap-1 min-w-[48px]"
             >
               <span>🧠</span> <span>{t("quizzes")}</span>
             </Link>
@@ -151,7 +151,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
             <div className="hidden md:block relative px-4 border-l border-bg/10 dark:border-primary/10" ref={moreRef}>
               <button 
                 onClick={() => setIsMoreOpen(!isMoreOpen)}
-                className="flex items-center gap-1 px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg/70 dark:text-primary/70 hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors min-h-[44px]"
+                className="flex items-center gap-1 px-3 py-3 md:px-4 font-ui text-xs font-semibold uppercase tracking-wider text-bg dark:text-primary hover:text-bg dark:hover:text-primary border-b-2 border-transparent hover:border-accent transition-colors min-h-[44px]"
               >
                 More <ChevronDown size={14} className={`transition-transform duration-300 ${isMoreOpen ? 'rotate-180' : ''}`} />
               </button>
