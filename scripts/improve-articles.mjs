@@ -20,7 +20,7 @@ async function callOllama(prompt) {
   
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 120000); // 2 minute timeout
+    const timeout = setTimeout(() => controller.abort(), 600000); // 10 minute timeout for slow local generation
     
     const response = await fetch(OLLAMA_URL, {
       method: 'POST',

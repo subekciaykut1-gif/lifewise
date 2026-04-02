@@ -14,6 +14,7 @@ import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import ExitIntentModal from "@/components/ui/ExitIntentModal";
 import SessionWrapper from "@/components/auth/SessionWrapper";
 import dynamic from "next/dynamic";
+import GoogleConsent from "@/components/analytics/GoogleConsent";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { routing } from "@/i18n/routing";
@@ -135,6 +136,7 @@ export default async function LocaleLayout({
           <meta name="msvalidate.01" content="88CBBC0B67A708362E1731A6060ED5B1" />
           <meta name="p:domain_verify" content="f953a2206b94ac2b1c8eda09eb16381c" />
           <meta name="google-adsense-account" content={adsenseId.replace('ca-', '')} />
+          <GoogleConsent />
           <GoogleAnalytics gaId={gaId} />
           {adsenseId && (
             <Script
