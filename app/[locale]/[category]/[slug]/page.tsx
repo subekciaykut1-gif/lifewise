@@ -286,12 +286,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             <AdSlot slot="article-top" format="leaderboard" height={90} className="mb-8" />
 
             {/* Hero Image */}
-            <div className="aspect-video rounded-xl overflow-hidden mb-8 shadow-lg relative bg-primary">
+            <div className="aspect-video rounded-xl overflow-hidden mb-8 shadow-lg relative bg-primary p-0 mt-0">
               <Image
                 src={article.image || `https://picsum.photos/seed/${article.slug}/1200/630`}
                 alt={article.title}
                 fill
-                className="object-cover"
+                className="object-cover w-full h-full !m-0 !rounded-none"
                 sizes="(max-width: 1024px) 100vw, 1280px"
                 priority
               />
