@@ -22,7 +22,7 @@ export default function PrivacyPolicyPage() {
         Last Updated: March 2026
       </p>
 
-      <div className="prose prose-lg max-w-none font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
+      <div className="prose prose-slate lg:prose-lg max-w-3xl mx-auto dark:prose-invert font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
         <p>
           At LifeWise, accessible from <a href="https://wisetips.co">https://wisetips.co</a>, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by us and how we use it.
         </p>

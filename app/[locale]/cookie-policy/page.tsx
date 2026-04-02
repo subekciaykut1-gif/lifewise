@@ -22,7 +22,7 @@ export default function CookiePolicyPage() {
         Last Updated: March 2026
       </p>
 
-      <div className="prose prose-lg max-w-none font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
+      <div className="prose prose-slate lg:prose-lg max-w-3xl mx-auto dark:prose-invert font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
         <p>
           This Cookie Policy explains what cookies are and how we use them. You should read this policy to understand what cookies are, how we use them, the types of cookies we use i.e, the information we collect using cookies and how that information is used and how to control the cookie preferences.
         </p>

@@ -22,7 +22,7 @@ export default function AffiliateDisclosurePage() {
         Last Updated: March 2026
       </p>
 
-      <div className="prose prose-lg max-w-none font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
+      <div className="prose prose-slate lg:prose-lg max-w-3xl mx-auto dark:prose-invert font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
         <p>
           At LifeWise, we believe in transparency and honesty with our readers. To help cover the costs of running this website and to allow us to continue providing free, high-quality content, we participate in various affiliate marketing programs.
         </p>

@@ -22,7 +22,7 @@ export default function TermsOfUsePage() {
         Last Updated: March 2026
       </p>
 
-      <div className="prose prose-lg max-w-none font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
+      <div className="prose prose-slate lg:prose-lg max-w-3xl mx-auto dark:prose-invert font-body text-primary leading-loose prose-headings:font-display prose-headings:font-bold prose-headings:text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
         <p>
           Welcome to LifeWise! These terms and conditions outline the rules and regulations for the use of our Website, located at <a href="https://wisetips.co">https://wisetips.co</a>.
         </p>
