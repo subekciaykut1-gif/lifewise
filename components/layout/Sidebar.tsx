@@ -66,6 +66,7 @@ export default async function Sidebar() {
                  src={article.image}
                  alt={article.title} 
                  fill
+                 sizes="40px"
                  style={{ objectFit: 'cover' }}
                  className="transition-transform duration-500 group-hover:scale-110"
                />

@@ -125,7 +125,7 @@ export default function QuizPlayer({ quizSlug }: { quizSlug: string }) {
       <div className="bg-surface rounded-2xl border border-border overflow-hidden shadow-xl animate-in fade-in zoom-in duration-500">
         <div className="relative h-64 bg-slate-900 flex items-center justify-center overflow-hidden">
           {outcome.image_url ? (
-            <Image src={outcome.image_url} alt={outcome.title} fill className="object-cover opacity-60" />
+            <Image src={outcome.image_url} alt={outcome.title} fill sizes="(max-width: 1200px) 100vw, 1200px" className="object-cover opacity-60" />
           ) : (
             <Award size={120} className="text-accent/40" />
           )}
@@ -190,7 +190,7 @@ export default function QuizPlayer({ quizSlug }: { quizSlug: string }) {
 
         {currentQuestion.image_url && (
           <div className="mb-8 relative aspect-video rounded-xl overflow-hidden shadow-md">
-            <Image src={currentQuestion.image_url} alt="Question image" fill className="object-cover" />
+            <Image src={currentQuestion.image_url} alt="Question image" fill sizes="(max-width: 1200px) 100vw, 800px" className="object-cover" />
           </div>
         )}
 

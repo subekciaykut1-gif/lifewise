@@ -26,6 +26,7 @@ export default function QuizCard({ quiz }: QuizCardProps) {
           src={quiz.image_url} 
           alt={quiz.title} 
           fill 
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
           className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />

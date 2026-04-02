@@ -24,6 +24,7 @@ export default async function ReadNext({ currentArticle }: ReadNextProps) {
               src={next.image}
               alt={next.title}
               fill
+              sizes="(max-width: 768px) 100vw, 450px"
               className="object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity" />
