@@ -12,7 +12,8 @@
     "generate:articles": "node scripts/generate-598-articles.cjs",
     "generate:article-views": "node scripts/generate-article-views.cjs",
     "translate:articles": "node scripts/translate-articles-libretranslate.cjs",
-    "refresh:amazon-trending": "node scripts/refresh-amazon-trending.cjs"
+    "refresh:amazon-trending": "node scripts/refresh-amazon-trending.cjs",
+    "improve-articles": "node scripts/improve-articles.mjs"
   },
   "dependencies": {
     "@auth/neon-adapter": "^1.11.1",
