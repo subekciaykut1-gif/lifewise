@@ -1,4 +1,4 @@
-import { Facebook, Twitter, Globe } from "lucide-react";
+import { Facebook, Twitter, Globe, Instagram } from "lucide-react";
 import { AuthorPersona, getAuthorSlug } from "@/lib/authors";
 import Link from "next/link";
 import AuthorAvatar from "@/components/ui/AuthorAvatar";
@@ -34,9 +34,10 @@ export default function AuthorBio({ persona }: AuthorBioProps) {
         </Link>
         
         <div className="flex justify-center md:justify-start gap-3">
-          <a href="#" className="text-muted hover:text-accent transition-colors"><Twitter size={16} /></a>
-          <a href="#" className="text-muted hover:text-accent transition-colors"><Facebook size={16} /></a>
-          <a href="#" className="text-muted hover:text-accent transition-colors"><Globe size={16} /></a>
+          <a href="https://x.com/wisetipsco" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors"><Twitter size={16} /></a>
+          <a href="https://www.facebook.com/wisetipsco/" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors"><Facebook size={16} /></a>
+          <a href="https://instagram.com/wisetipsco" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors"><Instagram size={16} /></a>
+          <a href="https://www.wisetips.co" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors"><Globe size={16} /></a>
         </div>
       </div>
     </div>

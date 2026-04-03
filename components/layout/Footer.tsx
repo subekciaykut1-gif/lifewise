@@ -4,9 +4,15 @@ import { getPublishedArticles } from "@/lib/articles";
 import { categories } from "@/lib/categories";
 import { getTranslations, getLocale } from "next-intl/server";
 
-const twitterUrl = process.env.NEXT_PUBLIC_TWITTER_URL || "#";
-const youtubeUrl = process.env.NEXT_PUBLIC_YOUTUBE_URL || "#";
-const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL || "#";
+const twitterUrl = process.env.NEXT_PUBLIC_TWITTER_URL || "https://x.com/wisetipsco";
+const youtubeUrl = process.env.NEXT_PUBLIC_YOUTUBE_URL || "https://youtube.com/@wisetipsco";
+const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://instagram.com/wisetipsco";
+
+// Helper to ensure social links are absolute to avoid relative path /404 issues on subpages
+const ensureAbsolute = (url: string) => {
+  if (url === "#") return "#";
+  return url.startsWith("http") ? url : `https://${url}`;
+};
 
 export default async function Footer() {
   const locale = await getLocale();
@@ -53,13 +59,13 @@ export default async function Footer() {
               <a href="https://www.pinterest.com/wisetipsco/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-bg/10 dark:bg-primary/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on Pinterest">
                 <PinIcon size={18} />
               </a>
-              <a href={twitterUrl} target="_blank" rel="noopener noreferrer" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-bg/10 dark:bg-primary/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on X (Twitter)">
+              <a href={ensureAbsolute(twitterUrl)} target="_blank" rel="noopener noreferrer" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-bg/10 dark:bg-primary/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on X (Twitter)">
                 <Twitter size={18} />
               </a>
-              <a href={youtubeUrl} target="_blank" rel="noopener noreferrer" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-bg/10 dark:bg-primary/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on YouTube">
+              <a href={ensureAbsolute(youtubeUrl)} target="_blank" rel="noopener noreferrer" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-bg/10 dark:bg-primary/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on YouTube">
                 <Youtube size={18} />
               </a>
-              <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-bg/10 dark:bg-primary/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on Instagram">
+              <a href={ensureAbsolute(instagramUrl)} target="_blank" rel="noopener noreferrer" className="w-11 h-11 min-w-[44px] min-h-[44px] bg-bg/10 dark:bg-primary/10 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors" aria-label="WiseTips on Instagram">
                 <Instagram size={18} />
               </a>
             </div>

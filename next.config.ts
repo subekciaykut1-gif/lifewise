@@ -26,6 +26,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/:category/:slug',
+        destination: '/en/:category/:slug',
+        permanent: true,
+      },
+      {
         source: '/:path*',
         has: [{ type: 'host', value: 'wisetips.co' }],
         destination: 'https://www.wisetips.co/:path*',
