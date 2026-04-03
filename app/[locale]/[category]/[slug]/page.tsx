@@ -19,7 +19,7 @@ import NewsletterBanner from "@/components/ui/NewsletterBanner";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import AffiliateLink from "@/components/monetization/AffiliateLink";
 import ArticleAnalytics from "@/components/analytics/ArticleAnalytics";
-import DisqusComments from "@/components/ui/DisqusComments";
+import CommentSection from "@/components/comments/CommentSection";
 import PinterestSaveButton from "@/components/social/PinterestSaveButton";
 import ShareBar from "@/components/social/ShareBar";
 import { addAmazonTag } from "@/lib/affiliate";
@@ -345,11 +345,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
             <RelatedArticles articles={relatedArticles} />
 
-            <DisqusComments
-              identifier={`${locale}/${categorySlug}/${slug}`}
-              url={`${SITE_URL}/${locale}/${categorySlug}/${slug}`}
-              title={article.title}
-            />
+            <CommentSection articleSlug={slug} />
           </article>
 
           {/* Right Column: Sidebar */}
