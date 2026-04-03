@@ -3,55 +3,55 @@
     "sarah-jenkins": {
       "name": "Sarah Jenkins",
       "bio": "Sarah Jenkins is a professional home organizer with over 10 years of experience helping families declutter and find peace in their living spaces. Her methods focus on sustainable, long-term organization systems.",
-      "image": "/images/authors/sarah-jenkins.png",
+      "image": "/images/authors/sarah-jenkins.webp",
       "role": "Home & Organization Expert"
     },
     "mike-ross": {
       "name": "Mike Ross",
       "bio": "Mike Ross is a certified wellness coach and health researcher with over 10 years of experience writing about nutrition, mental health, and preventive care.",
-      "image": "/images/authors/mike-ross.png",
+      "image": "/images/authors/mike-ross.webp",
       "role": "Wellness & Nutrition Specialist"
     },
     "elena-vance": {
       "name": "Elena Vance",
       "bio": "Elena Vance is a DIY enthusiast and sustainability consultant who believes that a beautiful home doesn't have to cost the earth. She has been featured in multiple home renovation magazines for her creative upcycling.",
-      "image": "/images/authors/elena-vance.png",
+      "image": "/images/authors/elena-vance.webp",
       "role": "DIY & Sustainability Consultant"
     },
     "david-chen": {
       "name": "David Chen",
       "bio": "David Chen is a lifestyle journalist covering the intersection of technology and everyday efficiency. He is specialized in uncovering hidden life hacks and testing the latest home gadgets.",
-      "image": "/images/authors/david-chen.png",
+      "image": "/images/authors/david-chen.webp",
       "role": "Lifestyle Journalist"
     },
     "marcus-thorne": {
       "name": "Marcus Thorne",
       "bio": "Marcus Thorne is a technology analyst and hardware specialist with 15 years of experience in consumer electronics and software engineering. He focuses on making complex tech accessible for everyday users.",
-      "image": "/images/authors/marcus-thorne.png",
+      "image": "/images/authors/marcus-thorne.webp",
       "role": "Technology & Gaming Analyst"
     },
     "elena-rossi": {
       "name": "Elena Rossi",
       "bio": "Elena Rossi is a certified financial planner and real estate consultant. She helps individuals build sustainable wealth through smart budgeting, strategic investing, and savvy property management.",
-      "image": "/images/authors/elena-rossi.png",
+      "image": "/images/authors/elena-rossi.webp",
       "role": "Finance & Real Estate Specialist"
     },
     "clara-bennett": {
       "name": "Clara Bennett",
       "bio": "Clara Bennett is a veterinarian technician and travel enthusiast. She combines her love for animals and global exploration to provide expert advice on pet care and solo travel safety.",
-      "image": "/images/authors/clara-bennett.png",
+      "image": "/images/authors/clara-bennett.webp",
       "role": "Pet Care & Travel Consultant"
     },
     "julio-mendez": {
       "name": "Julio Mendez",
       "bio": "Julio Mendez is an automotive journalist and former technician with a deep understanding of vehicle longevity and performance. He specializes in budget-friendly maintenance and fuel efficiency hacks.",
-      "image": "/images/authors/julio-mendez.png",
+      "image": "/images/authors/julio-mendez.webp",
       "role": "Automotive Engineering Expert"
     },
     "jordan-smith": {
       "name": "Jordan Smith",
       "bio": "Jordan Smith is a career coach and former recruitment director. He provides actionable insights on salary negotiation, remote work efficiency, and building a multi-stream income portfolio.",
-      "image": "/images/authors/jordan-smith.png",
+      "image": "/images/authors/jordan-smith.webp",
       "role": "Career & Workplace Strategist"
     }
   },

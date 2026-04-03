@@ -91,7 +91,7 @@ export default function BookmarkButton({ slug }: BookmarkButtonProps) {
         "flex items-center justify-center p-2 rounded-full transition-all duration-300 border shadow-sm group",
         isBookmarked 
           ? "bg-accent/10 border-accent/20 text-accent" 
-          : "bg-surface border-border text-muted hover:text-primary hover:border-accent/30 hover:shadow-md active:scale-95",
+          : "bg-surface border-border text-muted hover:text-primary hover:border-accent/30 hover:filter hover:drop-shadow-[0_4px_3px_rgba(0,0,0,0.07)] active:scale-95",
         animate && "animate-in zoom-in-75 duration-200"
       )}
       title={isBookmarked ? t("removeBookmark") : t("saveThisHack")}

@@ -46,20 +46,33 @@ export default function AuthorAvatar({ name, image, size = "md", className = "" 
   const bgColor = getBackgroundColor(name);
   const sizeClasses = sizeMap[size];
 
+  // Map sizes to pixel values for next/image
+  const dimensionMap = {
+    xs: 24,
+    sm: 32,
+    md: 40,
+    lg: 96,
+    xl: 160,
+  };
+  const dimension = dimensionMap[size];
+
+  // Convert PNG to WebP path if it's an internal author image
+  const optimizedImage = image?.replace(".png", ".webp");
+
   return (
     <div className={`relative ${sizeClasses} rounded-full overflow-hidden flex-shrink-0 flex items-center justify-center font-ui font-black text-white shadow-sm border border-black/5 ${className}`} style={{ backgroundColor: bgColor }}>
-      {!hasError && image && (
+      {!hasError && optimizedImage && (
         <Image
-          src={image}
+          src={optimizedImage}
           alt={name}
-          fill
+          width={dimension}
+          height={dimension}
           className="object-cover !m-0 !rounded-none"
           onError={() => setHasError(true)}
-          unoptimized
-          sizes={size === "xl" ? "160px" : size === "lg" ? "96px" : "40px"}
+          sizes={`${dimension}px`}
         />
       )}
-      {(hasError || !image) && (
+      {(hasError || !optimizedImage) && (
         <span className="relative z-10 drop-shadow-sm">{initials}</span>
       )}
     </div>

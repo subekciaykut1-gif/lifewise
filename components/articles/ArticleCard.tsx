@@ -12,9 +12,10 @@ import AuthorAvatar from "@/components/ui/AuthorAvatar";
 
 interface ArticleCardProps {
   article: Article & { locale?: string };
+  priority?: boolean;
 }
 
-export default function ArticleCard({ article }: ArticleCardProps) {
+export default function ArticleCard({ article, priority = false }: ArticleCardProps) {
   const t = useTranslations("Article");
   
   // Image fallback is now handled in lib/articles.ts
@@ -32,6 +33,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
           style={{ objectFit: "cover" }}
           className="absolute top-0 left-0 transition-transform duration-500 group-hover:scale-105"
+          priority={priority}
         />
         <span className="absolute bottom-2.5 left-2.5 bg-accent text-white font-ui text-[0.6rem] font-bold uppercase tracking-widest px-2.5 py-1 rounded-[3px] z-10">
           {article.category}
