@@ -68,7 +68,7 @@ export default function ArticleCard({ article, priority = false }: ArticleCardPr
               <Clock size={12} /> {article.readTime} {t("minRead").split(" ")[0]}
             </span>
             <span className="font-ui text-[0.7rem] text-muted flex items-center gap-1">
-              <Calendar size={12} /> {format(new Date(article.publishedAt || article.date || new Date()), "MMM d")}
+              <Calendar size={12} /> {(article.publishedAt || article.date) ? format(new Date(article.publishedAt || article.date!), "MMM d") : t("recent")}
             </span>
           </div>
         </div>

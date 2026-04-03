@@ -129,13 +129,20 @@ export default function CustomSurvey({ type = "sidebar", className }: CustomSurv
           const percentage = totalVotes > 0 ? Math.round((option.votes / totalVotes) * 100) : 0;
           
           return (
-            <button
+            <div
               key={option.id}
+              role="button"
+              tabIndex={hasVoted || voting ? -1 : 0}
               onClick={() => handleVote(option.id)}
-              disabled={hasVoted || voting}
+              onKeyDown={(e) => {
+                if (!hasVoted && !voting && (e.key === "Enter" || e.key === " ")) {
+                  e.preventDefault();
+                  handleVote(option.id);
+                }
+              }}
               className={clsx(
                 "w-full text-left relative group rounded-lg transition-all duration-300 overflow-hidden",
-                hasVoted ? "cursor-default" : "hover:scale-[1.02] active:scale-[0.98] border border-border hover:border-accent/40 bg-bg/50",
+                hasVoted ? "cursor-default" : "hover:scale-[1.02] active:scale-[0.98] border border-border hover:border-accent/40 bg-bg/50 cursor-pointer",
                 !hasVoted && "p-3.5"
               )}
             >
@@ -162,7 +169,7 @@ export default function CustomSurvey({ type = "sidebar", className }: CustomSurv
                   </div>
                 </div>
               )}
-            </button>
+            </div>
           );
         })}
       </div>

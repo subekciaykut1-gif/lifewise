@@ -47,9 +47,9 @@ export default async function Sidebar() {
                  className="w-full h-full transition-transform duration-500 group-hover:scale-110"
                />
             </div>
-            <p className="font-display text-[0.82rem] font-semibold text-primary leading-snug group-hover:text-accent transition-colors line-clamp-2">
+            <span className="font-display text-[0.82rem] font-semibold text-primary leading-snug group-hover:text-accent transition-colors line-clamp-2 block">
               {article.title}
-            </p>
+            </span>
           </Link>
         ))}
       </div>
@@ -72,9 +72,9 @@ export default async function Sidebar() {
                />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="font-display text-[0.78rem] font-bold text-primary leading-tight group-hover:text-accent transition-colors line-clamp-2">
+              <span className="font-display text-[0.78rem] font-bold text-primary leading-tight group-hover:text-accent transition-colors line-clamp-2 block">
                 {article.title}
-              </p>
+              </span>
               <span className="text-[0.6rem] text-muted uppercase tracking-wider font-ui mt-0.5 block">
                 {tCat(`${article.category}.name`)}
               </span>
