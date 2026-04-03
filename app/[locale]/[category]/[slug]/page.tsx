@@ -221,7 +221,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           </aside>
 
           {/* Center Column: Article Content */}
-          <article className="min-w-0 prose-article">
+          <article className="min-w-0">
             <Breadcrumbs 
               items={[
                 { label: category?.name || categorySlug, href: `/category/${categorySlug}` },

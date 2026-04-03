@@ -31,7 +31,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
           style={{ objectFit: "cover" }}
-          className="transition-transform duration-500 group-hover:scale-105"
+          className="absolute top-0 left-0 transition-transform duration-500 group-hover:scale-105"
         />
         <span className="absolute bottom-2.5 left-2.5 bg-accent text-white font-ui text-[0.6rem] font-bold uppercase tracking-widest px-2.5 py-1 rounded-[3px] z-10">
           {article.category}
