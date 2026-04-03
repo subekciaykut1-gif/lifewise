@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: '/:category/:slug',
+        source: '/:category((?!api).+)/:slug',
         destination: '/en/:category/:slug',
         permanent: true,
       },

@@ -35,6 +35,11 @@ export default function CustomSurvey({ type = "sidebar", className }: CustomSurv
     const fetchSurvey = async () => {
       try {
         const res = await fetch(`/api/surveys?type=${type}`);
+        
+        if (!res.ok) {
+          throw new Error(`Server returned ${res.status}: ${res.statusText}`);
+        }
+
         const data = await res.json();
         
         if (data.survey) {
@@ -65,6 +70,10 @@ export default function CustomSurvey({ type = "sidebar", className }: CustomSurv
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ surveyId: survey.id, optionId })
       });
+
+      if (!res.ok) {
+        throw new Error(`Server returned ${res.status}: ${res.statusText}`);
+      }
 
       const data = await res.json();
       if (data.success) {
