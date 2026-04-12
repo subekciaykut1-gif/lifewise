@@ -101,7 +101,6 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "GT-NGK4TVRS";
-    const adsenseId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "ca-pub-1534110707644920";
 
     return (
       <html
@@ -118,11 +117,6 @@ export default async function LocaleLayout({
           />
           <link
             rel="preconnect"
-            href="https://pagead2.googlesyndication.com"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preconnect"
             href="https://www.googletagmanager.com"
             crossOrigin="anonymous"
           />
@@ -135,16 +129,8 @@ export default async function LocaleLayout({
           <link rel="apple-touch-icon" href="/favicon.ico" />
           <meta name="msvalidate.01" content="88CBBC0B67A708362E1731A6060ED5B1" />
           <meta name="p:domain_verify" content="f953a2206b94ac2b1c8eda09eb16381c" />
-          <meta name="google-adsense-account" content={adsenseId.replace('ca-', '')} />
           <GoogleConsent />
           <GoogleAnalytics gaId={gaId} />
-          {adsenseId && (
-            <script
-              async
-              src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`}
-              crossOrigin="anonymous"
-            />
-          )}
         <Script id="microsoft-clarity" strategy="afterInteractive">
           {`(function(c,l,a,r,i,t,y){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
